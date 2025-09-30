@@ -1849,6 +1849,15 @@
   .pt-6 {
     padding-top: calc(var(--spacing) * 6);
   }
+  .pt-15 {
+    padding-top: calc(var(--spacing) * 15);
+  }
+  .pt-16 {
+    padding-top: calc(var(--spacing) * 16);
+  }
+  .pt-18 {
+    padding-top: calc(var(--spacing) * 18);
+  }
   .pt-19 {
     padding-top: calc(var(--spacing) * 19);
   }
@@ -3355,6 +3364,28 @@ body {
   color: rgb(144, 144, 144);
   margin: 5px 0px 20px;
 }
+.card {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin: 10px;
+}
+.style1 {
+  background: #fce4ec;
+}
+.style2 {
+  background: #e3f2fd;
+}
+.card-detail img {
+  width: 200px;
+  height: auto;
+  border-radius: 10px;
+}
+.card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
 @property --tw-translate-x {
   syntax: "*";
   inherits: false;
@@ -3712,3 +3743,4 @@ body {
     }
   }
 }
+

@@ -1,4 +1,4 @@
-// File: D:\next.jsOficeWork\itapCard\src\app\page.js
+// File: D:\Job project\itapcard\iTapCards\src\app\page.js
 import * as entry from '../../../src/app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

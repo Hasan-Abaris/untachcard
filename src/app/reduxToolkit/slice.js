@@ -1,17 +1,18 @@
 "use client";
 
+import { base_url } from "@/server";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { base_url } from "@/server";
 
-const baseUrl = base_url();
+
+// const baseUrl = base_url();
 
 // --- LOGIN THUNK ---
 export const loginUser = createAsyncThunk(
     "auth/loginUser",
     async (loginData, { rejectWithValue }) => {
         try {
-            const res = await axios.post(`${baseUrl}user/login`, loginData);
+            const res = await axios.post(`${base_url}user/login`, loginData);
             return res.data; // expected { user, token }
         } catch (error) {
             return rejectWithValue(error.response?.data || "Login failed");
@@ -23,9 +24,11 @@ export const loginUser = createAsyncThunk(
 export const fetchUseCard = createAsyncThunk(
     "auth/fetchUseCard",
     async (_, { getState, rejectWithValue }) => {
+        console.log(getState);
+
         try {
-            const { token } = getState().auth;
-            const res = await axios.get(`${baseUrl}card/user`, {
+            const token = window.localStorage.getItem("token")
+            const res = await axios.get(`${base_url}card/user`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             return res.data;
@@ -69,14 +72,14 @@ const authSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload;
             })
-            // Fetch Profile cases
+            // Fetch card cases
             .addCase(fetchUseCard.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
             .addCase(fetchUseCard.fulfilled, (state, action) => {
                 state.loading = false;
-                state.user = action.payload; // update user profile
+                state.cardData = action.payload;
             })
             .addCase(fetchUseCard.rejected, (state, action) => {
                 state.loading = false;

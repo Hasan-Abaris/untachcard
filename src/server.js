@@ -1,13 +1,15 @@
-import { getCountryCode, getLanguageCode } from "./Utils/localStorage";
+// import { getCountryCode, getLanguageCode } from "./Utils/localStorage";
 
-const base_url = () => {
-    let countryCode = getCountryCode();
-    let languageCode = getLanguageCode();
-    if (countryCode && languageCode) {
-        return `https://${countryCode}-${languageCode}.onlineparttimejobs.in/api/`;
-    } else {
-        return `https://onlineparttimejobs.in/api/`;
-    }
-};
+// const base_url = () => {
+//     let countryCode = getCountryCode();
+//     let languageCode = getLanguageCode();
+//     if (countryCode && languageCode) {
+//         return `https://${countryCode}-${languageCode}.onlineparttimejobs.in/api/`;
+//     } else {
+//         return `https://onlineparttimejobs.in/api/`;
+//     }
+// };
 
-export { base_url };
+// export { base_url };
+
+export const base_url = "https://onlineparttimejobs.in/api/"

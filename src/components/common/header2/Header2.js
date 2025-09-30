@@ -2,6 +2,7 @@
 
 
 import { base_url } from "@/server";
+// import { base_url } from "@/server";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -10,9 +11,9 @@ import { useSelector } from "react-redux";
 
 export default function Header2() {
   const router = useRouter()
-  const baseUrl = base_url();
+  // const baseUrl = base_url();
   const { data } = useSelector((state) => state.auth);
-  const isLogin = window.localStorage.getItem("isLogin");
+  // const isLogin = window.localStorage.getItem("isLogin");
   // console.log(token);
 
   const [activeSection, setActiveSection] = useState("home");
@@ -61,7 +62,7 @@ export default function Header2() {
 
   const dashboardLinks = [
     { name: "Dashboard", href: "/dashboards/dashboard" },
-    { name: "Cards", href: "#" },
+    { name: "Cards", href: "/dashboards/vcards" },
     { name: "WhatsApp Stores", href: "/dashboards/whatsAppStores" },
     { name: "Google Wallet", href: "/dashboards/googleWallet" },
     { name: "WhatsApp Product Orders", href: "/dashboards/whatsAppProductOrder" },
@@ -77,7 +78,7 @@ export default function Header2() {
 
   const logout = async () => {
     try {
-      await axios.get(`${baseUrl}auth/logout`, { withCredentials: true });
+      await axios.get(`${base_url}auth/logout`, { withCredentials: true });
       window?.localStorage.removeItem("token")
       window.localStorage.removeItem("isLogin");
       router.push("/login2");
@@ -96,7 +97,7 @@ export default function Header2() {
     try {
       const [settingsRes] = await Promise.all([
         // axios.get(`${baseUrl}country`),
-        axios.get(`${baseUrl}settings/v1/country`),
+        axios.get(`${base_url}settings/v1/country`),
       ]);
       // setCountry(countryRes.data);
       setSeleDefCount(settingsRes.data.id);
@@ -109,7 +110,7 @@ export default function Header2() {
 
   const defaLang = async () => {
     try {
-      const defLanRes = await axios.get(`${baseUrl}settings/v1/language`);
+      const defLanRes = await axios.get(`${base_url}settings/v1/language`);
       window.localStorage.setItem("languageCode", defLanRes?.data?.code);
       setdefLang(defLanRes.data.id);
     } catch (error) {
@@ -188,7 +189,7 @@ export default function Header2() {
           </div>}
 
 
-          {data?._id || isLogin ? (
+          {data?._id ? (
             <button
               onClick={logout}
               className="bg-red-600 px-4 py-2 rounded text-white"

@@ -7,6 +7,7 @@ import { Navigation } from "swiper/modules";
 import { Mail, Phone, Globe, MapPin } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { fetchUseCard } from "@/app/reduxToolkit/slice";
+import Link from "next/link";
 
 const cards = [
     {
@@ -140,8 +141,16 @@ const OurCards = () => {
                             </div>
                         </div>
                     </SwiperSlide>
+
                 ))}
             </Swiper>
+            <div className="max-w-7xl mx-auto px-4 flex justify-end mt-6">
+                <Link href="/all-templates">
+                    <button className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition cursor-pointer">
+                        View All Templates
+                    </button>
+                </Link>
+            </div>
         </div>
     );
 };

@@ -21,7 +21,7 @@ const NewVcardPage = () => {
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-semibold text-gray-800">New vCard</h1>
        
-       <Link href="/Dashboard/vcards">
+       <Link href="/dashboard/vcards">
         <button className="bg-indigo-100 text-indigo-600 px-4 py-2 rounded hover:bg-indigo-200 cursor-pointer">
           Back
         </button>

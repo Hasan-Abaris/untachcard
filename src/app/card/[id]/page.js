@@ -14,7 +14,6 @@ export default function CardDetail({ params }) {
 
   if (!card) return <p>Card not found!</p>;
 
-  // Define unique color gradients for each card
   const colorGradients = [
     'linear-gradient(135deg, #3498db, #000000)',
     'linear-gradient(135deg, #e74c3c, #000000)',
@@ -72,7 +71,6 @@ export default function CardDetail({ params }) {
     'linear-gradient(135deg, #fdcb6e, #000000)',
   ];
 
-  // Define card style variants
   const cardStyles = [
     { border: '2px solid #fff', padding: '15px' },
     { border: '2px dashed #3498db', padding: '10px' },
@@ -145,7 +143,6 @@ export default function CardDetail({ params }) {
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tempor bibendum turpis, at rutrum nunc venenatis vitae.
           </p>
 
-          {/* Contact Info */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             {card.phone && <a href={`tel:${card.phone}`} style={{ color: '#fff', textDecoration: 'none' }}>☎ {card.phone}</a>}
             {card.whatsapp && <a href={`https://wa.me/${card.whatsapp}`} style={{ color: '#fff', textDecoration: 'none' }}>💬 {card.whatsapp}</a>}

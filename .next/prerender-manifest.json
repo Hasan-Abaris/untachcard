@@ -1,11 +1,1 @@
-{
-  "version": 4,
-  "routes": {},
-  "dynamicRoutes": {},
-  "notFoundRoutes": [],
-  "preview": {
-    "previewModeId": "712976e86301af31a83bd3fb54931c55",
-    "previewModeSigningKey": "1cee01b11bec54846ff69f933b0c99f65861fe08ade4ab1c4d0f45aeee1ac50d",
-    "previewModeEncryptionKey": "9be636ce3c6a53b604af68e9686e3887f42e4c4d02cc25bcca9ba5ff1812b152"
-  }
-}
+{"version":4,"routes":{"/dashboards/vcards/edit/1":{},"/dashboards/vcards/edit/2":{},"/dashboards/vcards/edit/3":{},"/card/1":{},"/card/2":{},"/card/3":{},"/card/4":{},"/card/5":{},"/card/6":{},"/card/7":{},"/card/8":{},"/card/9":{},"/card/10":{},"/card/11":{},"/card/12":{},"/card/13":{},"/card/14":{},"/card/15":{},"/card/16":{},"/card/17":{},"/card/18":{},"/card/19":{},"/card/20":{},"/card/21":{},"/card/22":{},"/card/23":{},"/card/24":{},"/card/25":{},"/card/26":{},"/card/27":{},"/card/28":{},"/card/29":{},"/card/30":{},"/card/31":{},"/card/32":{},"/card/33":{},"/card/34":{},"/card/35":{},"/card/36":{},"/card/37":{},"/card/38":{},"/card/39":{},"/card/40":{},"/card/41":{},"/card/42":{},"/card/43":{},"/card/44":{},"/card/45":{},"/card/46":{},"/card/47":{},"/card/48":{},"/card/49":{},"/card/50":{}},"dynamicRoutes":{"/dashboards/vcards/edit/[id]":{"dataRoute":null,"dataRouteRegex":null,"fallback":null,"fallbackRevalidate":false,"fallbackSourceRoute":"/dashboards/vcards/edit/[id]","routeRegex":"^\\/dashboards\\/vcards\\/edit\\/([^/]+?)(?:\\/)?$","allowHeader":[]},"/card/[id]":{"dataRoute":null,"dataRouteRegex":null,"fallback":null,"fallbackRevalidate":false,"fallbackSourceRoute":"/card/[id]","routeRegex":"^\\/card\\/([^/]+?)(?:\\/)?$","allowHeader":[]}},"notFoundRoutes":[],"preview":{"previewModeId":"8a1d58de9d48bc31d6a9fbcf0cc5a4d3","previewModeSigningKey":"efcd6eeb827132f82ad952fc95daa5e2332b13d088e40584890399a99aedd82a","previewModeEncryptionKey":"dd8b6f14cf1830dece1a335faed1c6a8682e8de1f0131161ab4dfcc7ea8bb62e"}}

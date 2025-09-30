@@ -34,7 +34,9 @@ export default function RootLayout({ children }) {
         {/* <Header /> */}
         {/* <Providers store={store}> */}
         <Header2 />
+        <main className="pt-16"> {/* Adjust pt-20 (80px) based on Header2 height */}
         {children}
+        </main>
         <Footer2 />
         {/* </Providers> */}
 

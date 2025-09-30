@@ -50,7 +50,7 @@ export default function Header2() {
 
   const dashboardLinks = [
     { name: "Dashboard", href: "/dashboards/dashboard" },
-    { name: "Cards", href: "#" },
+    { name: "Cards", href: "/dashboards/vcards" },
     { name: "WhatsApp Stores", href: "/dashboards/whatsAppStores" },
     { name: "Google Wallet", href: "/dashboards/googleWallet" },
     { name: "WhatsApp Product Orders", href: "/dashboards/whatsAppProductOrder" },

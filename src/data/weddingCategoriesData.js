@@ -1,0 +1,86 @@
+export const allCategories = [
+  {
+    title: "Venues",
+    desc: "Banquet Halls, Marriage Garden / Lawn",
+    img: "/assets/banner/p1.jpeg",
+    color: "from-blue-100 to-blue-50",
+  },
+  {
+    title: "Photographers",
+    desc: "Photographers",
+    img: "/assets/banner/ps3.jpg",
+    color: "from-purple-100 to-purple-50",
+  },
+  {
+    title: "Makeup",
+    desc: "Bridal Makeup, Family Makeup",
+    img: "/assets/banner/c1.jpg",
+    color: "from-pink-100 to-pink-50",
+  },
+  {
+    title: "Planning & Decor",
+    desc: "Wedding Planners, Decorators",
+    img: "/assets/banner/ps6.jpg",
+    color: "from-orange-100 to-orange-50",
+  },
+  {
+    title: "Virtual Planning",
+    desc: "Virtual Planning",
+    img: "/assets/banner/c2.jpg",
+    color: "from-yellow-100 to-yellow-50",
+  },
+  {
+    title: "Mehndi",
+    desc: "Mehndi Artist",
+    img: "/assets/banner/c3.jpg",
+    color: "from-green-100 to-green-50",
+  },
+  {
+    title: "Music & Dance",
+    desc: "DJs, Sangeet Choreographer, Wedding Entertainment",
+    img: "/assets/images/musicdance.jpg",
+    color: "from-orange-200 to-orange-100",
+  },
+  {
+    title: "Invites & Gifts",
+    desc: "Invitations, Favors, Trousseau Packers",
+    img: "/assets/images/gifts.jpg",
+    color: "from-red-200 to-red-100",
+  },
+  {
+    title: "Food",
+    desc: "Catering Services, Cake, Chaat & Beverages",
+    img: "/assets/images/Food.jpg",
+    color: "from-purple-200 to-purple-100",
+  },
+  {
+    title: "Pre Wedding Shoot",
+    desc: "Pre Wedding Shoot Locations, Photographers",
+    img: "/assets/images/weddingshoot.jpg",
+    color: "from-teal-200 to-teal-100",
+  },
+  {
+    title: "Bridal Wear",
+    desc: "Bridal Lehengas, Sarees, Gowns",
+    img: "/assets/images/bridalwear.jpg",
+    color: "from-indigo-100 to-indigo-50",
+  },
+  {
+    title: "Groom Wear",
+    desc: "Sherwani, Wedding Suits, Tuxedos",
+    img: "/assets/images/groomwear.jpg",
+    color: "from-gray-200 to-gray-100",
+  },
+  {
+    title: "Jewellery & Accessories",
+    desc: "Jewellery, Flower Jewellery, Bridal Accessories",
+    img: "/assets/images/jewelleryandaccessories.jpg",
+    color: "from-yellow-200 to-yellow-100",
+  },
+  {
+    title: "Pandits",
+    desc: "Wedding Pandits",
+    img: "//assets/images/pandit.jpg",
+    color: "from-orange-300 to-orange-200",
+  },
+];

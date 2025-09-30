@@ -1,9 +1,20 @@
 "use client";
 
+
+import { base_url } from "@/server";
+import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function Header2() {
+  const router = useRouter()
+  const baseUrl = base_url();
+  const { data } = useSelector((state) => state.auth);
+  const isLogin = window.localStorage.getItem("isLogin");
+  // console.log(token);
+
   const [activeSection, setActiveSection] = useState("home");
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileDashboardOpen, setMobileDashboardOpen] = useState(false);
@@ -62,6 +73,65 @@ export default function Header2() {
     { name: "Storage", href: "/dashboards/storage" },
   ];
 
+
+
+  const logout = async () => {
+    try {
+      await axios.get(`${baseUrl}auth/logout`, { withCredentials: true });
+      window?.localStorage.removeItem("token")
+      window.localStorage.removeItem("isLogin");
+      router.push("/login2");
+    } catch (error) {
+      console.log(error);
+    }
+
+  };
+
+
+
+  const [country, setCountry] = useState();
+  const [selectCountry, setSeleDefCount] = useState();
+  const [defLanguage, setdefLang] = useState();
+  const getCountryData = async () => {
+    try {
+      const [settingsRes] = await Promise.all([
+        // axios.get(`${baseUrl}country`),
+        axios.get(`${baseUrl}settings/v1/country`),
+      ]);
+      // setCountry(countryRes.data);
+      setSeleDefCount(settingsRes.data.id);
+      window.localStorage.setItem("countryCode", settingsRes?.data?.code);
+    } catch (error) {
+      console.error("Error fetching country data:", error);
+      // Handle error appropriately, e.g., show a user-friendly message
+    }
+  };
+
+  const defaLang = async () => {
+    try {
+      const defLanRes = await axios.get(`${baseUrl}settings/v1/language`);
+      window.localStorage.setItem("languageCode", defLanRes?.data?.code);
+      setdefLang(defLanRes.data.id);
+    } catch (error) {
+      console.error("Error fetching default language:", error);
+      // Handle error appropriately, e.g., show a user-friendly message
+    }
+  };
+
+  useEffect(() => {
+    getCountryData();
+    defaLang();
+    // getData2();
+  }, []);
+
+
+  const userdata = async () => {
+    try {
+      const res = await axios.get(`${baseUrl}settings/v1/language`)
+    } catch (error) {
+
+    }
+  }
   return (
     <header className="fixed w-full bg-black/70 text-white shadow-md z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
@@ -81,7 +151,7 @@ export default function Header2() {
           ))}
 
           {/* Dashboard Dropdown */}
-          <div className="relative group">
+          {data?._id && <div className="relative group">
             <button className="uppercase text-sm font-semibold hover:text-blue-400">
               Dashboard
             </button>
@@ -96,10 +166,11 @@ export default function Header2() {
                 </Link>
               ))}
             </div>
-          </div>
+          </div>}
+
 
           {/* Profile Dropdown */}
-          <div className="relative group">
+          {data?._id && <div className="relative group">
             <button className="uppercase text-sm font-semibold hover:text-blue-400">
               Profile
             </button>
@@ -114,14 +185,27 @@ export default function Header2() {
                 </Link>
               ))}
             </div>
-          </div>
+          </div>}
 
-          <Link
-            href="/login2"
-            className="bg-blue-600 px-4 py-2 rounded text-white"
-          >
-            Login
-          </Link>
+
+          {data?._id || isLogin ? (
+            <button
+              onClick={logout}
+              className="bg-red-600 px-4 py-2 rounded text-white"
+            >
+              Log Out
+            </button>
+          ) : (
+            <Link
+              href="/login2"
+              className="bg-blue-600 px-4 py-2 rounded text-white"
+            >
+              Login
+            </Link>
+          )}
+
+
+
           <button className="bg-gray-600 px-4 py-2 rounded text-white">
             Get Started
           </button>

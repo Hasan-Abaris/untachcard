@@ -4,8 +4,7 @@ import Header from "@/components/common/header/Header";
 import Footer from "@/components/common/footer/Footer";
 import Header2 from "@/components/common/header2/Header2";
 import Footer2 from "@/components/common/footer2/Footer2";
-// import { Providers } from "@/redux/providers";
-// import { store } from "@/redux/store";
+import { Providers } from "./reduxToolkit/provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,11 +31,12 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {/* <Header /> */}
-        {/* <Providers store={store}> */}
-        <Header2 />
-        {children}
-        <Footer2 />
-        {/* </Providers> */}
+        <Providers>
+          <Header2 />
+          {children}
+          <Footer2 />
+        </Providers>
+
 
         {/* <Footer /> */}
       </body>

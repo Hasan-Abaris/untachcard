@@ -1,4 +1,6 @@
 import { cards } from '../../../data/vcards';
+import Image from 'next/image';
+
 
 export async function generateStaticParams() {
   return cards.map((card) => ({
@@ -12,91 +14,85 @@ export default function CardDetail({ params }) {
 
   if (!card) return <p>Card not found!</p>;
 
-  // Define a color palette for unique gradients
+  // Define unique color gradients for each card
   const colorGradients = [
-    'linear-gradient(135deg, #3498db 50%, #000000 50%)',
-    'linear-gradient(135deg, #e74c3c 50%, #000000 50%)',
-    'linear-gradient(135deg, #2ecc71 50%, #000000 50%)',
-    'linear-gradient(135deg, #f1c40f 50%, #000000 50%)',
-    'linear-gradient(135deg, #9b59b6 50%, #000000 50%)',
-    'linear-gradient(135deg, #1abc9c 50%, #000000 50%)',
-    'linear-gradient(135deg, #d35400 50%, #000000 50%)',
-    'linear-gradient(135deg, #8e44ad 50%, #000000 50%)',
-    'linear-gradient(135deg, #27ae60 50%, #000000 50%)',
-    'linear-gradient(135deg, #c0392b 50%, #000000 50%)',
-    // Add more gradients for 50 cards, repeating if needed
-    'linear-gradient(135deg, #2980b9 50%, #000000 50%)',
-    'linear-gradient(135deg, #e67e22 50%, #000000 50%)',
-    'linear-gradient(135deg, #16a085 50%, #000000 50%)',
-    'linear-gradient(135deg, #f39c12 50%, #000000 50%)',
-    'linear-gradient(135deg, #8e44ad 50%, #000000 50%)',
-    'linear-gradient(135deg, #2c3e50 50%, #000000 50%)',
-    'linear-gradient(135deg, #d35400 50%, #000000 50%)',
-    'linear-gradient(135deg, #7f8c8d 50%, #000000 50%)',
-    'linear-gradient(135deg, #3498db 50%, #000000 50%)',
-    'linear-gradient(135deg, #e74c3c 50%, #000000 50%)',
-    'linear-gradient(135deg, #2ecc71 50%, #000000 50%)',
-    'linear-gradient(135deg, #f1c40f 50%, #000000 50%)',
-    'linear-gradient(135deg, #9b59b6 50%, #000000 50%)',
-    'linear-gradient(135deg, #1abc9c 50%, #000000 50%)',
-    'linear-gradient(135deg, #d35400 50%, #000000 50%)',
-    'linear-gradient(135deg, #8e44ad 50%, #000000 50%)',
-    'linear-gradient(135deg, #27ae60 50%, #000000 50%)',
-    'linear-gradient(135deg, #c0392b 50%, #000000 50%)',
-    'linear-gradient(135deg, #2980b9 50%, #000000 50%)',
-    'linear-gradient(135deg, #e67e22 50%, #000000 50%)',
-    'linear-gradient(135deg, #16a085 50%, #000000 50%)',
-    'linear-gradient(135deg, #f39c12 50%, #000000 50%)',
-    'linear-gradient(135deg, #8e44ad 50%, #000000 50%)',
-    'linear-gradient(135deg, #2c3e50 50%, #000000 50%)',
-    'linear-gradient(135deg, #d35400 50%, #000000 50%)',
-    'linear-gradient(135deg, #7f8c8d 50%, #000000 50%)',
-    'linear-gradient(135deg, #3498db 50%, #000000 50%)',
-    'linear-gradient(135deg, #e74c3c 50%, #000000 50%)',
-    'linear-gradient(135deg, #2ecc71 50%, #000000 50%)',
-    'linear-gradient(135deg, #f1c40f 50%, #000000 50%)',
-    'linear-gradient(135deg, #9b59b6 50%, #000000 50%)',
-    'linear-gradient(135deg, #1abc9c 50%, #000000 50%)',
-    'linear-gradient(135deg, #d35400 50%, #000000 50%)',
-    'linear-gradient(135deg, #8e44ad 50%, #000000 50%)',
-    'linear-gradient(135deg, #27ae60 50%, #000000 50%)',
-    'linear-gradient(135deg, #c0392b 50%, #000000 50%)',
-    'linear-gradient(135deg, #2980b9 50%, #000000 50%)',
-    'linear-gradient(135deg, #e67e22 50%, #000000 50%)',
-    'linear-gradient(135deg, #16a085 50%, #000000 50%)',
-    'linear-gradient(135deg, #f39c12 50%, #000000 50%)',
-    'linear-gradient(135deg, #8e44ad 50%, #000000 50%)',
+    'linear-gradient(135deg, #3498db, #000000)',
+    'linear-gradient(135deg, #e74c3c, #000000)',
+    'linear-gradient(135deg, #2ecc71, #000000)',
+    'linear-gradient(135deg, #f1c40f, #000000)',
+    'linear-gradient(135deg, #9b59b6, #000000)',
+    'linear-gradient(135deg, #1abc9c, #000000)',
+    'linear-gradient(135deg, #d35400, #000000)',
+    'linear-gradient(135deg, #8e44ad, #000000)',
+    'linear-gradient(135deg, #27ae60, #000000)',
+    'linear-gradient(135deg, #c0392b, #000000)',
+    'linear-gradient(135deg, #2980b9, #000000)',
+    'linear-gradient(135deg, #e67e22, #000000)',
+    'linear-gradient(135deg, #16a085, #000000)',
+    'linear-gradient(135deg, #f39c12, #000000)',
+    'linear-gradient(135deg, #2c3e50, #000000)',
+    'linear-gradient(135deg, #7f8c8d, #000000)',
+    'linear-gradient(135deg, #e84393, #000000)',
+    'linear-gradient(135deg, #00cec9, #000000)',
+    'linear-gradient(135deg, #6c5ce7, #000000)',
+    'linear-gradient(135deg, #fd79a8, #000000)',
+    'linear-gradient(135deg, #00b894, #000000)',
+    'linear-gradient(135deg, #d63031, #000000)',
+    'linear-gradient(135deg, #0984e3, #000000)',
+    'linear-gradient(135deg, #fdcb6e, #000000)',
+    'linear-gradient(135deg, #e17055, #000000)',
+    'linear-gradient(135deg, #2d3436, #000000)',
+    'linear-gradient(135deg, #fdcb6e, #000000)',
+    'linear-gradient(135deg, #00cec9, #000000)',
+    'linear-gradient(135deg, #6c5ce7, #000000)',
+    'linear-gradient(135deg, #fd79a8, #000000)',
+    'linear-gradient(135deg, #00b894, #000000)',
+    'linear-gradient(135deg, #d63031, #000000)',
+    'linear-gradient(135deg, #0984e3, #000000)',
+    'linear-gradient(135deg, #fdcb6e, #000000)',
+    'linear-gradient(135deg, #e17055, #000000)',
+    'linear-gradient(135deg, #2d3436, #000000)',
+    'linear-gradient(135deg, #fdcb6e, #000000)',
+    'linear-gradient(135deg, #00cec9, #000000)',
+    'linear-gradient(135deg, #6c5ce7, #000000)',
+    'linear-gradient(135deg, #fd79a8, #000000)',
+    'linear-gradient(135deg, #00b894, #000000)',
+    'linear-gradient(135deg, #d63031, #000000)',
+    'linear-gradient(135deg, #0984e3, #000000)',
+    'linear-gradient(135deg, #fdcb6e, #000000)',
+    'linear-gradient(135deg, #e17055, #000000)',
+    'linear-gradient(135deg, #2d3436, #000000)',
+    'linear-gradient(135deg, #e84393, #000000)',
+    'linear-gradient(135deg, #00cec9, #000000)',
+    'linear-gradient(135deg, #6c5ce7, #000000)',
+    'linear-gradient(135deg, #fd79a8, #000000)',
+    'linear-gradient(135deg, #00b894, #000000)',
+    'linear-gradient(135deg, #d63031, #000000)',
+    'linear-gradient(135deg, #0984e3, #000000)',
+    'linear-gradient(135deg, #fdcb6e, #000000)',
   ];
 
-  const getGradient = () => colorGradients[(cardId - 1) % colorGradients.length];
-  const getCardStyle = () => {
-    const styles = {
-      style1: { border: '2px solid #fff', padding: '15px' },
-      style2: { border: '2px dashed #3498db', padding: '10px' },
-      style3: { border: '2px solid #e74c3c', padding: '15px' },
-      style4: { border: 'none', background: 'rgba(255, 255, 255, 0.1)', padding: '20px' },
-      style5: { border: '2px dotted #2ecc71', padding: '12px' },
-      // Add more styles for style6 to style50, repeating or varying as needed
-      style6: { border: '2px solid #f1c40f', padding: '15px' },
-      style7: { border: '2px dashed #9b59b6', padding: '10px' },
-      style8: { border: 'none', background: 'rgba(255, 255, 255, 0.2)', padding: '20px' },
-      style9: { border: '2px dotted #1abc9c', padding: '12px' },
-      style10: { border: '2px solid #d35400', padding: '15px' },
-      // Continue pattern for all 50 styles
-      style11: { border: '2px dashed #8e44ad', padding: '10px' },
-      style12: { border: 'none', background: 'rgba(255, 255, 255, 0.1)', padding: '20px' },
-      style13: { border: '2px dotted #27ae60', padding: '12px' },
-      style14: { border: '2px solid #c0392b', padding: '15px' },
-      style15: { border: '2px dashed #2980b9', padding: '10px' },
-      // Repeat and vary for style16 to style50
-    };
-    return styles[card.style] || { border: '2px solid #fff', padding: '15px' }; // Default style
-  };
+  // Define card style variants
+  const cardStyles = [
+    { border: '2px solid #fff', padding: '15px' },
+    { border: '2px dashed #3498db', padding: '10px' },
+    { border: '2px solid #e74c3c', padding: '15px' },
+    { border: 'none', background: 'rgba(255, 255, 255, 0.1)', padding: '20px' },
+    { border: '2px dotted #2ecc71', padding: '12px' },
+    { border: '2px solid #f1c40f', padding: '15px' },
+    { border: '2px dashed #9b59b6', padding: '10px' },
+    { border: 'none', background: 'rgba(255, 255, 255, 0.2)', padding: '20px' },
+    { border: '2px dotted #1abc9c', padding: '12px' },
+    { border: '2px solid #d35400', padding: '15px' },
+  ];
+
+  const overlayGradient = colorGradients[(cardId - 1) % colorGradients.length];
+  const cardStyle = cardStyles[(cardId - 1) % cardStyles.length];
 
   return (
     <div
       style={{
-        background: getGradient(),
+        background: overlayGradient,
         minHeight: '100vh',
         display: 'flex',
         justifyContent: 'center',
@@ -105,11 +101,11 @@ export default function CardDetail({ params }) {
       }}
     >
       <div
-        className={`card-detail ${card.style}`}
+        className={`card-detail`}
         style={{
           backgroundColor: '#000',
           width: '300px',
-          ...getCardStyle(),
+          ...cardStyle,
           borderRadius: '10px',
           boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
           position: 'relative',
@@ -123,43 +119,39 @@ export default function CardDetail({ params }) {
             left: 0,
             width: '100%',
             height: '100%',
-            background: 'linear-gradient(135deg, transparent 50%, #3498db 50%)',
+            background: overlayGradient,
             zIndex: 0,
+            opacity: 0.5,
           }}
         ></div>
-        <div style={{ position: 'relative', zIndex: 1 }}>
-          <img
-            src={card.photo}
-            alt={card.name}
-            style={{
-              borderRadius: '50%',
-              width: '100px',
-              height: '100px',
-              marginBottom: '15px',
-              border: '4px solid #fff',
-            }}
-          />
-          <h2 style={{ color: '#fff', marginBottom: '5px', fontSize: '1.5rem' }}>{card.name}</h2>
-          <p style={{ color: '#fff', marginBottom: '15px', fontSize: '1.1rem', opacity: 0.8 }}>{card.designation}</p>
-          <p style={{ color: '#fff', marginBottom: '20px', fontSize: '0.9rem', opacity: 0.7 }}>
+
+        <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', color: '#fff' }}>
+         <Image
+  src={card.photo}
+  alt={card.name}
+  width={100}
+  height={100}
+  style={{
+    borderRadius: "50%",
+    marginBottom: "15px",
+    border: "4px solid #fff",
+    objectFit: "cover",
+  }}
+/>
+
+          <h2 style={{ marginBottom: '5px', fontSize: '1.5rem' }}>{card.name}</h2>
+          <p style={{ marginBottom: '15px', fontSize: '1.1rem', opacity: 0.8 }}>{card.designation}</p>
+          <p style={{ marginBottom: '20px', fontSize: '0.9rem', opacity: 0.7 }}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tempor bibendum turpis, at rutrum nunc venenatis vitae.
           </p>
+
+          {/* Contact Info */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            <a href={`tel:${card.phone}`} style={{ color: '#fff', textDecoration: 'none' }}>
-              <span style={{ marginRight: '10px' }}>☎</span> {card.phone}
-            </a>
-            <a href={`https://wa.me/${card.whatsapp || card.phone}`} style={{ color: '#fff', textDecoration: 'none' }}>
-              <span style={{ marginRight: '10px' }}>💬</span> {card.whatsapp || card.phone}
-            </a>
-            <a href={`mailto:${card.email}`} style={{ color: '#fff', textDecoration: 'none' }}>
-              <span style={{ marginRight: '10px' }}>✉</span> {card.email}
-            </a>
-            <a href={card.website} style={{ color: '#fff', textDecoration: 'none' }}>
-              <span style={{ marginRight: '10px' }}>🌐</span> {card.website}
-            </a>
-            <a href={`https://instagram.com/${card.instagram}`} style={{ color: '#fff', textDecoration: 'none' }}>
-              <span style={{ marginRight: '10px' }}>📷</span> Follow me Instagram
-            </a>
+            {card.phone && <a href={`tel:${card.phone}`} style={{ color: '#fff', textDecoration: 'none' }}>☎ {card.phone}</a>}
+            {card.whatsapp && <a href={`https://wa.me/${card.whatsapp}`} style={{ color: '#fff', textDecoration: 'none' }}>💬 {card.whatsapp}</a>}
+            {card.email && <a href={`mailto:${card.email}`} style={{ color: '#fff', textDecoration: 'none' }}>✉ {card.email}</a>}
+            {card.website && <a href={card.website} style={{ color: '#fff', textDecoration: 'none' }}>🌐 {card.website}</a>}
+            {card.instagram && <a href={`https://instagram.com/${card.instagram}`} style={{ color: '#fff', textDecoration: 'none' }}>📷 Instagram</a>}
           </div>
         </div>
       </div>

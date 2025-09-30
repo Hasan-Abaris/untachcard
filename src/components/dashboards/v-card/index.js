@@ -17,7 +17,7 @@ const VcardsPage = () => {
       id: 1,
       name: "TechCorp",
       subtitle: "IT Solutions",
-      preview: "https://vcards.infyom.com/techcorp",
+      preview: "https://vcards.abaris.in/techcorp",
       img: "/vcard.png",
       createdAt: "Sep 25 2025",
       active: true,
@@ -26,7 +26,7 @@ const VcardsPage = () => {
       id: 2,
       name: "GreenMart",
       subtitle: "Organic Store",
-      preview: "https://vcards.infyom.com/greenmart",
+      preview: "https://vcards.abaris.in/greenmart",
       img: "/vcard2.png",
       createdAt: "Sep 25 2025",
       active: true,
@@ -35,7 +35,7 @@ const VcardsPage = () => {
       id: 3,
       name: "Sanvi Infosys",
       subtitle: "Computer Sales",
-      preview: "https://vcards.infyom.com/sanvi",
+      preview: "https://vcards.abaris.in/sanvi",
       img: "/vcard3.png",
       createdAt: "Sep 25 2025",
       active: true,
@@ -44,7 +44,7 @@ const VcardsPage = () => {
       id: 4,
       name: "MiSa",
       subtitle: "Software Agency",
-      preview: "https://vcards.infyom.com/misa",
+      preview: "https://vcards.abaris.in/misa",
       img: "/vcard4.png",
       createdAt: "Sep 25 2025",
       active: true,
@@ -53,7 +53,7 @@ const VcardsPage = () => {
       id: 5,
       name: "Hema",
       subtitle: "Engineer",
-      preview: "https://vcards.infyom.com/hema",
+      preview: "https://vcards.abaris.in/hema",
       img: "/vcard5.png",
       createdAt: "Sep 24 2025",
       active: true,
@@ -62,7 +62,7 @@ const VcardsPage = () => {
       id: 6,
       name: "FoodieHub",
       subtitle: "Restaurant",
-      preview: "https://vcards.infyom.com/foodiehub",
+      preview: "https://vcards.abaris.in/foodiehub",
       img: "/vcard.png",
       createdAt: "Sep 24 2025",
       active: false,
@@ -71,7 +71,7 @@ const VcardsPage = () => {
       id: 7,
       name: "FitZone",
       subtitle: "Gym & Fitness",
-      preview: "https://vcards.infyom.com/fitzone",
+      preview: "https://vcards.abaris.in/fitzone",
       img: "/vcard2.png",
       createdAt: "Sep 24 2025",
       active: true,
@@ -80,7 +80,7 @@ const VcardsPage = () => {
       id: 8,
       name: "GlamStudio",
       subtitle: "Salon",
-      preview: "https://vcards.infyom.com/glamstudio",
+      preview: "https://vcards.abaris.in/glamstudio",
       img: "/vcard3.png",
       createdAt: "Sep 23 2025",
       active: true,
@@ -89,7 +89,7 @@ const VcardsPage = () => {
       id: 9,
       name: "EduSpark",
       subtitle: "Online Coaching",
-      preview: "https://vcards.infyom.com/eduspark",
+      preview: "https://vcards.abaris.in/eduspark",
       img: "/vcard4.png",
       createdAt: "Sep 23 2025",
       active: false,
@@ -98,7 +98,7 @@ const VcardsPage = () => {
       id: 10,
       name: "HealthNest",
       subtitle: "Clinic",
-      preview: "https://vcards.infyom.com/healthnest",
+      preview: "https://vcards.abaris.in/healthnest",
       img: "/vcard5.png",
       createdAt: "Sep 22 2025",
       active: true,
@@ -107,7 +107,7 @@ const VcardsPage = () => {
       id: 11,
       name: "QuickFix",
       subtitle: "Repair Services",
-      preview: "https://vcards.infyom.com/quickfix",
+      preview: "https://vcards.abaris.in/quickfix",
       img: "/vcard.png",
       createdAt: "Sep 22 2025",
       active: true,
@@ -116,7 +116,7 @@ const VcardsPage = () => {
       id: 12,
       name: "BakeHouse",
       subtitle: "Bakery",
-      preview: "https://vcards.infyom.com/bakehouse",
+      preview: "https://vcards.abaris.in/bakehouse",
       img: "/vcard2.png",
       createdAt: "Sep 22 2025",
       active: true,
@@ -125,7 +125,7 @@ const VcardsPage = () => {
       id: 13,
       name: "StyleHive",
       subtitle: "Fashion Boutique",
-      preview: "https://vcards.infyom.com/stylehive",
+      preview: "https://vcards.abaris.in/stylehive",
       img: "/vcard3.png",
       createdAt: "Sep 21 2025",
       active: true,
@@ -134,7 +134,7 @@ const VcardsPage = () => {
       id: 14,
       name: "PetCare",
       subtitle: "Pet Grooming",
-      preview: "https://vcards.infyom.com/petcare",
+      preview: "https://vcards.abaris.in/petcare",
       img: "/vcard4.png",
       createdAt: "Sep 21 2025",
       active: true,
@@ -143,7 +143,7 @@ const VcardsPage = () => {
       id: 15,
       name: "ArtNest",
       subtitle: "Art Studio",
-      preview: "https://vcards.infyom.com/artnest",
+      preview: "https://vcards.abaris.in/artnest",
       img: "/vcard5.png",
       createdAt: "Sep 21 2025",
       active: false,
@@ -152,7 +152,7 @@ const VcardsPage = () => {
       id: 16,
       name: "TravelPro",
       subtitle: "Travel Agency",
-      preview: "https://vcards.infyom.com/travelpro",
+      preview: "https://vcards.abaris.in/travelpro",
       img: "/vcard.png",
       createdAt: "Sep 20 2025",
       active: true,
@@ -161,7 +161,7 @@ const VcardsPage = () => {
       id: 17,
       name: "BookNook",
       subtitle: "Book Store",
-      preview: "https://vcards.infyom.com/booknook",
+      preview: "https://vcards.abaris.in/booknook",
       img: "/vcard2.png",
       createdAt: "Sep 20 2025",
       active: true,
@@ -170,7 +170,7 @@ const VcardsPage = () => {
       id: 18,
       name: "SweetSpot",
       subtitle: "Dessert Shop",
-      preview: "https://vcards.infyom.com/sweetspot",
+      preview: "https://vcards.abaris.in/sweetspot",
       img: "/vcard3.png",
       createdAt: "Sep 19 2025",
       active: true,
@@ -179,7 +179,7 @@ const VcardsPage = () => {
       id: 19,
       name: "LensCraft",
       subtitle: "Photography",
-      preview: "https://vcards.infyom.com/lenscraft",
+      preview: "https://vcards.abaris.in/lenscraft",
       img: "/vcard4.png",
       createdAt: "Sep 19 2025",
       active: true,
@@ -188,7 +188,7 @@ const VcardsPage = () => {
       id: 20,
       name: "BrightMind",
       subtitle: "Counseling",
-      preview: "https://vcards.infyom.com/brightmind",
+      preview: "https://vcards.abaris.in/brightmind",
       img: "/vcard5.png",
       createdAt: "Sep 18 2025",
       active: true,
@@ -197,7 +197,7 @@ const VcardsPage = () => {
       id: 21,
       name: "CodeNest",
       subtitle: "Software Dev",
-      preview: "https://vcards.infyom.com/codenest",
+      preview: "https://vcards.abaris.in/codenest",
       img: "/vcard.png",
       createdAt: "Sep 18 2025",
       active: true,
@@ -206,7 +206,7 @@ const VcardsPage = () => {
       id: 22,
       name: "DailyBites",
       subtitle: "Cafe",
-      preview: "https://vcards.infyom.com/dailybites",
+      preview: "https://vcards.abaris.in/dailybites",
       img: "/vcard2.png",
       createdAt: "Sep 18 2025",
       active: true,
@@ -215,7 +215,7 @@ const VcardsPage = () => {
       id: 23,
       name: "MegaMart",
       subtitle: "Supermarket",
-      preview: "https://vcards.infyom.com/megamart",
+      preview: "https://vcards.abaris.in/megamart",
       img: "/vcard3.png",
       createdAt: "Sep 17 2025",
       active: false,
@@ -224,7 +224,7 @@ const VcardsPage = () => {
       id: 24,
       name: "GlowSkin",
       subtitle: "Skin Clinic",
-      preview: "https://vcards.infyom.com/glowskin",
+      preview: "https://vcards.abaris.in/glowskin",
       img: "/vcard4.png",
       createdAt: "Sep 17 2025",
       active: true,
@@ -233,7 +233,7 @@ const VcardsPage = () => {
       id: 25,
       name: "BuildUp",
       subtitle: "Construction",
-      preview: "https://vcards.infyom.com/buildup",
+      preview: "https://vcards.abaris.in/buildup",
       img: "/vcard5.png",
       createdAt: "Sep 17 2025",
       active: true,
@@ -355,11 +355,14 @@ const VcardsPage = () => {
                     <FiCopy className="cursor-pointer hover:text-indigo-700" />
                   </div>
                 </td>
-                <Link href="/Dashboard/vcards/stats">
-                  <td className="px-4 py-3">
+
+                {/* ✅ Fixed the error here */}
+                <td className="px-4 py-3">
+                  <Link href="/dashboards/vcards/stats">
                     <FiBarChart2 className="text-indigo-500 cursor-pointer bg-amber-100" />
-                  </td>
-                </Link>
+                  </Link>
+                </td>
+
                 <td className="px-4 py-3">
                   <FiUsers className="text-indigo-500 cursor-pointer" />
                 </td>
@@ -382,7 +385,7 @@ const VcardsPage = () => {
                   </span>
                 </td>
                 <td className="px-4 py-3 flex items-center gap-2 relative">
-                  <Link href={`/Dashboard/vcards/edit/${card.id}`}>
+                  <Link href={`/dashboards/vcards/edit/${card.id}`}>
                     <FiEdit2 className="text-indigo-500 cursor-pointer hover:text-indigo-700" />
                   </Link>
                   <div className="relative">

@@ -1,7 +1,8 @@
 "use client";
 
+import { fetchUseCard } from "@/app/reduxToolkit/slice";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FiMoreVertical,
   FiEdit2,
@@ -10,6 +11,7 @@ import {
   FiUsers,
   FiPhone,
 } from "react-icons/fi";
+import { useDispatch, useSelector } from "react-redux";
 
 const VcardsPage = () => {
   const [vcards, setVcards] = useState([
@@ -249,6 +251,20 @@ const VcardsPage = () => {
     }));
   };
 
+
+  const dispatch = useDispatch()
+  const { cardData, loading, error } = useSelector((state) => state.auth)
+  console.log(cardData);
+
+  useEffect(() => {
+    dispatch(fetchUseCard());
+  }, [dispatch]);
+
+
+  if (loading) return <p>Loading cards...</p>;
+  if (error) return <p>Error: {error}</p>;
+  if (!cardData) return <p>No card data available</p>;
+
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       {/* Header */}
@@ -324,8 +340,8 @@ const VcardsPage = () => {
             </tr>
           </thead>
           <tbody className="text-gray-700">
-            {vcards.map((card) => (
-              <tr key={card.id} className="border-b hover:bg-gray-50">
+            {cardData && cardData?.data?.map((card) => (
+              <tr key={card._id} className="border-b hover:bg-gray-50">
                 <td className="px-4 py-3">
                   <input type="checkbox" />
                 </td>
@@ -336,21 +352,21 @@ const VcardsPage = () => {
                     className="w-8 h-8 rounded object-cover"
                   />
                   <div>
-                    <p className="font-medium text-indigo-600">{card.name}</p>
-                    {card.subtitle && (
+                    <p className="font-medium text-indigo-600">{card.title}</p>
+                    {/* {card.subtitle && (
                       <p className="text-xs text-gray-500">{card.subtitle}</p>
-                    )}
+                    )} */}
                   </div>
                 </td>
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-2 text-indigo-500">
                     <a
-                      href={card.preview}
+                      href={`http://localhost:3319/cardDetails/${card?.slug}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hover:underline"
                     >
-                      {card.preview}
+                      {`https://itapitsolutions.com/cardDetails/${card?.slug}`}
                     </a>
                     <FiCopy className="cursor-pointer hover:text-indigo-700" />
                   </div>
@@ -381,7 +397,7 @@ const VcardsPage = () => {
                 </td>
                 <td className="px-4 py-3">
                   <span className="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-xs font-medium">
-                    {card.createdAt}
+                    {card.created || card.createdAt}
                   </span>
                 </td>
                 <td className="px-4 py-3 flex items-center gap-2 relative">

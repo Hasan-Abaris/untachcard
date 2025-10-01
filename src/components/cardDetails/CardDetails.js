@@ -63,7 +63,9 @@ const CardDetails = ({ overlayGradient }) => {
 
 
 
-    const backgroundImagePath = `/assets/assets/uploads/card-bg/${dataDetails?.card_theme_bg}`
+    const backgroundImagePath = dataDetails?.card_theme_bg
+        ? `/assets/assets/uploads/card-bg/${dataDetails.card_theme_bg}`
+        : null;
     return (
         <div
             style={{
@@ -73,7 +75,7 @@ const CardDetails = ({ overlayGradient }) => {
                 justifyContent: "center",
                 alignItems: "center",
                 padding: "20px",
-                backgroundImage: `url(${backgroundImagePath})`,
+                backgroundImage: backgroundImagePath ? `url(${backgroundImagePath})` : "none",
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",

@@ -7,7 +7,7 @@ export default function Card({ card }) {
         <img src={card.photo} alt={card.name} />
         <h3>{card.name}</h3>
         <p>{card.designation}</p>
-        <Link href={`/card/${card.id}`}>
+        <Link href={`cardDetails/${card.id}`}>
           <button>View Details</button>
         </Link>
       </div>

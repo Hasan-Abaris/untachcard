@@ -1,11 +1,1 @@
-{
-  "version": 4,
-  "routes": {},
-  "dynamicRoutes": {},
-  "notFoundRoutes": [],
-  "preview": {
-    "previewModeId": "62a3bec63f9b9580d2a0ae22c2ef7825",
-    "previewModeSigningKey": "0533bd986c4bb2e1cd691b0f9891445a77a99c34c8173011dc748f63450db1be",
-    "previewModeEncryptionKey": "496229a50fbf6a57c4fe04ca21afc1e10607dcbb69ed6f3bfb09b765a1ed5b13"
-  }
-}
+{"version":4,"routes":{"/dashboards/vcards/demo/1":{},"/dashboards/vcards/demo/2":{},"/dashboards/vcards/demo/3":{}},"dynamicRoutes":{"/dashboards/vcards/demo/[id]":{"dataRoute":null,"dataRouteRegex":null,"fallback":null,"fallbackRevalidate":false,"fallbackSourceRoute":"/dashboards/vcards/demo/[id]","routeRegex":"^\\/dashboards\\/vcards\\/demo\\/([^/]+?)(?:\\/)?$","allowHeader":[]}},"notFoundRoutes":[],"preview":{"previewModeId":"19d2fc62edf7944b0bb32ac7b8486170","previewModeSigningKey":"a80e7a431d6ff09909f92c06b9ae2ae0b7894e99be993cc9156897b877c45850","previewModeEncryptionKey":"b83204977811bca6dd8e7a6387e243e08795486f0aa32fb79f9f627783886d97"}}

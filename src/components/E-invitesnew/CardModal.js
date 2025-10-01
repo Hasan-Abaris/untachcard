@@ -20,7 +20,7 @@ const CardModal = ({ card, onClose }) => {
       color: selectedColor
     };
     
-    // Store in localStorage for demo
+   
     localStorage.setItem(`template_${card.id}`, JSON.stringify(savedData));
     
     alert(`✅ Template Saved Successfully!\n\nTitle: ${title}\nDescription: ${desc}\nCustom Text: ${customText}\nFont: ${selectedFont}\nColor: ${selectedColor}`);

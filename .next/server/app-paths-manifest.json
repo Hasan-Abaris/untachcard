@@ -1,7 +1,3 @@
 {
-  "/page": "app/page.js",
-  "/dashboards/vcards/page": "app/dashboards/vcards/page.js",
-  "/dashboards/vcards/demo/[id]/page": "app/dashboards/vcards/demo/[id]/page.js",
-  "/login2/page": "app/login2/page.js",
-  "/preview/theme_one/page": "app/preview/theme_one/page.js"
+  "/dashboards/vcards/page": "app/dashboards/vcards/page.js"
 }

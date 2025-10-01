@@ -1,1 +1,11 @@
-{"version":4,"routes":{"/dashboards/vcards/demo/1":{},"/dashboards/vcards/demo/2":{},"/dashboards/vcards/demo/3":{}},"dynamicRoutes":{"/dashboards/vcards/demo/[id]":{"dataRoute":null,"dataRouteRegex":null,"fallback":null,"fallbackRevalidate":false,"fallbackSourceRoute":"/dashboards/vcards/demo/[id]","routeRegex":"^\\/dashboards\\/vcards\\/demo\\/([^/]+?)(?:\\/)?$","allowHeader":[]}},"notFoundRoutes":[],"preview":{"previewModeId":"19d2fc62edf7944b0bb32ac7b8486170","previewModeSigningKey":"a80e7a431d6ff09909f92c06b9ae2ae0b7894e99be993cc9156897b877c45850","previewModeEncryptionKey":"b83204977811bca6dd8e7a6387e243e08795486f0aa32fb79f9f627783886d97"}}
+{
+  "version": 4,
+  "routes": {},
+  "dynamicRoutes": {},
+  "notFoundRoutes": [],
+  "preview": {
+    "previewModeId": "2d9c598e9e9d94b5039c1225ca2702b4",
+    "previewModeSigningKey": "c43f1404282ea54548a1d8184dc858dd58de5fdd121bb1651235d75142b93fd0",
+    "previewModeEncryptionKey": "d45a31caaf9007257499289348ebd78412a5fd41bde8eca72664b4b460e68f9c"
+  }
+}

@@ -4,7 +4,7 @@ import SearchBar from "./SearchBar";
 import CitySlider from "./CitySlider";
 import ToggleView from "./ToggleView";
 import VenueList from "./VenueList";
-import LatestReview from "./latestReview";
+import LatestReview from "./LatestReview";
 
 
 

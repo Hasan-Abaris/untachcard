@@ -401,7 +401,7 @@ const VcardsPage = () => {
                   </span>
                 </td>
                 <td className="px-4 py-3 flex items-center gap-2 relative">
-                  <Link href={`/dashboards/vcards/edit/${card.id}`}>
+                  <Link href={`/dashboards/vcards/demo/${card.id}`}>
                     <FiEdit2 className="text-indigo-500 cursor-pointer hover:text-indigo-700" />
                   </Link>
                   <div className="relative">

@@ -17,25 +17,25 @@
       "static/chunks/main-app.js",
       "static/chunks/app/login2/page.js"
     ],
+    "/dashboards/whatsAppStores/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/dashboards/whatsAppStores/page.js"
+    ],
     "/dashboards/vcards/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/dashboards/vcards/page.js"
     ],
-    "/all-templates/page": [
+    "/dashboards/vcards/demo/[id]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/all-templates/page.js"
+      "static/chunks/app/dashboards/vcards/demo/[id]/page.js"
     ],
-    "/dashboards/vcards/edit/[id]/page": [
+    "/preview/theme_one/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/dashboards/vcards/edit/[id]/page.js"
-    ],
-    "/_not-found/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+      "static/chunks/app/preview/theme_one/page.js"
     ]
   }
 }

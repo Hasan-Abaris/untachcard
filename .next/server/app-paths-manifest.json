@@ -1,7 +1,10 @@
 {
+  "/login2/page": "app/login2/page.js",
   "/page": "app/page.js",
   "/dashboards/vcards/page": "app/dashboards/vcards/page.js",
   "/dashboards/vcards/demo/[id]/page": "app/dashboards/vcards/demo/[id]/page.js",
-  "/login2/page": "app/login2/page.js",
-  "/preview/theme_one/page": "app/preview/theme_one/page.js"
+  "/preview/theme_seven/page": "app/preview/theme_seven/page.js",
+  "/preview/theme_eight/page": "app/preview/theme_eight/page.js",
+  "/preview/theme_nine/page": "app/preview/theme_nine/page.js",
+  "/preview/theme_ten/page": "app/preview/theme_ten/page.js"
 }

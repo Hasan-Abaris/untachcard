@@ -104,6 +104,7 @@
     --color-green-700: oklch(52.7% 0.154 150.069);
     --color-teal-100: oklch(95.3% 0.051 180.801);
     --color-teal-200: oklch(91% 0.096 180.426);
+    --color-cyan-400: oklch(78.9% 0.154 211.53);
     --color-cyan-500: oklch(71.5% 0.143 215.221);
     --color-cyan-600: oklch(60.9% 0.126 221.723);
     --color-sky-400: oklch(74.6% 0.16 232.661);
@@ -390,6 +391,9 @@
   .inset-0 {
     inset: calc(var(--spacing) * 0);
   }
+  .inset-x-0 {
+    inset-inline: calc(var(--spacing) * 0);
+  }
   .top-0 {
     top: calc(var(--spacing) * 0);
   }
@@ -441,8 +445,14 @@
   .right-6 {
     right: calc(var(--spacing) * 6);
   }
+  .-bottom-12 {
+    bottom: calc(var(--spacing) * -12);
+  }
   .bottom-2 {
     bottom: calc(var(--spacing) * 2);
+  }
+  .bottom-3 {
+    bottom: calc(var(--spacing) * 3);
   }
   .bottom-4 {
     bottom: calc(var(--spacing) * 4);
@@ -1045,6 +1055,9 @@
   .items-start {
     align-items: flex-start;
   }
+  .justify-around {
+    justify-content: space-around;
+  }
   .justify-between {
     justify-content: space-between;
   }
@@ -1334,6 +1347,9 @@
   .border-transparent {
     border-color: transparent;
   }
+  .border-white {
+    border-color: var(--color-white);
+  }
   .border-t-transparent {
     border-top-color: transparent;
   }
@@ -1475,11 +1491,20 @@
   .bg-pink-100 {
     background-color: var(--color-pink-100);
   }
+  .bg-pink-200 {
+    background-color: var(--color-pink-200);
+  }
+  .bg-pink-300 {
+    background-color: var(--color-pink-300);
+  }
   .bg-pink-500 {
     background-color: var(--color-pink-500);
   }
   .bg-pink-600 {
     background-color: var(--color-pink-600);
+  }
+  .bg-pink-700 {
+    background-color: var(--color-pink-700);
   }
   .bg-purple-400 {
     background-color: var(--color-purple-400);
@@ -1521,6 +1546,12 @@
     background-color: color-mix(in srgb, #fff 70%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
       background-color: color-mix(in oklab, var(--color-white) 70%, transparent);
+    }
+  }
+  .bg-white\/80 {
+    background-color: color-mix(in srgb, #fff 80%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-white) 80%, transparent);
     }
   }
   .bg-white\/90 {
@@ -1680,6 +1711,11 @@
     --tw-gradient-from: var(--color-yellow-200);
     --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
   }
+  .via-blue-500 {
+    --tw-gradient-via: var(--color-blue-500);
+    --tw-gradient-via-stops: var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-via) var(--tw-gradient-via-position), var(--tw-gradient-to) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-via-stops);
+  }
   .via-purple-600 {
     --tw-gradient-via: var(--color-purple-600);
     --tw-gradient-via-stops: var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-via) var(--tw-gradient-via-position), var(--tw-gradient-to) var(--tw-gradient-to-position);
@@ -1697,6 +1733,10 @@
   }
   .to-blue-50 {
     --tw-gradient-to: var(--color-blue-50);
+    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
+  }
+  .to-cyan-400 {
+    --tw-gradient-to: var(--color-cyan-400);
     --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
   }
   .to-cyan-500 {
@@ -1914,6 +1954,9 @@
   .pt-6 {
     padding-top: calc(var(--spacing) * 6);
   }
+  .pt-14 {
+    padding-top: calc(var(--spacing) * 14);
+  }
   .pt-16 {
     padding-top: calc(var(--spacing) * 16);
   }
@@ -1934,6 +1977,9 @@
   }
   .pb-4 {
     padding-bottom: calc(var(--spacing) * 4);
+  }
+  .pb-6 {
+    padding-bottom: calc(var(--spacing) * 6);
   }
   .pb-10 {
     padding-bottom: calc(var(--spacing) * 10);

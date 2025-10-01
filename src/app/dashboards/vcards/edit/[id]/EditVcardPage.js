@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import BasicDetails from "@/components/dashboards/v-card/edits/BasicDetails";
-import Templates from "@/components/all-templates/Card";
+import Templates from "@/components/all-templates/index";
 import Dynamiccard from "@/components/dashboards/v-card/edits/Dynamiccard";
 import Buisnesscard from "@/components/dashboards/v-card/edits/buisnesscard";
 import Customizecard from "@/components/dashboards/v-card/edits/Customizecard";

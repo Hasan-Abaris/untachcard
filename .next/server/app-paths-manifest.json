@@ -1,0 +1,8 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/page": "app/page.js",
+  "/login2/page": "app/login2/page.js",
+  "/dashboards/vcards/page": "app/dashboards/vcards/page.js",
+  "/all-templates/page": "app/all-templates/page.js",
+  "/dashboards/vcards/edit/[id]/page": "app/dashboards/vcards/edit/[id]/page.js"
+}

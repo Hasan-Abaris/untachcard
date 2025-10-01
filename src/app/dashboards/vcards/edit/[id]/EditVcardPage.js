@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import BasicDetails from "@/components/dashboards/v-card/edits/BasicDetails";
-import Templates from "@/components/dashboards/v-card/edits/templates";
+import Templates from "@/components/all-templates/index";
 import Dynamiccard from "@/components/dashboards/v-card/edits/Dynamiccard";
 import Buisnesscard from "@/components/dashboards/v-card/edits/buisnesscard";
 import Customizecard from "@/components/dashboards/v-card/edits/Customizecard";
@@ -27,7 +27,9 @@ import Managesection from "@/components/dashboards/v-card/edits/managesection";
 
 const menuItems = [
   { key: "basic", label: "Basic Details" },
-  { key: "templates", label: "Card Templates" },
+  // { key: "templates", label: "Card Templates" },
+   { key: "templates", label: "Card Templates" },
+
   { key: "dynamic", label: "Dynamic Card" },
   { key: "hours", label: "Business Hours" },
   { key: "qrcode", label: "Customize QR Code" },

@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import ProfileCard from "./ProfileCard";
 import ProductServices from "./ProductServices";
-import Portfolio from "./Portfolio";
 import Gallery from "./Gallery";
 import Testimonials from "./Testimonials";
 import EnquiryForm from "./EnquiryForm";
@@ -12,6 +11,7 @@ import PaymentSection from "./PaymentSection";
 import { useParams } from "next/navigation";
 import { base_url } from "@/server";
 import axios from "axios";
+import Portfolio from "./Portfolio";
 
 const ThemeFourpage = () => {
   const params = useParams();
@@ -60,7 +60,7 @@ const ThemeFourpage = () => {
   if (error || !dataDetails) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-skyblue-500 via-white-500 to-pink-400">
-        <p className="text-white text-lg font-semibold">No data found</p>
+        <p className="text-white text-lg font-semibold">No data found !</p>
       </div>
     );
   }

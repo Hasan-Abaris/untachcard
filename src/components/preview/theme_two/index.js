@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import ThemeOne from "./ThemeOne";
 import Product from "./product";
 import Portfolio from "./portfolio";
 import Gallery from "./Gallery";

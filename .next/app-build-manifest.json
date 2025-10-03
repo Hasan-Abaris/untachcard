@@ -6,33 +6,38 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
+    "/preview/theme_two/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/preview/theme_two/page.css",
+      "static/chunks/app/preview/theme_two/page.js"
+    ],
     "/preview/theme_one/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/preview/theme_one/page.css",
       "static/chunks/app/preview/theme_one/page.js"
     ],
-    "/login2/page": [
+    "/preview/theme_four/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/login2/page.js"
+      "static/chunks/app/preview/theme_four/page.js"
     ],
-    "/page": [
+    "/preview/theme_nine/[name]/[slug]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/page.css",
-      "static/chunks/app/page.js"
+      "static/css/app/preview/theme_nine/[name]/[slug]/page.css",
+      "static/chunks/app/preview/theme_nine/[name]/[slug]/page.js"
     ],
-    "/dashboards/vcards/demo/[id]/page": [
+    "/preview/theme_seven/[name]/[slug]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/dashboards/vcards/demo/[id]/page.js"
+      "static/chunks/app/preview/theme_seven/[name]/[slug]/page.js"
     ],
-    "/preview/theme_two/page": [
+    "/_not-found/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/preview/theme_two/page.css",
-      "static/chunks/app/preview/theme_two/page.js"
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }

@@ -1,7 +1,9 @@
+import Image from "next/image";
 import React from "react";
-import { FaEye, FaUserPlus, FaShareAlt } from "react-icons/fa";
+import { FaEye, FaUserPlus, FaShareAlt, FaPhone, FaEnvelope, FaWhatsapp, FaMapMarkerAlt, FaGlobe } from "react-icons/fa";
 
-const ProfileCard = () => {
+const ProfileCard = ({ data }) => {
+    const social = data?.social_options ? JSON.parse(data.social_options) : {};
     return (
         <div className="bg-pink-200 rounded-xl shadow-lg p-6 text-center relative max-w-lg mx-auto">
             {/* Views */}
@@ -11,27 +13,78 @@ const ProfileCard = () => {
             </div>
 
             {/* Profile Image */}
-            <img
-                src="https://i.pravatar.cc/150?img=47"
+            <Image
+                src={`/assets/assets/uploads/card-profile/${data?.profile}`}
                 alt="profile"
                 className="w-28 h-28 rounded-full mx-auto border-4 border-white shadow-md"
+                width={100}
+                height={100}
             />
+
 
             {/* Name */}
             <h2 className="mt-3 text-xl font-bold flex items-center justify-center gap-1">
-                WAPTechy <span className="text-blue-500">✔</span>
+                {data?.title} <span className="text-blue-500">✔</span>
             </h2>
-            <p className="text-gray-600">CEO and Founder</p>
+            <p className="text-gray-600">{data?.sub_title}</p>
             <p className="mt-2 text-gray-700 text-sm">
-                We are WAPTechy Advanced Full Stack Developers.
+                {data?.description}
             </p>
 
             {/* Contact Info */}
             <div className="mt-6 space-y-2 text-left">
-                <p className="font-bold">📞 +918888888888</p>
-                <p className="text-blue-600 font-semibold">📧 waptechy@gmail.com</p>
-                <p className="font-semibold">💬 WhatsApp Now</p>
-                <p className="font-semibold">📍 Silicon Valley, California, USA</p>
+                {social?.mandatory?.mobile && (
+                    <div className="flex items-center gap-3">
+                        <FaPhone className="text-2xl" />
+                        <span>{social.mandatory.mobile}</span>
+                    </div>
+                )}
+                {social?.mandatory?.email && (
+                    <div className="flex items-center gap-3">
+                        <FaEnvelope className="text-2xl" />
+                        <span>{social.mandatory.email}</span>
+                    </div>
+                )}
+
+                {social?.mandatory?.mobile && (
+                    <div className="flex items-center gap-3">
+                        <FaWhatsapp className="text-2xl" />
+                        <a
+                            href={`https://wa.me/${social.mandatory.mobile.replace(/\D/g, "")}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:underline"
+                        >
+                            WhatsApp Now
+                        </a>
+                    </div>
+                )}
+                {social?.mandatory?.address && (
+                    <div className="flex items-center gap-3">
+                        <FaMapMarkerAlt className="text-2xl" />
+                        <a
+                            href={social.mandatory.address_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:underline"
+                        >
+                            {social.mandatory.address}
+                        </a>
+                    </div>
+                )}
+                {social?.mandatory?.website && (
+                    <div className="flex items-center gap-3">
+                        <FaGlobe className="text-2xl" />
+                        <a
+                            href={social.mandatory.website}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:underline"
+                        >
+                            {social.mandatory.website}
+                        </a>
+                    </div>
+                )}
             </div>
 
             {/* Buttons */}

@@ -6,16 +6,16 @@ import Card from '../../components/all-templates/Card';
 
 export default function AllTemplatespage() {
   const themes = [
-    { id: 1, name: 'Theme One', image: 'https://vcard.waptechy.com/assets/uploads/themes/one.png', preview: 'https://vcard.waptechy.com/amazingllll/theme_one' },
-    { id: 2, name: 'Theme Two', image: 'https://vcard.waptechy.com/assets/uploads/themes/two.png', preview: 'https://vcard.waptechy.com/amazingllll/theme_two' },
-    { id: 3, name: 'Theme Three', image: 'https://vcard.waptechy.com/assets/uploads/themes/three.png', preview: 'https://vcard.waptechy.com/amazingllll/theme_three' },
-    { id: 4, name: 'Theme Four', image: 'https://vcard.waptechy.com/assets/uploads/themes/four.png', preview: 'https://vcard.waptechy.com/amazingllll/theme_four' },
+    { id: 1, name: 'Theme One', image: 'https://vcard.waptechy.com/assets/uploads/themes/one.png', preview: '/preview/theme_one' },
+    { id: 2, name: 'Theme Two', image: 'https://vcard.waptechy.com/assets/uploads/themes/two.png', preview: '/preview/theme_two' },
+    { id: 3, name: 'Theme Three', image: 'https://vcard.waptechy.com/assets/uploads/themes/three.png', preview: '/preview/theme_three' },
+    { id: 4, name: 'Theme Four', image: 'https://vcard.waptechy.com/assets/uploads/themes/four.png', preview: '/preview/theme_four' },
     { id: 5, name: 'Theme Five', image: 'https://vcard.waptechy.com/assets/uploads/themes/five.png', preview: 'https://vcard.waptechy.com/amazingllll/theme_five' },
     { id: 6, name: 'Theme Six', image: 'https://vcard.waptechy.com/assets/uploads/themes/six.png', preview: 'https://vcard.waptechy.com/amazingllll/theme_six' },
-    { id: 7, name: 'Theme Seven', image: 'https://vcard.waptechy.com/assets/uploads/themes/seven.png', preview: '/preview/theme_seven' },
-    { id: 8, name: 'Theme Eight', image: 'https://vcard.waptechy.com/assets/uploads/themes/eight.png', preview: '/preview/theme_eight' },
-    { id: 9, name: 'Theme Nine', image: 'https://vcard.waptechy.com/assets/uploads/themes/nine.png', preview: '/preview/theme_nine' },
-    { id: 10, name: 'Theme Ten', image: 'https://vcard.waptechy.com/assets/uploads/themes/ten.png', preview: '/preview/theme_ten' },
+    { id: 7, name: 'Theme Seven', image: 'https://vcard.waptechy.com/assets/uploads/themes/seven.png', preview: '/preview/theme_seven/theme_seven/abdul-quadir-abaris-softech' },
+    { id: 8, name: 'Theme Eight', image: 'https://vcard.waptechy.com/assets/uploads/themes/eight.png', preview: '/preview/theme_eight/theme_eight/Zabi' },
+    { id: 9, name: 'Theme Nine', image: 'https://vcard.waptechy.com/assets/uploads/themes/nine.png', preview: '/preview/theme_nine/theme_nine/Zabi' },
+    { id: 10, name: 'Theme Ten', image: 'https://vcard.waptechy.com/assets/uploads/themes/ten.png', preview: '/preview/theme_ten/theme_ten/Zabi' },
     { id: 11, name: 'Theme Eleven', image: 'https://vcard.waptechy.com/assets/uploads/themes/eleven.png', preview: 'https://vcard.waptechy.com/amazingllll/theme_eleven' },
     { id: 12, name: 'Theme Twelve', image: 'https://vcard.waptechy.com/assets/uploads/themes/twelve.png', preview: 'https://vcard.waptechy.com/amazingllll/theme_twelve' },
   ];
@@ -78,7 +78,7 @@ export default function AllTemplatespage() {
               target="_blank"
               style={{
                 display: 'inline-block',
-                backgroundColor: '#ff0000', // Red color to match "Preview" button in SS
+                backgroundColor: '#ff0000',
                 color: '#fff',
                 padding: '8px 16px',
                 borderRadius: '5px',

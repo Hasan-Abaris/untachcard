@@ -13,7 +13,7 @@ const Testimonials = () => {
                 <h3 className="mt-2 font-semibold">Black Widow</h3>
                 <p className="text-yellow-400">★★★★★</p>
                 <p className="text-gray-400 mt-2">
-                    This is unbelievable. After using TimWork my business skyrocketed!
+                    This is unbelievable. After using timework my business skyrocketed!
                 </p>
             </div>
         </div>

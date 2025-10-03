@@ -207,9 +207,9 @@ export default function Header2() {
 
 
 
-          <button className="bg-gray-600 px-4 py-2 rounded text-white">
+          {/* <button type="button" className="bg-gray-600 px-4 py-2 rounded text-white">
             Get Started
-          </button>
+          </button> */}
         </div>
 
         {/* Mobile Menu Toggle */}

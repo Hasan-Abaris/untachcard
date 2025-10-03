@@ -1,4 +1,4 @@
 {
-  "/dashboards/vcards/demo/[id]/page": "app/dashboards/vcards/demo/[id]/page.js",
-  "/preview/theme_one/page": "app/preview/theme_one/page.js"
+  "/_not-found/page": "app/_not-found/page.js",
+  "/page": "app/page.js"
 }

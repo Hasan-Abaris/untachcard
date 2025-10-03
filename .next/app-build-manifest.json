@@ -6,16 +6,11 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/dashboards/vcards/demo/[id]/page": [
+    "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/dashboards/vcards/demo/[id]/page.js"
-    ],
-    "/preview/theme_one/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/preview/theme_one/page.js",
-      "static/css/app/preview/theme_one/page.css"
+      "static/css/app/page.css",
+      "static/chunks/app/page.js"
     ]
   }
 }

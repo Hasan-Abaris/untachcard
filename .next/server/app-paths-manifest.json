@@ -1,8 +1,4 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/page": "app/page.js",
-  "/login2/page": "app/login2/page.js",
-  "/account/my-orders/page": "app/account/my-orders/page.js",
-  "/dashboards/vcards/page": "app/dashboards/vcards/page.js",
-  "/cardDetails/[id]/page": "app/cardDetails/[id]/page.js"
+  "/preview/theme_one/page": "app/preview/theme_one/page.js",
+  "/preview/theme_two/page": "app/preview/theme_two/page.js"
 }

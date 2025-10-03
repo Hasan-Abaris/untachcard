@@ -46,3 +46,8 @@ body {
 
 
 }
+.card { padding: 10px; border: 1px solid #ccc; border-radius: 10px; margin: 10px; }
+.style1 { background: #fce4ec; }
+.style2 { background: #e3f2fd; }
+.card-detail img { width: 200px; height: auto; border-radius: 10px; }
+.card-grid { display: flex; flex-wrap: wrap; gap: 20px; }

@@ -1,10 +1,55 @@
 
-// app/login/page.tsx  (or components/Login2.tsx)
 "use client";
+import { loginUser } from "@/app/reduxToolkit/slice";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { FaFacebookF, FaTwitter, FaGoogle } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
+import { toastSuccessMessage } from "../common/messageShow/MessageShow";
+
 
 export default function Login2() {
+    const router = useRouter()
+    const dispatch = useDispatch();
+    const { loading, error, data } = useSelector((state) => state.auth);
+    console.log(loading, error, data?._id);
+
+
+
+    const [loginForm, setLoginForm] = useState({
+        email: "",
+        password: "",
+    });
+
+    const handleChangeLogin = (e) => {
+        setLoginForm({ ...loginForm, [e.target.name]: e.target.value });
+    };
+
+    const handleLoginSubmit = (e) => {
+        e.preventDefault();
+        dispatch(loginUser(loginForm));
+    };
+
+
+    useEffect(() => {
+        if (data?._id) {
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("user_id", data._id);
+            localStorage.setItem("isLogin", true);
+            localStorage.setItem("email", data.email);
+            localStorage.setItem("profilePic", data.image?.url || "");
+            localStorage.setItem("userName", `${data.firstname} ${data.lastname}`);
+
+            toastSuccessMessage("Login Successfully");
+            router.push("/");
+
+
+        }
+    }, [data, router]);
+
+
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
             <div className="w-full max-w-md bg-white shadow-md rounded-md p-8">
@@ -18,6 +63,9 @@ export default function Login2() {
                         type="email"
                         placeholder="Email"
                         className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        name="email"
+                        value={loginForm.email}
+                        onChange={handleChangeLogin}
                     />
                 </div>
 
@@ -27,23 +75,23 @@ export default function Login2() {
                         type="password"
                         placeholder="Password"
                         className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        name="password"
+                        value={loginForm.password}
+                        onChange={handleChangeLogin}
                     />
                 </div>
 
-                {/* Remember me + Forgot password */}
-                <div className="flex items-center justify-between mb-4 text-sm">
-                    <label className="flex items-center space-x-2">
-                        <input type="checkbox" className="w-4 h-4" />
-                        <span className="text-gray-600">Remember Me</span>
-                    </label>
-                    <a href="#" className="text-blue-600 hover:underline">
-                        Forgot password?
-                    </a>
-                </div>
+                {/* Errors */}
+                {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
 
                 {/* Login Button */}
-                <button className="w-full py-2 border border-black-600 text-black-600 font-semibold rounded-md hover:bg-black hover:text-white transition cursor-pointer">
-                    LOGIN
+                <button
+                    type="button"
+                    onClick={handleLoginSubmit}
+                    className="w-full py-2 border border-black text-black font-semibold rounded-md hover:bg-black hover:text-white transition cursor-pointer"
+                    disabled={loading}
+                >
+                    {loading ? "Logging in..." : "LOGIN"}
                 </button>
 
                 {/* Divider */}
@@ -69,11 +117,15 @@ export default function Login2() {
                 {/* Register */}
                 <p className="text-center text-gray-600 text-sm">
                     Don’t have an account?{" "}
-                    <Link href="/resister" className="text-blue-600 font-medium hover:underline">
+                    <Link
+                        href="/resister"
+                        className="text-blue-600 font-medium hover:underline"
+                    >
                         Register Now
                     </Link>
                 </p>
             </div>
+            <ToastContainer />
         </div>
     );
 }

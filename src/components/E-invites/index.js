@@ -158,13 +158,13 @@ function Einvites() {
 
   useEffect(() => {
     updatePreview();
-  }, [formData, selectedCard]);
-
+  }, [formData, selectedCard, updatePreview]); // 
+  
   return (
     <div className="bg-amber-600 mt-15">
       <header className="text-center py-8 text-white">
         <h1 className="text-4xl font-bold mb-2">Life Event Templates</h1>
-        <p className="text-xl opacity-90">Professional templates for life's important moments</p>
+        <p className="text-xl opacity-90">Professional templates for life important moments</p>
       </header>
 
       <main className="max-w-7xl mx-auto px-4">

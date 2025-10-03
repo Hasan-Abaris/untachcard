@@ -85,7 +85,7 @@ function Testimonial() {
                         {renderStars(testimonial.rating)}
                       </div>
                       <div className="text-small text-gray-600 mt-2">
-                        "{testimonial.text}"
+                        {testimonial.text}
                       </div>
                     </div>
                   </div>

@@ -1,4 +1,4 @@
-import WhatsAppStores from "@/components/dashboards/whatsAppStores/whatsAppStores"
+import WhatsAppStores from "@/components/dashboards/whatsAppStores/WhatsAppStores"
 
 const WhatsAppStoresPage = () => {
     return (

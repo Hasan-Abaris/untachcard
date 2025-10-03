@@ -1,11 +1,12 @@
-
-import ThemeOne from '@/components/preview/theme_one/ThemeOne'
+import Themeonepage from '@/components/preview/theme_one'
 import React from 'react'
 
-const TheamOne = () => {
-    return (
-        <ThemeOne />
-    )
+function ThemeOne() {
+  return (
+    <div>
+      <Themeonepage/>
+    </div>
+  )
 }
 
-export default TheamOne
+export default ThemeOne

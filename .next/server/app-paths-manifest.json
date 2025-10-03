@@ -1,8 +1,8 @@
 {
+  "/_not-found/page": "app/_not-found/page.js",
   "/login2/page": "app/login2/page.js",
   "/page": "app/page.js",
   "/dashboards/vcards/page": "app/dashboards/vcards/page.js",
-  "/dashboards/vcards/demo/[id]/page": "app/dashboards/vcards/demo/[id]/page.js",
   "/preview/theme_seven/page": "app/preview/theme_seven/page.js",
   "/preview/theme_eight/page": "app/preview/theme_eight/page.js",
   "/preview/theme_nine/page": "app/preview/theme_nine/page.js",

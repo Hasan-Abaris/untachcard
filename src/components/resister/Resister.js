@@ -3,18 +3,18 @@
 import { useState } from "react";
 import { FaFacebookF, FaTwitter, FaGoogle } from "react-icons/fa";
 import Loader from "../common/loader/Loader";
-import { base_url } from "@/server";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import { toastSuccessMessage, toastSuccessMessageError } from "../common/messageShow/MessageShow";
 import { useRouter } from "next/navigation";
+import { base_url } from "@/server";
 
 
 export default function Register() {
     const router = useRouter()
     const [isLoading, setisLoading] = useState(false)
     const [show, setShow] = useState(false);
-    const baseUrl = base_url();
+    // const baseUrl = base_url();
     const [formData, setFormData] = useState({
         firstname: "",
         lastname: "",
@@ -63,7 +63,7 @@ export default function Register() {
         try {
             console.log('sfgfg');
 
-            const res = await axios.post(`${baseUrl}user/register`, formDatas);
+            const res = await axios.post(`${base_url}user/register`, formDatas);
             console.log(res?.data);
             toastSuccessMessage('Registration Successfully !')
             setisLoading(false);

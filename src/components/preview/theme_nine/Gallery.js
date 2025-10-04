@@ -2,7 +2,11 @@ import React from "react";
 
 const Gallery = () => {
     return (
-        <div className="bg-yellow-400 rounded-xl shadow-lg p-6 max-w-lg mx-auto text-center">
+        <div className="bg-yellow-400 rounded-xl shadow-lg p-6 max-w-lg mx-auto text-center" style={{
+            backgroundImage: "url('/assets/banner/theme-nine.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+        }}>
             <h2 className="text-xl font-bold mb-4">Gallery</h2>
             <div className="grid grid-cols-2 gap-4">
                 <img

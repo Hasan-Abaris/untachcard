@@ -17,7 +17,11 @@ const Portfolio = ({ data }) => {
     }
     return (
 
-        <div className="bg-yellow-400 rounded-xl shadow-lg p-6 max-w-lg mx-auto text-center">
+        <div className="bg-yellow-400 rounded-xl shadow-lg p-6 max-w-lg mx-auto text-center" style={{
+            backgroundImage: "url('/assets/banner/theme-nine.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+        }}>
             <h2 className="text-xl font-bold mb-4">Portfolio</h2>
             <Swiper
                 modules={[Navigation, Pagination]}

@@ -66,7 +66,7 @@ const Themeseven = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-400 p-6 space-y-6">
+        <div className="min-h-screen bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-400 p-6 space-y-6 pt-19">
             {dataDetails && <ProfileCard data={dataDetails} />}
 
             {dataDetails?.sections?.length > 0 && (

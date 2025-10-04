@@ -56,7 +56,7 @@ export default function EditVcardPage() {
   const [activeTab, setActiveTab] = useState("basic");
 
   return (
-    <div className="h-auto ">
+    <div className="h-auto pt-17">
       <div className="flex bg-gray-50  mt-  15 ">
         {/* Sidebar (Fixed) */}
         <aside className="w-64 bg-white border-r shadow-sm sticky top-0">

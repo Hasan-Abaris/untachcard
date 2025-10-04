@@ -1,0 +1,43 @@
+{
+  "pages": {
+    "/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/layout.css",
+      "static/chunks/app/layout.js"
+    ],
+    "/preview/theme_two/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/preview/theme_two/page.css",
+      "static/chunks/app/preview/theme_two/page.js"
+    ],
+    "/preview/theme_one/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/preview/theme_one/page.css",
+      "static/chunks/app/preview/theme_one/page.js"
+    ],
+    "/preview/theme_four/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/preview/theme_four/page.js"
+    ],
+    "/preview/theme_nine/[name]/[slug]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/preview/theme_nine/[name]/[slug]/page.css",
+      "static/chunks/app/preview/theme_nine/[name]/[slug]/page.js"
+    ],
+    "/preview/theme_seven/[name]/[slug]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/preview/theme_seven/[name]/[slug]/page.js"
+    ],
+    "/_not-found/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/_not-found/page.js"
+    ]
+  }
+}

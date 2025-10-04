@@ -1,0 +1,8 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/preview/theme_two/page": "app/preview/theme_two/page.js",
+  "/preview/theme_one/page": "app/preview/theme_one/page.js",
+  "/preview/theme_four/page": "app/preview/theme_four/page.js",
+  "/preview/theme_nine/[name]/[slug]/page": "app/preview/theme_nine/[name]/[slug]/page.js",
+  "/preview/theme_seven/[name]/[slug]/page": "app/preview/theme_seven/[name]/[slug]/page.js"
+}

@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    // output: "export",
-    images: {
-        unoptimized: false,
-    },
+  images: {
+    unoptimized: true, // optional
+    domains: ["onlineparttimejobs.in"], // ✅ allow this domain
+  },
 };
 
 export default nextConfig;

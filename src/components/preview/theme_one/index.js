@@ -1,59 +1,128 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import ThemeOne from "./ThemeOne";
-import Product from "./product";
+import React, { useEffect, useState } from "react";
+import ProfileCard from "./profile";
+import ProductServices from "./product";
 import Portfolio from "./portfolio";
 import Gallery from "./Gallery";
-import Testimonial from "./Testimonial";
+import Testimonials from "./Testimonial";
+import EnquiryForm from "./Enquiry";
+import CustomSection from "./Services";
+import { useParams } from "next/navigation";
+import { base_url } from "@/server";
+import axios from "axios";
 import Qr from "./Qr";
-import Enquiry from "./Enquiry";
-import Services from "./Services";
 
 const Themeonepage = () => {
-  const [card, setCard] = useState(null);
+  const params = useParams(); 
+  const [dataDetails, setDetailsdata] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(false);
 
-  // Example slug → "Zabi"
-  const slug = "Zabi";  
+  const cardDetailsget = async (slug) => {
+    if (!slug) return;
+    try {
+      const token = window.localStorage.getItem("token");
+      const res = await axios.get(`${base_url}card/details/${slug}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (res?.data?.data?.length > 0) {
+        setDetailsdata(res.data.data[0]);
+        setError(false);
+      } else {
+        setError(true);
+      }
+    } catch (err) {
+      console.error("API error:", err);
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchCard = async () => {
-      try {
-        const res = await axios.get(`https://onlineparttimejobs.in/api/card/details/${slug}`);
+    const slug = params?.slug || "abdul-quadir-abaris-softech"; // fallback slug
+    setLoading(true);
+    cardDetailsget(slug);
+  }, [params]);
 
-        if (res.data.success && res.data.data.length > 0) {
-          setCard(res.data.data[0]); 
-        } else {
-          setError("Card not found.");
-        }
-      } catch (err) {
-        console.error("API error:", err.response?.data || err);
-        setError(err.response?.data?.message || "API Error");
-      } finally {
-        setLoading(false);
-      }
-    };
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-white text-lg font-semibold animate-pulse">
+          Loading...
+        </p>
+      </div>
+    );
+  }
 
-    fetchCard();
-  }, [slug]);
-
-  if (loading) return <p className="text-center mt-10">Loading card...</p>;
-  if (error) return <p className="text-center mt-10 text-red-600">{error}</p>;
-  if (!card) return <p className="text-center mt-10">No card data available.</p>;
+  if (error || !dataDetails) {
+    return (
+      <div className="min-h-screen flex items-center justify-center ">
+        <p className="text-white text-lg font-semibold">No data found</p>
+      </div>
+    );
+  }
 
   return (
-    <div>
-      <ThemeOne card={card} />
-      <Product card={card} />
-<Portfolio cardId={card.id || slug} />
-      <Gallery card={card} />
-      <Testimonial card={card} />
-      <Qr card={card} />
-      <Enquiry card={card} />
-      <Services card={card} />
-    </div>
+    <div className="min-h-screen">
+  {/* Profile Card */}
+  {dataDetails ? (
+    <ProfileCard data={dataDetails} />
+  ) : (
+    <ProfileCard data={{ name: "John Doe", title: "Web Developer" }} />
+  )}
+
+  {/* Product / Services */}
+  {dataDetails?.sections?.length > 0 ? (
+    <ProductServices data={dataDetails.sections} />
+  ) : (
+    <ProductServices data={[{ title: "Service 1", desc: "Description" }]} />
+  )}
+
+  {/* Portfolio */}
+  {dataDetails?.portfolios?.length > 0 ? (
+    <Portfolio data={dataDetails.portfolios} />
+  ) : (
+    <Portfolio data={[{ project: "Sample Project", img: "/placeholder.png" }]} />
+  )}
+
+  {/* Gallery */}
+  {dataDetails?.galleries?.length > 0 ? (
+    <Gallery data={dataDetails.galleries} />
+  ) : (
+    <Gallery data={[{ img: "/placeholder.png", title: "Sample Image" }]} />
+  )}
+
+  {/* Testimonials */}
+  {dataDetails?.testimonials?.length > 0 ? (
+    <Testimonials data={dataDetails.testimonials} />
+  ) : (
+    <Testimonials data={[{ name: "Jane Doe", comment: "Great!" }]} />
+  )}
+
+  {/* Enquiry Form */}
+  {dataDetails ? (
+    <EnquiryForm data={dataDetails} />
+  ) : (
+    <EnquiryForm data={{ email: "", message: "" }} />
+  )}
+
+  {/* QR Section */}
+  {dataDetails?.customSection?.length > 0 ? (
+    <Qr data={dataDetails.fields} />
+  ) : (
+    <Qr data={[{ label: "QR Code", value: "https://example.com" }]} />
+  )}
+
+  {/* Custom Section */}
+  {dataDetails?.customSection?.length > 0 ? (
+    <CustomSection data={dataDetails.fields} />
+  ) : (
+    <CustomSection data={[{ title: "Custom Section", content: "Sample content" }]} />
+  )}
+</div>
+
   );
 };
 

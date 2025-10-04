@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import ThemeOne from "./ThemeOne";
 import Product from "./product";
 import Portfolio from "./portfolio";
 import Gallery from "./Gallery";
@@ -9,8 +8,8 @@ import Testimonial from "./Testimonial";
 import Qr from "./Qr";
 import Enquiry from "./Enquiry";
 import Services from "./Services";
-import ProfileCard from "./ThemeOne";
-
+import ProfileCard from "./profile";
+import WorkingHours from "./WorkingHours";
 function Themetwopage() {
   const [card, setCard] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -40,14 +39,14 @@ function Themetwopage() {
 
   return (
     <div>
-      <ProfileCard card={card} />
-      <Product card={card} />
+      <ProfileCard data={card} /> 
       <Portfolio card={card} />
       <Gallery card={card} />
       <Testimonial card={card} />
       <Qr card={card} />
       <Enquiry card={card} />
       <Services card={card} />
+      <WorkingHours/>
     </div>
   );
 }

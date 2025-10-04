@@ -8,7 +8,7 @@ import Image from "next/image"
 const CardDetails = ({ overlayGradient }) => {
     const params = useParams()
     const [dataDetails, setDetailsdata] = useState(null)
-    console.log(dataDetails);
+    // console.log(dataDetails);
 
 
     const cardDetailsget = async () => {

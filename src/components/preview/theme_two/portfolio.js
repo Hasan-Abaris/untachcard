@@ -1,88 +1,97 @@
-"use client";
-import React, { useState } from "react";
-import "@fortawesome/fontawesome-free/css/all.min.css";
 
-function Portfolio() {
-  const portfolios = [
-    {
-      id: 1,
-      image:
-        "https://vcard.waptechy.com/assets/uploads/product-image/1627536436-Inline-Preview-Image-1.jpg",
-      title: "Project Management Systems",
-      description: "Professional Project Management Systems and CRM applications.",
-      link: "https://codecanyon.net/user/wap_techy/portfolio",
-      target: "_blank",
-    },
-  ];
+import Image from "next/image";
+import { FaEnvelope, FaGlobe, FaMapMarkerAlt, FaPhone, FaWhatsapp } from "react-icons/fa";
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const nextSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % portfolios.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex(
-      (prevIndex) => (prevIndex - 1 + portfolios.length) % portfolios.length
-    );
-  };
-
-  return (
-    <div className="flex justify-center items-center bg-gray-100">
-      <div className="col-md-5  p-0 max-w-md w-full">
-        <div className="card p-4 m-0">
-          <div className="card-header flex justify-center items-center">
-            <h4 className="text-xl font-semibold">Portfolio</h4>
-          </div>
-
-          <div className="relative overflow-hidden">
-            <div
-              className="flex transition-transform duration-250 ease-in-out"
-              style={{ transform: `translateX(-${currentIndex * (100 / 1)}%)` }}
-            >
-              {portfolios.map((portfolio) => (
-                <div
-                  key={portfolio.id}
-                  className="flex-shrink-0 w-full md:w-[429px] mx-2"
-                >
-                  <article className="border rounded mb-3 bg-white">
-                    <div className="article-header">
-                      <div
-                        className="article-image h-48 bg-cover bg-center"
-                        style={{ backgroundImage: `url('${portfolio.image}')` }}
-                      ></div>
-                      <div className="article-title px-4 pt-2">
-                        <h2 className="text-lg font-semibold text-center">
-                          <a href={portfolio.link} target={portfolio.target}>
-                            {portfolio.title}
-                          </a>
-                        </h2>
-                      </div>
-                    </div>
-                    <div className="article-details p-4">
-                      <p className="text-gray-600 text-center">
-                        {portfolio.description}
-                      </p>
-                      <div className="article-cta mt-2 flex justify-center">
-                        <a
-                          href={portfolio.link}
-                          target={portfolio.target}
-                          className="px-4 py-2 border border-gray-600 rounded hover:bg-gray-100 text-gray-800"
-                        >
-                          View
-                        </a>
-                      </div>
-                    </div>
-                  </article>
+const ProfileCard = ({ data }) => {
+    const social = data?.social_options ? JSON.parse(data.social_options) : {};
+    return (
+        <div className="bg-black rounded-lg shadow-md text-center text-white max-w-md mx-auto relative overflow-hidden">
+            <div className="bg-pink-600 h-28 relative">
+                <div className="absolute left-1 top-1 bg-pink-700 px-3 py-1 text-xs rounded-lg">
+                    Views: {data?.views}
                 </div>
-              ))}
+                <div className="absolute inset-x-0 -bottom-12 flex justify-center">
+                    <Image
+                        src={`/assets/assets/uploads/card-profile/${data?.profile}`}
+                        alt="Profile"
+                        width={100}
+                        height={100}
+                        className="rounded-full border-4 border-white"
+                    />
+                </div>
             </div>
-         
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
-export default Portfolio;
+            <div className="pt-16 pb-6 px-6">
+                <h2 className="text-2xl font-semibold"> {data?.title} ✅</h2>
+                <p className="text-sm text-gray-300">{data?.sub_title}</p>
+                <p className="mt-2 text-gray-400">
+                    {data?.description}
+                </p>
+
+                <div className="mt-6 space-y-4 text-left">
+                    {social?.mandatory?.mobile && (
+                        <div className="flex items-center gap-3">
+                            <FaPhone className="text-2xl" />
+                            <span>{social.mandatory.mobile}</span>
+                        </div>
+                    )}
+                    {social?.mandatory?.email && (
+                        <div className="flex items-center gap-3">
+                            <FaEnvelope className="text-2xl" />
+                            <span>{social.mandatory.email}</span>
+                        </div>
+                    )}
+
+                    {social?.mandatory?.mobile && (
+                        <div className="flex items-center gap-3">
+                            <FaWhatsapp className="text-2xl" />
+                            <a
+                                href={`https://wa.me/${social.mandatory.mobile.replace(/\D/g, "")}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hover:underline"
+                            >
+                                WhatsApp Now
+                            </a>
+                        </div>
+                    )}
+                    {social?.mandatory?.address && (
+                        <div className="flex items-center gap-3">
+                            <FaMapMarkerAlt className="text-2xl" />
+                            <a
+                                href={social.mandatory.address_url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hover:underline"
+                            >
+                                {social.mandatory.address}
+                            </a>
+                        </div>
+                    )}
+                    {social?.mandatory?.website && (
+                        <div className="flex items-center gap-3">
+                            <FaGlobe className="text-2xl" />
+                            <a
+                                href={social.mandatory.website}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hover:underline"
+                            >
+                                {social.mandatory.website}
+                            </a>
+                        </div>
+                    )}
+                </div>
+
+                <div className="mt-6 flex justify-center gap-4">
+                    <button className="px-4 py-2 border rounded-md">
+                        Add to Phone Book
+                    </button>
+                    <button className="px-4 py-2 border rounded-md">Share</button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default ProfileCard;

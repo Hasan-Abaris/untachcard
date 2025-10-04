@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
@@ -52,3 +53,32 @@ function Themetwopage() {
 }
 
 export default Themetwopage;
+=======
+import React from 'react'
+import ThemeOne from './ThemeOne'
+import Product from './product'
+import Portfolio from './portfolio'
+import Gallery from './Gallery'
+import Testimonial from './Testimonial'
+import Qr from './Qr'
+import Enquiry from './Enquiry'
+import Services from './Services'
+
+function Themetwopage() {
+  return (
+    <div>
+      <ThemeOne/>
+      <Product/>
+      <Portfolio/>
+      <Gallery/>
+      <Testimonial/>
+      <Qr/>
+      <Enquiry/>
+      <Services/>
+      
+    </div>
+  )
+}
+
+export default Themetwopage
+>>>>>>> 78c62db08e1fead0489f3abbec6b6b3df8dfe993

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use client";
 import React, { useEffect, useState } from "react";
 import ProfileCard from "./ProfileCard";
@@ -103,3 +104,32 @@ const ThemeFourpage = () => {
 };
 
 export default ThemeFourpage;
+=======
+import React from 'react'
+import ThemeOne from './ThemeOne'
+import Product from './product'
+import Portfolio from './portfolio'
+import Gallery from './Gallery'
+import Testimonial from './Testimonial'
+import Qr from './Qr'
+import Enquiry from './Enquiry'
+import Services from './Services'
+
+function ThemeFourpage() {
+  return (
+    <div>
+      <ThemeOne/>
+      <Product/>
+      <Portfolio/>
+      <Gallery/>
+      <Testimonial/>
+      <Qr/>
+      <Enquiry/>
+      <Services/>
+      
+    </div>
+  )
+}
+
+export default ThemeFourpage
+>>>>>>> 78c62db08e1fead0489f3abbec6b6b3df8dfe993

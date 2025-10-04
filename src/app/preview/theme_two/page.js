@@ -7,5 +7,3 @@ const TheamTwo = () => {
         <Themetwopage />
     )
 }
-
-export default TheamTwo

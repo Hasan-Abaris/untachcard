@@ -6,33 +6,28 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/preview/theme_two/page": [
+    "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/preview/theme_two/page.css",
-      "static/chunks/app/preview/theme_two/page.js"
+      "static/css/app/page.css",
+      "static/chunks/app/page.js"
     ],
-    "/preview/theme_one/page": [
+    "/login2/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/preview/theme_one/page.css",
-      "static/chunks/app/preview/theme_one/page.js"
+      "static/chunks/app/login2/page.js"
     ],
-    "/preview/theme_four/page": [
+    "/preview/theme_three/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/preview/theme_four/page.js"
+      "static/css/app/preview/theme_three/page.css",
+      "static/chunks/app/preview/theme_three/page.js"
     ],
-    "/preview/theme_nine/[name]/[slug]/page": [
+    "/preview/theme_ten/[name]/[slug]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/preview/theme_nine/[name]/[slug]/page.css",
-      "static/chunks/app/preview/theme_nine/[name]/[slug]/page.js"
-    ],
-    "/preview/theme_seven/[name]/[slug]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/preview/theme_seven/[name]/[slug]/page.js"
+      "static/css/app/preview/theme_ten/[name]/[slug]/page.css",
+      "static/chunks/app/preview/theme_ten/[name]/[slug]/page.js"
     ],
     "/_not-found/page": [
       "static/chunks/webpack.js",

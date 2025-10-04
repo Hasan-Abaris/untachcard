@@ -20,7 +20,7 @@ function Product() {
     <div className="flex justify-center items-center  bg-gray-100">
       <div className="card p-4  max-w-md w-full">
         <div className="card-header flex justify-center items-center p-4">
-          <h4 className="text-xl font-semibold">Products and Services</h4>
+          <h4 className="text-xl font-semibold">Products and Good Services</h4>
         </div>
 
         <div className="relative">

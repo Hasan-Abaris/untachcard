@@ -1,20 +1,3 @@
-<<<<<<< HEAD
-import Image from "next/image";
-
-const Gallery = () => {
-    return (
-        <div className="bg-black text-white rounded-lg p-4 shadow-md max-w-md mx-auto">
-            <h3 className="font-semibold mb-3">Gallery</h3>
-            <div className="flex gap-4">
-                <Image src="/assets/cardPreview/g-seven1.jpg" alt="Gallery" width={200} height={120} className="rounded" />
-                <Image src="/assets/cardPreview/g-seven2.jpg" alt="Gallery" width={200} height={120} className="rounded" />
-            </div>
-        </div>
-    );
-};
-
-export default Gallery;
-=======
 "use client";
 import React, { useState } from "react";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -92,4 +75,3 @@ function Gallery() {
 }
 
 export default Gallery;
->>>>>>> 78c62db08e1fead0489f3abbec6b6b3df8dfe993

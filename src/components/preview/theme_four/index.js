@@ -11,7 +11,7 @@ import PaymentSection from "./PaymentSection";
 import { useParams } from "next/navigation";
 import { base_url } from "@/server";
 import axios from "axios";
-import Portfolio from "./Portfolio";
+import Portfolio from "./portfolio";
 
 const ThemeFourpage = () => {
   const params = useParams();
@@ -103,3 +103,4 @@ const ThemeFourpage = () => {
 };
 
 export default ThemeFourpage;
+

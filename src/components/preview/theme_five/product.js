@@ -18,15 +18,15 @@ function Product() {
 
   return (
     <div className="flex justify-center items-center  bg-gray-100">
-      <div className="card p-4  max-w-md w-full">
-        <div className="card-header flex justify-center items-center p-4">
-          <h4 className="text-xl font-semibold">Products and Good Services</h4>
+      <div className="card p-4  max-w-md w-full bg-black">
+        <div className="card-header flex justify-center items-center p-4 bg-black">
+          <h4 className="text-xl font-semibold text-white">Products and Services</h4>
         </div>
 
         <div className="relative">
           {products.map((product) => (
             <div key={product.id} className="w-full">
-              <article className="border rounded mb-3 bg-white">
+              <article className="border rounded mb-3 bg-black">
                 <div className="article-header relative">
                   <div
                     className="article-image h-48 bg-cover bg-center"
@@ -38,9 +38,9 @@ function Product() {
                     </div>
                   </div>
                 </div>
-                <div className="article-details p-4">
+                <div className="article-details p-4 bg-black">
                   <div className="article-title">
-                    <h2 className="text-lg font-semibold text-center">
+                    <h2 className="text-lg font-semibold text-center text-white">
                       <a href={product.link} target={product.target}>
                         {product.title}
                       </a>

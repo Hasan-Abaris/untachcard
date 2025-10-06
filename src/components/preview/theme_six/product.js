@@ -20,27 +20,27 @@ function Product() {
     <div className="flex justify-center items-center  bg-gray-100">
       <div className="card p-4  max-w-md w-full">
         <div className="card-header flex justify-center items-center p-4">
-          <h4 className="text-xl font-semibold">Products and Good Services</h4>
+          <h4 className="text-xl font-semibold text-black">Products and Services</h4>
         </div>
 
         <div className="relative">
           {products.map((product) => (
             <div key={product.id} className="w-full">
-              <article className="border rounded mb-3 bg-white">
+              <article className="border rounded mb-3">
                 <div className="article-header relative">
                   <div
                     className="article-image h-48 bg-cover bg-center"
                     style={{ backgroundImage: `url('${product.image}')` }}
                   ></div>
                   <div className="article-badge absolute top-2 right-2">
-                    <div className="article-badge-item bg-gray-800 text-white px-2 py-1 rounded">
+                    <div className="article-badge-item bg-gray-800 text-black px-2 py-1 rounded">
                       Price: {product.price || "N/A"}
                     </div>
                   </div>
                 </div>
                 <div className="article-details p-4">
                   <div className="article-title">
-                    <h2 className="text-lg font-semibold text-center">
+                    <h2 className="text-lg font-semibold text-center text-black">
                       <a href={product.link} target={product.target}>
                         {product.title}
                       </a>

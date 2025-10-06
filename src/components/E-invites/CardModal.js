@@ -54,7 +54,7 @@ const CardModal = ({ card, onClose }) => {
           />
         </div>
 
-        <div style={{ marginTop: "10px" }}>
+        <div style={{ marginTop: "20px" }}>
           <label style={{ fontWeight: "bold" }}>Description:</label>
           <textarea 
             value={desc} 

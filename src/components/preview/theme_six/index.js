@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import ProfileCard from "./profile";
+import ProfileCard from "./Profile";
 import ProductServices from "./product";
 import Portfolio from "./portfolio";
 import Gallery from "./Gallery";
@@ -12,7 +12,7 @@ import { base_url } from "@/server";
 import axios from "axios";
 import Qr from "./Qr";
 
-const Themeonepage = () => {
+const ThemeSixpage = () => {
   const params = useParams(); 
   const [dataDetails, setDetailsdata] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -48,7 +48,7 @@ const Themeonepage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-400">
         <p className="text-white text-lg font-semibold animate-pulse">
           Loading...
         </p>
@@ -58,14 +58,14 @@ const Themeonepage = () => {
 
   if (error || !dataDetails) {
     return (
-      <div className="min-h-screen flex items-center justify-center ">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-400">
         <p className="text-white text-lg font-semibold">No data found</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-400 p-6 space-y-6">
   {/* Profile Card */}
   {dataDetails ? (
     <ProfileCard data={dataDetails} />
@@ -126,4 +126,4 @@ const Themeonepage = () => {
   );
 };
 
-export default Themeonepage;
+export default ThemeSixpage;

@@ -29,10 +29,10 @@ function Portfolio() {
 
   return (
     <div className="flex justify-center items-center bg-gray-100">
-      <div className="col-md-5  p-0 max-w-md w-full">
+      <div className="col-md-5  p-0 max-w-md w-full bg-black">
         <div className="card p-4 m-0">
           <div className="card-header flex justify-center items-center">
-            <h4 className="text-xl font-semibold">Portfolio</h4>
+            <h4 className="text-xl font-semibold text-white">Portfolio</h4>
           </div>
 
           <div className="relative overflow-hidden">
@@ -51,23 +51,23 @@ function Portfolio() {
                         className="article-image h-48 bg-cover bg-center"
                         style={{ backgroundImage: `url('${portfolio.image}')` }}
                       ></div>
-                      <div className="article-title px-4 pt-2">
-                        <h2 className="text-lg font-semibold text-center">
+                      <div className="article-title px-4 pt-2 bg-black">
+                        <h2 className="text-lg font-semibold text-center text-white">
                           <a href={portfolio.link} target={portfolio.target}>
                             {portfolio.title}
                           </a>
                         </h2>
                       </div>
                     </div>
-                    <div className="article-details p-4">
-                      <p className="text-gray-600 text-center">
+                    <div className="article-details p-4 bg-black">
+                      <p className="text-white ">
                         {portfolio.description}
                       </p>
                       <div className="article-cta mt-2 flex justify-center">
                         <a
                           href={portfolio.link}
                           target={portfolio.target}
-                          className="px-4 py-2 border border-gray-600 rounded hover:bg-gray-100 text-gray-800"
+                          className="px-4 py-2 border border-blue-600 rounded hover:bg-gray-100 text-white"
                         >
                           View
                         </a>
@@ -86,4 +86,3 @@ function Portfolio() {
 }
 
 export default Portfolio;
-

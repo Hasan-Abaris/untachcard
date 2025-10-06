@@ -1,6 +1,0 @@
-{
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/page": "app/page.js",
-  "/preview/theme_ten/[name]/[slug]/page": "app/preview/theme_ten/[name]/[slug]/page.js",
-  "/login2/page": "app/login2/page.js"
-}

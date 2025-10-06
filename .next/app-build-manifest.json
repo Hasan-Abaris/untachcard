@@ -12,27 +12,16 @@
       "static/css/app/page.css",
       "static/chunks/app/page.js"
     ],
-    "/login2/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/login2/page.js"
-    ],
-    "/preview/theme_three/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/preview/theme_three/page.css",
-      "static/chunks/app/preview/theme_three/page.js"
-    ],
     "/preview/theme_ten/[name]/[slug]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/preview/theme_ten/[name]/[slug]/page.css",
       "static/chunks/app/preview/theme_ten/[name]/[slug]/page.js"
     ],
-    "/_not-found/page": [
+    "/login2/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+      "static/chunks/app/login2/page.js"
     ]
   }
 }

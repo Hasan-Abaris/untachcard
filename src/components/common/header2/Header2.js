@@ -162,9 +162,19 @@ export default function Header2() {
               </a>
             ))}
 
+            {isLogin && (<div className="relative group">
+              <button className="uppercase text-sm font-semibold hover:text-red-500 transition-all duration-300"> Dashboard <span className="absolute left-0 right-0 -top-1 mx-auto w-0 h-[2px] bg-red-500 transition-all duration-300 group-hover:w-full"></span> </button> <div className="w-70 absolute hidden group-hover:block bg-white text-black rounded shadow-md mt-2 top-4"> {dashboardLinks.map((item, i) => (<Link key={i} href={item.href} className="block px-4 py-2 hover:bg-red-100 hover:text-red-600" > {item.name} </Link>))} </div> </div>)}
+            {isLogin && (<div className="relative group">
+              <button className="uppercase text-sm font-semibold hover:text-red-500 transition-all duration-300">
+                Profile
+                <span className="absolute left-0 right-0 -top-1 mx-auto w-0 h-[2px] bg-red-500 transition-all duration-300 group-hover:w-full">
+                </span>
+              </button>
+              <div className="absolute hidden group-hover:block bg-white text-black rounded shadow-md mt-2 top-4 w-70"> {profileLinks.map((item, i) => (<Link key={i} href={item.href} className="block px-4 py-2 hover:bg-red-100 hover:text-red-600" > {item.name} </Link>))} </div> </div>)}
+
             {isLogin ? (
               <button
-                onClick={logout}
+                onClick={handleLogout}
                 className="w-full bg-red-600 px-4 py-2 rounded text-white"
               >
                 Log Out

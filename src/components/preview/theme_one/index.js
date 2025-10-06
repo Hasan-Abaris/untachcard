@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import ProfileCard from "./profile";
 import ProductServices from "./product";
@@ -7,43 +8,50 @@ import Gallery from "./Gallery";
 import Testimonials from "./Testimonial";
 import EnquiryForm from "./Enquiry";
 import CustomSection from "./Services";
+import Qr from "./Qr";
 import { useParams } from "next/navigation";
 import { base_url } from "@/server";
 import axios from "axios";
-import Qr from "./Qr";
 
 const Themeonepage = () => {
-  const params = useParams(); 
+  const params = useParams();
   const [dataDetails, setDetailsdata] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
 
-  const cardDetailsget = async (slug) => {
-    if (!slug) return;
+  // ✅ Fetch card by slug or fallback to demo
+  const fetchCardData = async (slug) => {
     try {
       const token = window.localStorage.getItem("token");
+
+      // Try fetching card by slug
       const res = await axios.get(`${base_url}card/details/${slug}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
 
       if (res?.data?.data?.length > 0) {
         setDetailsdata(res.data.data[0]);
-        setError(false);
       } else {
-        setError(true);
+        // fallback to demo API
+        const demoRes = await axios.get(`${base_url}card/demo`);
+        setDetailsdata(demoRes.data.data[0]);
       }
     } catch (err) {
-      console.error("API error:", err);
-      setError(true);
+      console.error("Primary API failed, using demo:", err);
+      try {
+        const demoRes = await axios.get(`${base_url}card/demo`);
+        setDetailsdata(demoRes.data.data[0]);
+      } catch (demoErr) {
+        console.error("Demo API also failed:", demoErr);
+        setDetailsdata(null);
+      }
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    const slug = params?.slug || "abdul-quadir-abaris-softech"; // fallback slug
-    setLoading(true);
-    cardDetailsget(slug);
+    const slug = params?.slug || null;
+    fetchCardData(slug);
   }, [params]);
 
   if (loading) {
@@ -56,9 +64,9 @@ const Themeonepage = () => {
     );
   }
 
-  if (error || !dataDetails) {
+  if (!dataDetails) {
     return (
-      <div className="min-h-screen flex items-center justify-center ">
+      <div className="min-h-screen flex items-center justify-center">
         <p className="text-white text-lg font-semibold">No data found</p>
       </div>
     );
@@ -66,63 +74,30 @@ const Themeonepage = () => {
 
   return (
     <div className="min-h-screen">
-  {/* Profile Card */}
-  {dataDetails ? (
-    <ProfileCard data={dataDetails} />
-  ) : (
-    <ProfileCard data={{ name: "John Doe", title: "Web Developer" }} />
-  )}
+      {/* Pass already fetched data to ProfileCard */}
+      <ProfileCard data={dataDetails} />
 
-  {/* Product / Services */}
-  {dataDetails?.sections?.length > 0 ? (
-    <ProductServices data={dataDetails.sections} />
-  ) : (
-    <ProductServices data={[{ title: "Service 1", desc: "Description" }]} />
-  )}
+      {/* Product / Services */}
+      <ProductServices data={dataDetails?.sections || []} />
 
-  {/* Portfolio */}
-  {dataDetails?.portfolios?.length > 0 ? (
-    <Portfolio data={dataDetails.portfolios} />
-  ) : (
-    <Portfolio data={[{ project: "Sample Project", img: "/placeholder.png" }]} />
-  )}
+      {/* Portfolio */}
+      <Portfolio data={dataDetails?.portfolios || []} />
 
-  {/* Gallery */}
-  {dataDetails?.galleries?.length > 0 ? (
-    <Gallery data={dataDetails.galleries} />
-  ) : (
-    <Gallery data={[{ img: "/placeholder.png", title: "Sample Image" }]} />
-  )}
+      {/* Gallery */}
+      <Gallery data={dataDetails?.galleries || []} />
 
-  {/* Testimonials */}
-  {dataDetails?.testimonials?.length > 0 ? (
-    <Testimonials data={dataDetails.testimonials} />
-  ) : (
-    <Testimonials data={[{ name: "Jane Doe", comment: "Great!" }]} />
-  )}
+      {/* Testimonials */}
+      <Testimonials data={dataDetails?.testimonials || []} />
 
-  {/* Enquiry Form */}
-  {dataDetails ? (
-    <EnquiryForm data={dataDetails} />
-  ) : (
-    <EnquiryForm data={{ email: "", message: "" }} />
-  )}
+      {/* Enquiry Form */}
+      <EnquiryForm data={dataDetails} />
 
-  {/* QR Section */}
-  {dataDetails?.customSection?.length > 0 ? (
-    <Qr data={dataDetails.fields} />
-  ) : (
-    <Qr data={[{ label: "QR Code", value: "https://example.com" }]} />
-  )}
+      {/* QR Section */}
+      <Qr data={dataDetails?.fields || []} />
 
-  {/* Custom Section */}
-  {dataDetails?.customSection?.length > 0 ? (
-    <CustomSection data={dataDetails.fields} />
-  ) : (
-    <CustomSection data={[{ title: "Custom Section", content: "Sample content" }]} />
-  )}
-</div>
-
+      {/* Custom Section */}
+      <CustomSection data={dataDetails?.fields || []} />
+    </div>
   );
 };
 

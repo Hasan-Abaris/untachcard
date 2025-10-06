@@ -1,7 +1,8 @@
 "use client";
+
 import React, { useState } from "react";
 import Image from "next/image";
-import { FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
+import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaWhatsapp, FaFacebook } from "react-icons/fa";
 
 const ProfileCard = ({ data }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,33 +10,78 @@ const ProfileCard = ({ data }) => {
 
   if (!data) return <p className="text-center mt-10">Loading card...</p>;
 
-  // safe parse
-  let socialOptions = { mandatory: {}, optional: { icon: [], text: [], url: [] } };
+  // Parse social_options safely
+  let socialOptions = { mandatory: {} };
   try {
-    if (data.social_options) socialOptions = JSON.parse(data.social_options);
+    if (data.social_options && data.social_options.trim() !== "") {
+      socialOptions = JSON.parse(data.social_options);
+    }
   } catch (e) {
     console.error("Invalid social_options JSON", e);
   }
 
-  // Use the exact local path you provided; fallback to a default in /public
+  // Merge API fields into socialOptions.mandatory if available
+  if (data.fields?.length) {
+    data.fields.forEach((field) => {
+      switch (field.type) {
+        case "mobile":
+          socialOptions.mandatory.mobile = field.title;
+          break;
+        case "email":
+          socialOptions.mandatory.email = field.title;
+          break;
+        case "address":
+          socialOptions.mandatory.address = field.title;
+          socialOptions.mandatory.address_url = field.url;
+          break;
+        case "whatsapp":
+          socialOptions.mandatory.whatsapp = field.title;
+          break;
+        case "facebook":
+          socialOptions.mandatory.facebook = field.url || field.title;
+          break;
+        default:
+          break;
+      }
+    });
+  }
+
+  // Fallback if mandatory info missing
+  socialOptions.mandatory = {
+    mobile: socialOptions.mandatory.mobile || "+91 9876543210",
+    email: socialOptions.mandatory.email || "demo@gmail.com",
+    address: socialOptions.mandatory.address || "Demo City, India",
+    address_url: socialOptions.mandatory.address_url || "#",
+    facebook: socialOptions.mandatory.facebook || "https://facebook.com/demo",
+    whatsapp: socialOptions.mandatory.whatsapp || null,
+  };
+
   const profileSrc = data?.profile
     ? `/assets/assets/uploads/card-profile/${data.profile}`
     : "/default-profile.png";
 
-  // banner (keeps your existing remote banner, fallback to local)
   const bannerUrl = data?.banner
     ? `https://onlineparttimejobs.in/uploads/${data.banner}`
     : "/default-banner.jpg";
 
+  // Links
+  const whatsappLink = socialOptions.mandatory.whatsapp
+    ? `https://wa.me/${socialOptions.mandatory.whatsapp.replace(/\D/g, "")}`
+    : null;
+
+  const facebookLink = socialOptions.mandatory.facebook.startsWith("http")
+    ? socialOptions.mandatory.facebook
+    : `https://${socialOptions.mandatory.facebook}`;
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-lg overflow-hidden relative">
+      <div className="w-full max-w-md bg-white rounded-lg shadow-lg overflow-hidden relative mt-20">
         {/* Header / Banner */}
         <div
           className="px-4 pt-8 pb-12 bg-gray-800 bg-cover bg-center relative"
           style={{ backgroundImage: `url(${bannerUrl})` }}
         >
-          {/* Profile image centered and overlapping the banner (as you requested) */}
+          {/* Profile image */}
           <div className="absolute inset-x-0 -bottom-12 flex justify-center">
             <Image
               src={profileSrc}
@@ -43,18 +89,16 @@ const ProfileCard = ({ data }) => {
               width={100}
               height={100}
               className="rounded-full border-4 border-white"
-              // If you're doing a static export (next export) you may need unoptimized
-              // unoptimized
             />
           </div>
 
-          {/* Views + Language (placed in the top-right) */}
-          <div className="absolute top-4 right-4 flex space-x-2 z-10">
+          {/* Views & Language */}
+          <div className="absolute top-4 right-4 flex space-x-2 z-10 mb-20">
             <button
               className="px-3 py-1 text-sm border border-gray-600 rounded flex items-center bg-white/20 text-white backdrop-blur-md"
               disabled
             >
-              👁 Views: {data.views}
+              👁 Views: {data.views || 0}
             </button>
 
             <div className="relative">
@@ -83,7 +127,7 @@ const ProfileCard = ({ data }) => {
           </div>
         </div>
 
-        {/* Because the profile image overlaps the banner, add some top padding here */}
+        {/* Profile Info */}
         <div className="pt-12 pb-6 text-center">
           <h4 className="text-xl font-bold">{data.title}</h4>
           <p className="text-sm text-gray-500">{data.sub_title}</p>
@@ -121,7 +165,7 @@ const ProfileCard = ({ data }) => {
                 </a>
               </li>
             )}
-            {socialOptions.mandatory.address_url && (
+            {socialOptions.mandatory.address && (
               <li>
                 <a
                   href={socialOptions.mandatory.address_url}
@@ -133,6 +177,36 @@ const ProfileCard = ({ data }) => {
                     <FaMapMarkerAlt className="text-gray-600" />
                   </span>
                   <h6 className="text-gray-700">{socialOptions.mandatory.address}</h6>
+                </a>
+              </li>
+            )}
+            {whatsappLink && (
+              <li>
+                <a
+                  href={whatsappLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center p-2 rounded hover:bg-gray-50"
+                >
+                  <span className="w-10 h-10 flex items-center justify-center rounded-full bg-green-100 mr-3">
+                    <FaWhatsapp className="text-green-500" />
+                  </span>
+                  <h6 className="text-gray-700">Message on WhatsApp</h6>
+                </a>
+              </li>
+            )}
+            {facebookLink && (
+              <li>
+                <a
+                  href={facebookLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center p-2 rounded hover:bg-gray-50"
+                >
+                  <span className="w-10 h-10 flex items-center justify-center rounded-full bg-blue-100 mr-3">
+                    <FaFacebook className="text-blue-600" />
+                  </span>
+                  <h6 className="text-gray-700">Facebook</h6>
                 </a>
               </li>
             )}

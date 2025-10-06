@@ -26,7 +26,7 @@ function Gallery() {
 
   return (
     <div className="flex justify-center items-center bg-gray-100">
-      <div className="card p-4 max-w-md w-full">
+      <div className="card p-4 max-w-md w-full bg-black text-white">
         <div className="card-header flex justify-center items-center p-4">
           <h4 className="text-xl font-semibold">Gallery</h4>
         </div>

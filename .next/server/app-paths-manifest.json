@@ -1,7 +1,7 @@
 {
+  "/_not-found/page": "app/_not-found/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/preview/theme_one/[slug]/page": "app/preview/theme_one/[slug]/page.js",
   "/page": "app/page.js",
-  "/preview/theme_two/[slug]/page": "app/preview/theme_two/[slug]/page.js",
-  "/preview/theme_three/[slug]/page": "app/preview/theme_three/[slug]/page.js"
+  "/preview/theme_one/[slug]/page": "app/preview/theme_one/[slug]/page.js",
+  "/preview/theme_five/page": "app/preview/theme_five/page.js"
 }

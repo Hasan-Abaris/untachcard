@@ -12,11 +12,16 @@ import LatestBlog from "./latestBlog/LatestBlog";
 import { allCategories } from "../../data/weddingCategoriesData";
 import Banner2 from "./banner2/Banner2";
 import About from "./about/About";
-import BenefitsSection from "./benefitsSection/BenefitsSection";
-import CardFeatures from "./cardFeatures/CardFeatures";
+// import BenefitsSection from "./products/BenefitsSection";
+
 import OurCards from "./ourCard/OurCard";
 import BrandBar from "./brandBar/BrandBar";
 import ContactForm from "./contactForm/ContactForm";
+
+import ClientsSection from "./clients/Clients";
+import ProductsSection from "./benefits/Products";
+
+
 
 
 const HomeMain = () => {
@@ -24,8 +29,8 @@ const HomeMain = () => {
     <>
       <Banner2 />
       <About />
-      <BenefitsSection />
-      <CardFeatures />
+      <ProductsSection />
+      <ClientsSection />
       <OurCards />
       <BrandBar />
       <ContactForm />

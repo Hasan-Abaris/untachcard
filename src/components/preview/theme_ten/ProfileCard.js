@@ -1,9 +1,18 @@
 import Image from "next/image";
 import React from "react";
-import { FaEye, FaUserPlus, FaShareAlt, FaPhone, FaEnvelope, FaWhatsapp, FaMapMarkerAlt, FaGlobe } from "react-icons/fa";
+import { FaEye, FaUserPlus, FaShareAlt, FaPhone, FaEnvelope, FaWhatsapp, FaMapMarkerAlt, FaGlobe, FaInstagram, FaFacebookF } from "react-icons/fa";
 
 const ProfileCard = ({ data }) => {
     const social = data?.social_options ? JSON.parse(data.social_options) : {};
+    const getField = (type) =>
+        data?.fields.find((item) => item.type.toLowerCase() === type.toLowerCase());
+
+    const mobile = getField("mobile");
+    const email = getField("email");
+    const address = getField("address");
+    const website = getField("website");
+    const facebook = getField("facebook");
+    const instagram = getField("instagram");
     return (
         <div className="bg-pink-200 rounded-xl shadow-lg p-6 text-center relative max-w-lg mx-auto" style={{
             backgroundImage: "url('/assets/banner/theme-ten.jpg')",
@@ -17,14 +26,20 @@ const ProfileCard = ({ data }) => {
             </div>
 
             {/* Profile Image */}
-            <Image
-                src={`/assets/assets/uploads/card-profile/${data?.profile}`}
-                alt="profile"
-                className="w-28 h-28 rounded-full mx-auto border-4 border-white shadow-md"
-                width={100}
-                height={100}
-            />
-
+            {data?.image_source === 'local' ?
+                <Image
+                    src={`/assets/assets/uploads/card-profile/${data?.profile}`}
+                    alt="Profile"
+                    width={100}
+                    height={100}
+                    className="w-28 h-28 rounded-full mx-auto border-4 border-white shadow-md"
+                /> : <Image
+                    src={data?.profile}
+                    alt="Profile"
+                    width={100}
+                    height={100}
+                    className="w-28 h-28 rounded-full mx-auto border-4 border-white shadow-md"
+                />}
 
             {/* Name */}
             <h2 className="mt-3 text-xl font-bold flex items-center justify-center gap-1">
@@ -37,24 +52,32 @@ const ProfileCard = ({ data }) => {
 
             {/* Contact Info */}
             <div className="mt-6 space-y-2 text-left">
-                {social?.mandatory?.mobile && (
+                {mobile && (
                     <div className="flex items-center gap-3">
-                        <FaPhone className="text-2xl" />
-                        <span>{social.mandatory.mobile}</span>
-                    </div>
-                )}
-                {social?.mandatory?.email && (
-                    <div className="flex items-center gap-3">
-                        <FaEnvelope className="text-2xl" />
-                        <span>{social.mandatory.email}</span>
+                        <FaPhone className="text-2xl text-yellow-400" />
+                        <span>{mobile.title}</span>
                     </div>
                 )}
 
-                {social?.mandatory?.mobile && (
+                {email && (
                     <div className="flex items-center gap-3">
-                        <FaWhatsapp className="text-2xl" />
+                        <FaEnvelope className="text-2xl text-yellow-400" />
                         <a
-                            href={`https://wa.me/${social.mandatory.mobile.replace(/\D/g, "")}`}
+                            href={`mailto:${email.url}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:underline"
+                        >
+                            {email.title}
+                        </a>
+                    </div>
+                )}
+
+                {mobile && (
+                    <div className="flex items-center gap-3">
+                        <FaWhatsapp className="text-2xl text-green-500" />
+                        <a
+                            href={`https://wa.me/${mobile.url.replace(/\D/g, "")}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="hover:underline"
@@ -63,29 +86,56 @@ const ProfileCard = ({ data }) => {
                         </a>
                     </div>
                 )}
-                {social?.mandatory?.address && (
+                {address && (
                     <div className="flex items-center gap-3">
-                        <FaMapMarkerAlt className="text-2xl" />
+                        <FaMapMarkerAlt className="text-2xl text-yellow-400" />
                         <a
-                            href={social.mandatory.address_url}
+                            href={address.url}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="hover:underline"
                         >
-                            {social.mandatory.address}
+                            {address.title}
                         </a>
                     </div>
                 )}
-                {social?.mandatory?.website && (
+                {website && (
                     <div className="flex items-center gap-3">
-                        <FaGlobe className="text-2xl" />
+                        <FaGlobe className="text-2xl text-yellow-400" />
                         <a
-                            href={social.mandatory.website}
+                            href={website.url}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="hover:underline"
                         >
-                            {social.mandatory.website}
+                            {website.url}
+                        </a>
+                    </div>
+                )}
+                {facebook && (
+                    <div className="flex items-center gap-3">
+                        <FaFacebookF className="text-2xl text-blue-500" />
+                        <a
+                            href={facebook.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:underline"
+                        >
+                            Facebook
+                        </a>
+                    </div>
+                )}
+
+                {instagram && (
+                    <div className="flex items-center gap-3">
+                        <FaInstagram className="text-2xl text-pink-500" />
+                        <a
+                            href={instagram.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:underline"
+                        >
+                            Instagram
                         </a>
                     </div>
                 )}

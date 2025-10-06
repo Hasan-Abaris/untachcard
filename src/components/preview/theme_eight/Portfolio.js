@@ -33,14 +33,14 @@ const Portfolio = ({ data }) => {
                     <SwiperSlide key={index}>
                         <div className="rounded-lg overflow-hidden bg-gray-900 p-4">
                             <img
-                                src={`/assets/assets/uploads/card-banner/${item?.image}`}
+                                src={item?.image}
                                 alt="portfolio"
                                 className="rounded-lg w-full h-48 object-cover"
                             />
                             <p className="mt-4 text-sm text-gray-300">
                                 {item?.description}
                             </p>
-                            <button type="button" className="mt-3 px-4 py-2 border rounded hover:bg-gray-700" onClick={() => linkSend(item?.url)}>
+                            <button type="button" className="mt-3 px-4 py-2 border rounded hover:bg-gray-700" onClick={() => linkSend(`${item?.url}`)}>
                                 View
                             </button>
                         </div>

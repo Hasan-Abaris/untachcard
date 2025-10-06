@@ -7,6 +7,7 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import Link from "next/link";
 
 export default function Banner2() {
     return (
@@ -16,7 +17,7 @@ export default function Banner2() {
                 navigation
                 pagination={{ clickable: true }}
                 autoplay={{ delay: 4000 }}
-                loop
+                // loop
                 className="h-full"
             >
                 {/* Slide 1 */}
@@ -31,12 +32,12 @@ export default function Banner2() {
                             <h1 className="text-4xl md:text-6xl font-bold">
                                 ITAP SMART BUSINESS CARDS
                             </h1>
-                            <p className="mt-4 text-lg">
+                            <p className="mt-4 text-lg mb-6">
                                 Customize stylish digital business cards
                             </p>
-                            <button className="mt-6 bg-transparent border border-white-600 text-white-600 px-6 py-3 rounded shadow hover:bg-red-600 hover:text-white transition-all duration-300">
+                            <Link href="#contact" className="mt-6 bg-transparent border border-white-600 text-white-600 px-6 py-3 rounded shadow hover:bg-red-600 hover:text-white transition-all duration-300  mt-4">
                                 Contact Us
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 </SwiperSlide>
@@ -54,9 +55,9 @@ export default function Banner2() {
                                 DIGITAL SOLUTIONS
                             </h1>
                             <p className="mt-4 text-lg">Grow your business with us</p>
-                            <button className="mt-6 bg-transparent border border-white-600 text-white-600 px-6 py-3 rounded shadow hover:bg-red-600 hover:text-white transition-all duration-300">
+                            <Link href="#contact" className="mt-6 bg-transparent border border-white-600 text-white-600 px-6 py-3 rounded shadow hover:bg-red-600 hover:text-white transition-all duration-300  mt-4">
                                 Contact Us
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 </SwiperSlide>

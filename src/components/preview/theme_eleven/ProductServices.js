@@ -1,4 +1,12 @@
+"use client";
+import Image from "next/image";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination"
 export const ProductServices = ({ data }) => {
+    if (!data || data.length === 0) return null;
     return (
         <div className="bg-white/30 backdrop-blur-lg rounded-2xl shadow-lg p-6 max-w-md mx-auto" style={{
             backgroundImage: "url('/assets/banner/theme-eleven.jpg')",
@@ -9,24 +17,57 @@ export const ProductServices = ({ data }) => {
                 Products and Services
             </h2>
 
-            <div
-                // key={index}
-                className="mb-4 border rounded-lg overflow-hidden shadow"
+            <Swiper
+                modules={[Navigation, Pagination]}
+                navigation
+                pagination={{ clickable: true }}
+                spaceBetween={20}
+                slidesPerView={1}
+                breakpoints={{
+                    640: { slidesPerView: 1 },
+                    1024: { slidesPerView: 1 },
+                }}
             >
-                <img
-                    src={"/product.jpg"}
-                    alt={''}
-                    className="w-full h-32 object-cover"
-                />
-                <div className="p-4">
-                    <h3 className="font-semibold"></h3>
-                    <p className="text-sm text-gray-700"></p>
-                    <p className="mt-2 font-bold text-yellow-600">
-                        Price: {"19-29 USD"}
-                    </p>
-                    <button className="mt-3 text-blue-600 text-sm">Enquiry →</button>
-                </div>
-            </div>
+                {data?.map((item, index) => (
+                    <SwiperSlide key={index}>
+                        <div className="bg-transparent rounded-xl p-4 shadow-md">
+                            <div className="relative">
+                                <Image
+                                    src={item?.image}
+                                    alt={item.title || "Product"}
+                                    width={600}
+                                    height={300}
+                                    className="rounded-lg object-cover"
+                                />
+                                {item.tag && (
+                                    <span className="absolute top-2 right-2 bg-white text-black px-2 py-1 rounded text-xs">
+                                        {item.tag}
+                                    </span>
+                                )}
+                                {item.price && (
+                                    <span className="absolute bottom-2 left-2 bg-black/70 px-2 py-1 rounded text-xs text-white">
+                                        Price: {item.price}
+                                    </span>
+                                )}
+                            </div>
+                            <h4 className="mt-4 text-lg font-semibold">{item.title}</h4>
+                            <p className="text-sm mt-2 line-clamp-3">
+                                {item.description}
+                            </p>
+                            <button
+                                className="mt-3 px-4 py-2 border border-white rounded-md hover:bg-white hover:text-black transition"
+                                onClick={() => {
+                                    if (!item?.url) return;
+                                    const finalUrl = item.url.startsWith("http") ? item.url : `https://${item.url}`;
+                                    window.open(finalUrl, "_blank", "noopener,noreferrer");
+                                }}
+                            >
+                                Enquiry →
+                            </button>
+                        </div>
+                    </SwiperSlide>
+                ))}
+            </Swiper>
 
         </div>
     );

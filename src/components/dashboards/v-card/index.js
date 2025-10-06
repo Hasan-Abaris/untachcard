@@ -361,12 +361,13 @@ const VcardsPage = () => {
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-2 text-indigo-500">
                     <a
-                      href={`http://localhost:3319/cardDetails/${card?.slug}`}
+                      // http://localhost:3319
+                      href={`https://i-tap-cards-9vx4.vercel.app/preview/theme_eight/theme_eight/${card?.slug}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hover:underline"
                     >
-                      {`https://itapitsolutions.com/cardDetails/${card?.slug}`}
+                      {`https://i-tap-cards-9vx4.vercel.app/cardDetails/${card?.slug}`}
                     </a>
                     <FiCopy className="cursor-pointer hover:text-indigo-700" />
                   </div>

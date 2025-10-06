@@ -6,18 +6,18 @@ import Card from "../../components/all-templates/Card";
 
 export default function AllTemplatespage() {
   const themes = [
-    { id: 1, name: "Theme One", image: "https://vcard.waptechy.com/assets/uploads/themes/one.png", preview: "/preview/theme_one" },
-    { id: 2, name: "Theme Two", image: "https://vcard.waptechy.com/assets/uploads/themes/two.png", preview: "/preview/theme_two" },
-    { id: 3, name: "Theme Three", image: "https://vcard.waptechy.com/assets/uploads/themes/three.png", preview: "/preview/theme_three" },
-    { id: 4, name: "Theme Four", image: "https://vcard.waptechy.com/assets/uploads/themes/four.png", preview: "/preview/theme_four" },
-    { id: 5, name: "Theme Five", image: "https://vcard.waptechy.com/assets/uploads/themes/five.png", preview: "/preview/theme_five" },
-    { id: 6, name: "Theme Six", image: "https://vcard.waptechy.com/assets/uploads/themes/six.png", preview: "/preview/theme_six" },
-    { id: 7, name: "Theme Seven", image: "https://vcard.waptechy.com/assets/uploads/themes/seven.png", preview: "/preview/theme_seven/theme_seven/abdul-quadir-abaris-softech" },
-    { id: 8, name: "Theme Eight", image: "https://vcard.waptechy.com/assets/uploads/themes/eight.png", preview: "/preview/theme_eight/theme_eight/Zabi" },
-    { id: 9, name: "Theme Nine", image: "https://vcard.waptechy.com/assets/uploads/themes/nine.png", preview: "/preview/theme_nine/theme_nine/Zabi" },
-    { id: 10, name: "Theme Ten", image: "https://vcard.waptechy.com/assets/uploads/themes/ten.png", preview: "/preview/theme_ten/theme_ten/Zabi" },
-    { id: 11, name: "Theme Eleven", image: "https://vcard.waptechy.com/assets/uploads/themes/eleven.png", preview: "/preview/theme_eleven/theme_eleven/Zabi" },
-    { id: 12, name: "Theme Twelve", image: "https://vcard.waptechy.com/assets/uploads/themes/twelve.png", preview: "/preview/theme_twelve/theme_twelve/Zabi" },
+    { id: 1, name: 'Theme One', image: '/assets/theme/theme1.png', preview: '/preview/theme_one' },
+    { id: 2, name: 'Theme Two', image: '/assets/theme/theme2.png', preview: '/preview/theme_two' },
+    { id: 3, name: 'Theme Three', image: '/assets/theme/theme3.png', preview: '/preview/theme_three' },
+    { id: 4, name: 'Theme Four', image: '/assets/theme/theme4.png', preview: '/preview/theme_four' },
+    { id: 5, name: 'Theme Five', image: '/assets/theme/theme5.png', preview: 'https://vcard.waptechy.com/amazingllll/theme_five' },
+    { id: 6, name: 'Theme Six', image: '/assets/theme/theme6.png', preview: 'https://vcard.waptechy.com/amazingllll/theme_six' },
+    { id: 7, name: 'Theme Seven', image: '/assets/theme/theme7.png', preview: '/preview/theme_seven/theme_seven/demo' },
+    { id: 8, name: 'Theme Eight', image: '/assets/theme/theme8.png', preview: '/preview/theme_eight/theme_eight/demo' },
+    { id: 9, name: 'Theme Nine', image: '/assets/theme/theme9.png', preview: '/preview/theme_nine/theme_nine/demo' },
+    { id: 10, name: 'Theme Ten', image: '/assets/theme/theme10.png', preview: '/preview/theme_ten/theme_ten/demo' },
+    { id: 11, name: 'Theme Eleven', image: '/assets/theme/theme11.png', preview: '/preview/theme_eleven/theme_eleven/demo' },
+    { id: 12, name: 'Theme Twelve', image: '/assets/theme/theme12.png', preview: '/preview/theme_twelve/theme_twelve/demo' },
   ];
 
   return (

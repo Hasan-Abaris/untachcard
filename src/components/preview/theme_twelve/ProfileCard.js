@@ -1,10 +1,19 @@
 "use client";
 import React from "react";
 import { Phone, Mail, MapPin } from "lucide-react";
-import { FaEnvelope, FaGlobe, FaMapMarkerAlt, FaPhone, FaWhatsapp } from "react-icons/fa";
+import { FaEnvelope, FaFacebookF, FaGlobe, FaInstagram, FaMapMarkerAlt, FaPhone, FaWhatsapp } from "react-icons/fa";
 
 const ProfileCard = ({ data }) => {
     const social = data?.social_options ? JSON.parse(data.social_options) : {};
+    const getField = (type) =>
+        data?.fields.find((item) => item.type.toLowerCase() === type.toLowerCase());
+
+    const mobile = getField("mobile");
+    const email = getField("email");
+    const address = getField("address");
+    const website = getField("website");
+    const facebook = getField("facebook");
+    const instagram = getField("instagram");
     return (
         <div className="w-full bg-black text-white rounded-lg shadow-lg overflow-hidden max-w-md mx-auto">
             {/* Profile Image */}
@@ -32,24 +41,32 @@ const ProfileCard = ({ data }) => {
 
                 {/* Contact Info */}
                 <div className="mt-5 space-y-3 text-sm">
-                    {social?.mandatory?.mobile && (
+                    {mobile && (
                         <div className="flex items-center gap-3">
-                            <FaPhone className="text-2xl" />
-                            <span>{social.mandatory.mobile}</span>
-                        </div>
-                    )}
-                    {social?.mandatory?.email && (
-                        <div className="flex items-center gap-3">
-                            <FaEnvelope className="text-2xl" />
-                            <span>{social.mandatory.email}</span>
+                            <FaPhone className="text-2xl text-yellow-400" />
+                            <span>{mobile.title}</span>
                         </div>
                     )}
 
-                    {social?.mandatory?.mobile && (
+                    {email && (
                         <div className="flex items-center gap-3">
-                            <FaWhatsapp className="text-2xl" />
+                            <FaEnvelope className="text-2xl text-yellow-400" />
                             <a
-                                href={`https://wa.me/${social.mandatory.mobile.replace(/\D/g, "")}`}
+                                href={`mailto:${email.url}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hover:underline"
+                            >
+                                {email.title}
+                            </a>
+                        </div>
+                    )}
+
+                    {mobile && (
+                        <div className="flex items-center gap-3">
+                            <FaWhatsapp className="text-2xl text-green-500" />
+                            <a
+                                href={`https://wa.me/${mobile.url.replace(/\D/g, "")}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="hover:underline"
@@ -58,29 +75,56 @@ const ProfileCard = ({ data }) => {
                             </a>
                         </div>
                     )}
-                    {social?.mandatory?.address && (
+                    {address && (
                         <div className="flex items-center gap-3">
-                            <FaMapMarkerAlt className="text-2xl" />
+                            <FaMapMarkerAlt className="text-2xl text-yellow-400" />
                             <a
-                                href={social.mandatory.address_url}
+                                href={address.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="hover:underline"
                             >
-                                {social.mandatory.address}
+                                {address.title}
                             </a>
                         </div>
                     )}
-                    {social?.mandatory?.website && (
+                    {website && (
                         <div className="flex items-center gap-3">
-                            <FaGlobe className="text-2xl" />
+                            <FaGlobe className="text-2xl text-yellow-400" />
                             <a
-                                href={social.mandatory.website}
+                                href={website.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="hover:underline"
                             >
-                                {social.mandatory.website}
+                                {website.url}
+                            </a>
+                        </div>
+                    )}
+                    {facebook && (
+                        <div className="flex items-center gap-3">
+                            <FaFacebookF className="text-2xl text-blue-500" />
+                            <a
+                                href={facebook.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hover:underline"
+                            >
+                                Facebook
+                            </a>
+                        </div>
+                    )}
+
+                    {instagram && (
+                        <div className="flex items-center gap-3">
+                            <FaInstagram className="text-2xl text-pink-500" />
+                            <a
+                                href={instagram.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hover:underline"
+                            >
+                                Instagram
                             </a>
                         </div>
                     )}

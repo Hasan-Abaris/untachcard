@@ -18,17 +18,16 @@
       "static/css/app/preview/theme_one/[slug]/page.css",
       "static/chunks/app/preview/theme_one/[slug]/page.js"
     ],
-    "/preview/theme_two/[slug]/page": [
+    "/preview/theme_five/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/preview/theme_two/[slug]/page.css",
-      "static/chunks/app/preview/theme_two/[slug]/page.js"
+      "static/css/app/preview/theme_five/page.css",
+      "static/chunks/app/preview/theme_five/page.js"
     ],
-    "/preview/theme_three/[slug]/page": [
+    "/_not-found/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/preview/theme_three/[slug]/page.css",
-      "static/chunks/app/preview/theme_three/[slug]/page.js"
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }

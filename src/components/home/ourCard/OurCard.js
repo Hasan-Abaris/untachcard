@@ -12,12 +12,12 @@ import { useRouter } from "next/navigation";
 
 // 👇 sirf image + theme ka data
 const cards = [
-    { theme: "Theme One", image: "/assets/theme/theme1.png", preview: "/preview/theme_one" },
-    { theme: "Theme Two", image: "/assets/theme/theme2.png", preview: "/preview/theme_two" },
-    { theme: "Theme Three", image: "/assets/theme/theme3.png", preview: "/preview/theme_three" },
-    { theme: "Theme Four", image: "/assets/theme/theme4.png", preview: "/preview/theme_four" },
-    { theme: "Theme Five", image: "/assets/theme/theme5.png", preview: "/preview/theme_five" },
-    { theme: "Theme Six", image: "/assets/theme/theme6.png", preview: "/preview/theme_six" },
+    { theme: "Theme One", image: "/assets/theme/theme1.png", preview: "/preview/theme_one/demo" },
+    { theme: "Theme Two", image: "/assets/theme/theme2.png", preview: "/preview/theme_two/demo" },
+    { theme: "Theme Three", image: "/assets/theme/theme3.png", preview: "/preview/theme_three/demo" },
+    { theme: "Theme Four", image: "/assets/theme/theme4.png", preview: "/preview/theme_four/demo" },
+    { theme: "Theme Five", image: "/assets/theme/theme5.png", preview: "/preview/theme_five/demo" },
+    { theme: "Theme Six", image: "/assets/theme/theme6.png", preview: "/preview/theme_six/demo" },
     { theme: "Theme Seven", image: "/assets/theme/theme7.png", preview: '/preview/theme_seven/theme_seven/demo' },
     { theme: "Theme Eight", image: "/assets/theme/theme8.png", preview: '/preview/theme_eight/theme_eight/demo' },
     { theme: "Theme Nine", image: "/assets/theme/theme9.png", preview: '/preview/theme_nine/theme_nine/demo' },

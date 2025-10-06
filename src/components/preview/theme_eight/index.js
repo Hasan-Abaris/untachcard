@@ -20,23 +20,41 @@ const ThemeEight = () => {
     const [error, setError] = useState(false);
 
     const cardDetailsget = async (slug) => {
-        try {
-            const token = window.localStorage.getItem("token");
-            const res = await axios.get(`${base_url}card/details/${slug}`, {
-                headers: { Authorization: `Bearer ${token}` },
-            });
-
-            if (res?.data?.data?.length > 0) {
-                setDetailsdata(res.data.data[0]);
-                setError(false);
-            } else {
+        if (params?.slug === "demo") {
+            try {
+                const res = await axios.get(`${base_url}card/demo`)
+                if (res?.data?.data?.length > 0) {
+                    setDetailsdata(res.data.data[0]);
+                    setError(false);
+                } else {
+                    setError(true);
+                }
+            } catch (err) {
+                // console.error(err);
                 setError(true);
+            } finally {
+                setLoading(false);
             }
-        } catch (err) {
-            console.error(err);
-            setError(true);
-        } finally {
-            setLoading(false);
+            // console.log(res);
+        } else {
+            try {
+                const token = window.localStorage.getItem("token");
+                const res = await axios.get(`${base_url}card/details/${slug}`, {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+
+                if (res?.data?.data?.length > 0) {
+                    setDetailsdata(res.data.data[0]);
+                    setError(false);
+                } else {
+                    setError(true);
+                }
+            } catch (err) {
+                // console.error(err);
+                setError(true);
+            } finally {
+                setLoading(false);
+            }
         }
     };
 
@@ -69,8 +87,8 @@ const ThemeEight = () => {
         <div className="min-h-screen bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-400 p-6 space-y-6 pt-19">
             {dataDetails && <ProfileCard data={dataDetails} />}
 
-            {dataDetails?.sections?.length > 0 && (
-                <ProductServices data={dataDetails?.sections} />
+            {dataDetails?.products?.length > 0 && (
+                <ProductServices data={dataDetails?.products} />
             )}
 
             {dataDetails?.portfolios?.length > 0 && (

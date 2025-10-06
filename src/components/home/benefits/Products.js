@@ -17,9 +17,9 @@ const benefits = [
     { icon: <FaStar size={48} className="text-orange-500 size-40" />, title: "Wow Effect" },
 ];
 
-export default function BenefitsSection() {
+export default function ProductsSection() {
     return (
-        <section id="benefits" className="bg-white py-16 px-6">
+        <section id="products" className="bg-white py-16 px-6">
             <div className="max-w-7xl mx-auto">
                 {/* Heading */}
                 <h2 className="text-center text-6xl md:text-6xl font-bold text-gray-800 mb-12 uppercase">

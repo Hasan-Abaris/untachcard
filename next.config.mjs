@@ -3,6 +3,7 @@ const nextConfig = {
     // output: "export",
     images: {
         unoptimized: false,
+        domains: ["res.cloudinary.com"],
     },
 };
 

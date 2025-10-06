@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import Link from "next/link";
 import axios from "axios";
 import { base_url } from "@/server";
+import { ChevronDown } from "lucide-react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
@@ -19,6 +20,7 @@ export default function Header2() {
 
   const [activeSection, setActiveSection] = useState("home");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null);
 
   const sections = ["home", "about", "products", "clients", "brochure", "contact"];
 
@@ -85,6 +87,11 @@ export default function Header2() {
     }
   };
 
+  const toggleDropdown = (type) => {
+    setOpenDropdown(openDropdown === type ? null : type);
+  };
+
+
   return (
     <>
       <header className="fixed w-full bg-black/60 text-white shadow-md z-50">
@@ -112,8 +119,61 @@ export default function Header2() {
               </div>
             ))}
 
-            {isLogin && (<div className="relative group"> <button className="uppercase text-sm font-semibold hover:text-red-500 transition-all duration-300"> Dashboard <span className="absolute left-0 right-0 -top-1 mx-auto w-0 h-[2px] bg-red-500 transition-all duration-300 group-hover:w-full"></span> </button> <div className="w-70 absolute hidden group-hover:block bg-white text-black rounded shadow-md mt-2 top-4"> {dashboardLinks.map((item, i) => (<Link key={i} href={item.href} className="block px-4 py-2 hover:bg-red-100 hover:text-red-600" > {item.name} </Link>))} </div> </div>)}
-            {isLogin && (<div className="relative group"> <button className="uppercase text-sm font-semibold hover:text-red-500 transition-all duration-300"> Profile <span className="absolute left-0 right-0 -top-1 mx-auto w-0 h-[2px] bg-red-500 transition-all duration-300 group-hover:w-full"></span> </button> <div className="absolute hidden group-hover:block bg-white text-black rounded shadow-md mt-2 top-4 w-70"> {profileLinks.map((item, i) => (<Link key={i} href={item.href} className="block px-4 py-2 hover:bg-red-100 hover:text-red-600" > {item.name} </Link>))} </div> </div>)}
+            {isLogin && (
+              <div className="relative">
+                <button
+                  onClick={() => toggleDropdown("dashboard")}
+                  className="uppercase flex items-center gap-1 text-sm font-semibold hover:text-red-500 transition-all duration-300"
+                >
+                  Dashboard
+                  <ChevronDown
+                    className={`w-4 h-4 transition-transform ${openDropdown === "dashboard" ? "rotate-180" : ""
+                      }`}
+                  />
+                </button>
+                {openDropdown === "dashboard" && (
+                  <div className="absolute bg-white text-black rounded shadow-md mt-2 w-48 z-50">
+                    {dashboardLinks.map((item, i) => (
+                      <Link
+                        key={i}
+                        href={item.href}
+                        className="block px-4 py-2 hover:bg-red-100 hover:text-red-600"
+                      >
+                        {item.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {isLogin && (
+              <div className="relative">
+                <button
+                  onClick={() => toggleDropdown("profile")}
+                  className="uppercase flex items-center gap-1 text-sm font-semibold hover:text-red-500 transition-all duration-300"
+                >
+                  Profile
+                  <ChevronDown
+                    className={`w-4 h-4 transition-transform ${openDropdown === "profile" ? "rotate-180" : ""
+                      }`}
+                  />
+                </button>
+                {openDropdown === "profile" && (
+                  <div className="absolute bg-white text-black rounded shadow-md mt-2 w-48 z-50">
+                    {profileLinks.map((item, i) => (
+                      <Link
+                        key={i}
+                        href={item.href}
+                        className="block px-4 py-2 hover:bg-red-100 hover:text-red-600"
+                      >
+                        {item.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
             {isLogin ? (
               <button
                 onClick={handleLogout}
@@ -162,15 +222,61 @@ export default function Header2() {
               </a>
             ))}
 
-            {isLogin && (<div className="relative group">
-              <button className="uppercase text-sm font-semibold hover:text-red-500 transition-all duration-300"> Dashboard <span className="absolute left-0 right-0 -top-1 mx-auto w-0 h-[2px] bg-red-500 transition-all duration-300 group-hover:w-full"></span> </button> <div className="w-70 absolute hidden group-hover:block bg-white text-black rounded shadow-md mt-2 top-4"> {dashboardLinks.map((item, i) => (<Link key={i} href={item.href} className="block px-4 py-2 hover:bg-red-100 hover:text-red-600" > {item.name} </Link>))} </div> </div>)}
-            {isLogin && (<div className="relative group">
-              <button className="uppercase text-sm font-semibold hover:text-red-500 transition-all duration-300">
-                Profile
-                <span className="absolute left-0 right-0 -top-1 mx-auto w-0 h-[2px] bg-red-500 transition-all duration-300 group-hover:w-full">
-                </span>
-              </button>
-              <div className="absolute hidden group-hover:block bg-white text-black rounded shadow-md mt-2 top-4 w-70"> {profileLinks.map((item, i) => (<Link key={i} href={item.href} className="block px-4 py-2 hover:bg-red-100 hover:text-red-600" > {item.name} </Link>))} </div> </div>)}
+            {isLogin && (
+              <>
+                {/* 🔽 Dashboard Dropdown */}
+                <button
+                  className="flex items-center justify-between w-full uppercase font-semibold hover:text-red-500 transition-all duration-300"
+                  onClick={() => toggleDropdown("dashboard")}
+                >
+                  Dashboard
+                  <ChevronDown
+                    className={`w-5 h-5 transition-transform ${openDropdown === "dashboard" ? "rotate-180" : ""
+                      }`}
+                  />
+                </button>
+                {openDropdown === "dashboard" && (
+                  <div className="mt-2 ml-3 space-y-2">
+                    {dashboardLinks.map((item, i) => (
+                      <Link
+                        key={i}
+                        href={item.href}
+                        className="block px-3 py-1 text-sm hover:text-red-500"
+                        onClick={() => setMenuOpen(false)}
+                      >
+                        {item.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+
+                {/* 🔽 Profile Dropdown */}
+                <button
+                  className="flex items-center justify-between w-full uppercase font-semibold hover:text-red-500 transition-all duration-300 mt-3"
+                  onClick={() => toggleDropdown("profile")}
+                >
+                  Profile
+                  <ChevronDown
+                    className={`w-5 h-5 transition-transform ${openDropdown === "profile" ? "rotate-180" : ""
+                      }`}
+                  />
+                </button>
+                {openDropdown === "profile" && (
+                  <div className="mt-2 ml-3 space-y-2">
+                    {profileLinks.map((item, i) => (
+                      <Link
+                        key={i}
+                        href={item.href}
+                        className="block px-3 py-1 text-sm hover:text-red-500"
+                        onClick={() => setMenuOpen(false)}
+                      >
+                        {item.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </>
+            )}
 
             {isLogin ? (
               <button

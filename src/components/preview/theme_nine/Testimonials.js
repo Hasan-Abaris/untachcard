@@ -2,7 +2,11 @@ import React from "react";
 
 const Testimonials = () => {
     return (
-        <div className="bg-yellow-400 rounded-xl shadow-lg p-6 max-w-lg mx-auto text-center">
+        <div className="bg-yellow-400 rounded-xl shadow-lg p-6 max-w-lg mx-auto text-center" style={{
+            backgroundImage: "url('/assets/banner/theme-nine.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+        }}>
             <h2 className="text-xl font-bold mb-4">Testimonials</h2>
             <div className="bg-white/80 rounded-xl shadow-md p-4">
                 <img

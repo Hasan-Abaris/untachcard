@@ -20,9 +20,16 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden !important;
+  overflow-y: scroll;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  font-family: 'Open Sans', sans-serif;
+  line-height: 27px;
+  letter-spacing: 0px;
+  color: #464646;
 }
 
 .group:hover .drop-down {
@@ -46,8 +53,46 @@ body {
 
 
 }
-.card { padding: 10px; border: 1px solid #ccc; border-radius: 10px; margin: 10px; }
-.style1 { background: #fce4ec; }
-.style2 { background: #e3f2fd; }
-.card-detail img { width: 200px; height: auto; border-radius: 10px; }
-.card-grid { display: flex; flex-wrap: wrap; gap: 20px; }
+
+.card {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.style1 {
+  background: #fce4ec;
+}
+
+.style2 {
+  background: #e3f2fd;
+}
+
+.card-detail img {
+  width: 200px;
+  height: auto;
+  border-radius: 10px;
+}
+
+.card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+@keyframes bounce-slow {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 2s ease-in-out infinite;
+}

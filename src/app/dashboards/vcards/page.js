@@ -4,7 +4,7 @@ import React from 'react'
 
 function Vcard() {
   return (
-    <div className='mt-25'>
+    <div >
       <VcardsPage />
     </div>
   )

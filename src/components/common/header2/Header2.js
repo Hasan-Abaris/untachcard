@@ -1,29 +1,28 @@
 "use client";
 
-
-import { base_url } from "@/server";
-// import { base_url } from "@/server";
-import axios from "axios";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
+import Link from "next/link";
+import axios from "axios";
+import { base_url } from "@/server";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 export default function Header2() {
-  const router = useRouter()
-  // const baseUrl = base_url();
-  const { data } = useSelector((state) => state.auth);
-  // const isLogin = window.localStorage.getItem("isLogin");
-  // console.log(token);
+  const router = useRouter();
+  // const { data } = useSelector((state) => state.auth);
 
   const [activeSection, setActiveSection] = useState("home");
   const [menuOpen, setMenuOpen] = useState(false);
-  const [mobileDashboardOpen, setMobileDashboardOpen] = useState(false);
-  const [mobileProfileOpen, setMobileProfileOpen] = useState(false);
 
   const sections = ["home", "about", "products", "clients", "brochure", "contact"];
 
-  // scroll active section detection
+  // Detect active section on scroll
   useEffect(() => {
     const handleScroll = () => {
       let current = "home";
@@ -42,259 +41,162 @@ export default function Header2() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const profileLinks = [
-    { name: "My Orders", href: "/account/my-orders" },
-    { name: "My WishList", href: "/account/my-wishlist" },
-    { name: "My Cart", href: "/account/my-cart" },
-    // { name: "My Wallet", href: "/account/my-wallet" },
-    { name: "My Product Reviews", href: "/account/my-reviews" },
-    { name: "My Earning Points", href: "/account/my-earning-points" },
-    { name: "RMA History", href: "/account/history" },
-    { name: "Sent Refund Request", href: "/account/refund-requests" },
-    { name: "My Billing Address", href: "/account/billing-address" },
-    { name: "My Shipping Address", href: "/account/shipping-address" },
-    { name: "Visit Sellers", href: "/account/visit-sellers" },
-    { name: "My Profile", href: "/account/profile" },
-    { name: "Change Password", href: "/account/change-password" },
-    { name: "Track My Order", href: "/account/track-order" },
-    { name: "Support Ticket", href: "/account/support-ticket" },
-  ];
-
-  const dashboardLinks = [
-    { name: "Dashboard", href: "/dashboards/dashboard" },
-    { name: "Cards", href: "/dashboards/vcards" },
-    { name: "WhatsApp Stores", href: "/dashboards/whatsAppStores" },
-    { name: "Google Wallet", href: "/dashboards/googleWallet" },
-    { name: "WhatsApp Product Orders", href: "/dashboards/whatsAppProductOrder" },
-    { name: "Inquiries", href: "/dashboards/Inquiries" },
-    { name: "Appointments", href: "/dashboards/appointments" },
-    { name: "Product Orders", href: "/dashboards/productOrders" },
-    { name: "Virtual Backgrounds", href: "/dashboards/virtualBackgrounds" },
-    { name: "My NFC Cards", href: "/dashboards/myNFCcards" },
-    { name: "Storage", href: "/dashboards/storage" },
-  ];
+  // Logout function
+  const profileLinks = [{ name: "My Orders", href: "/account/my-orders" }, { name: "My WishList", href: "/account/my-wishlist" }, { name: "My Cart", href: "/account/my-cart" }, { name: "My Product Reviews", href: "/account/my-reviews" }, { name: "My Earning Points", href: "/account/my-earning-points" }, { name: "RMA History", href: "/account/history" }, { name: "Sent Refund Request", href: "/account/refund-requests" }, { name: "My Billing Address", href: "/account/billing-address" }, { name: "My Shipping Address", href: "/account/shipping-address" }, { name: "Visit Sellers", href: "/account/visit-sellers" }, { name: "My Profile", href: "/account/profile" }, { name: "Change Password", href: "/account/change-password" }, { name: "Track My Order", href: "/account/track-order" }, { name: "Support Ticket", href: "/account/support-ticket" },]; const dashboardLinks = [{ name: "Dashboard", href: "/dashboards/dashboard" }, { name: "Cards", href: "/dashboards/vcards" }, { name: "WhatsApp Stores", href: "/dashboards/whatsAppStores" }, { name: "Google Wallet", href: "/dashboards/googleWallet" }, { name: "WhatsApp Product Orders", href: "/dashboards/whatsAppProductOrder" }, { name: "Inquiries", href: "/dashboards/Inquiries" }, { name: "Appointments", href: "/dashboards/appointments" }, { name: "Product Orders", href: "/dashboards/productOrders" }, { name: "Virtual Backgrounds", href: "/dashboards/virtualBackgrounds" }, { name: "My NFC Cards", href: "/dashboards/myNFCcards" }, { name: "Storage", href: "/dashboards/storage" },];
 
 
+  const [isLogin, setIsLogin] = useState(false);
 
-  const logout = async () => {
-    try {
-      await axios.get(`${base_url}auth/logout`, { withCredentials: true });
-      window?.localStorage.removeItem("token")
-      window.localStorage.removeItem("isLogin");
-      router.push("/login2");
-    } catch (error) {
-      console.log(error);
-    }
-
-  };
-
-
-
-  const [country, setCountry] = useState();
-  const [selectCountry, setSeleDefCount] = useState();
-  const [defLanguage, setdefLang] = useState();
-  const getCountryData = async () => {
-    try {
-      const [settingsRes] = await Promise.all([
-        // axios.get(`${baseUrl}country`),
-        axios.get(`${base_url}settings/v1/country`),
-      ]);
-      // setCountry(countryRes.data);
-      setSeleDefCount(settingsRes.data.id);
-      window.localStorage.setItem("countryCode", settingsRes?.data?.code);
-    } catch (error) {
-      console.error("Error fetching country data:", error);
-      // Handle error appropriately, e.g., show a user-friendly message
-    }
-  };
-
-  const defaLang = async () => {
-    try {
-      const defLanRes = await axios.get(`${base_url}settings/v1/language`);
-      window.localStorage.setItem("languageCode", defLanRes?.data?.code);
-      setdefLang(defLanRes.data.id);
-    } catch (error) {
-      console.error("Error fetching default language:", error);
-      // Handle error appropriately, e.g., show a user-friendly message
-    }
-  };
-
+  // ✅ Check login status on mount + listen for login/logout changes
   useEffect(() => {
-    getCountryData();
-    defaLang();
-    // getData2();
+    const loginStatus = localStorage.getItem("isLogin") === "true";
+    setIsLogin(loginStatus);
+
+    const handleLoginChange = () => {
+      const updated = localStorage.getItem("isLogin") === "true";
+      setIsLogin(updated);
+    };
+
+    // Listen for updates
+    window.addEventListener("loginStatusChanged", handleLoginChange);
+    window.addEventListener("storage", handleLoginChange);
+
+    return () => {
+      window.removeEventListener("loginStatusChanged", handleLoginChange);
+      window.removeEventListener("storage", handleLoginChange);
+    };
   }, []);
 
-
-  const userdata = async () => {
+  // ✅ Logout
+  const handleLogout = async () => {
     try {
-      const res = await axios.get(`${baseUrl}settings/v1/language`)
+      await axios.get(`${base_url}auth/logout`, { withCredentials: true });
+      window?.localStorage.removeItem("token");
+      window?.localStorage.removeItem("isLogin");
+      window?.localStorage.removeItem("user_id");
+      setIsLogin(false);
+
+      // Trigger update event for all components
+      window.dispatchEvent(new Event("loginStatusChanged"));
+
+      router.push("/login2");
     } catch (error) {
-
+      console.error("Logout Error:", error);
     }
-  }
+  };
+
   return (
-    <header className="fixed w-full bg-black/70 text-white shadow-md z-50">
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
-        <div className="font-bold text-xl">
-          <Link href="/">iTap Cards</Link>
-        </div>
-        <div className="hidden md:flex space-x-6 items-center">
-          {sections.map((item) => (
-            <a
-              key={item}
-              href={`#${item}`}
-              className={`uppercase text-sm font-semibold hover:text-blue-400 ${activeSection === item ? "text-blue-500" : ""
-                }`}
-            >
-              {item}
-            </a>
-          ))}
+    <>
+      <header className="fixed w-full bg-black/60 text-white shadow-md z-50">
+        <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
+          <div className="font-bold text-xl">
+            <Link href="/">iTap Cards</Link>
+          </div>
 
-          {/* Dashboard Dropdown */}
-          {data?._id && <div className="relative group">
-            <button className="uppercase text-sm font-semibold hover:text-blue-400">
-              Dashboard
-            </button>
-            <div className="w-70 absolute hidden group-hover:block bg-white text-black rounded shadow-md mt-2 top-4">
-              {dashboardLinks.map((item, i) => (
-                <Link
-                  key={i}
-                  href={item.href}
-                  className="block px-4 py-2 hover:bg-gray-200"
+          {/* Desktop Menu */}
+          <div className="hidden md:flex space-x-6 items-center">
+            {sections.map((item) => (
+              <div key={item} className="relative group">
+                <a
+                  href={`#${item}`}
+                  className={`uppercase text-sm font-semibold transition-all duration-300 
+                  ${activeSection === item ? "text-red-500" : "text-white"} 
+                  hover:text-red-500`}
                 >
-                  {item.name}
-                </Link>
-              ))}
-            </div>
-          </div>}
+                  {item}
+                  <span
+                    className={`absolute left-0 right-0 -top-1 mx-auto h-[2px] bg-red-500 transition-all duration-300 
+                    ${activeSection === item ? "w-full" : "w-0 group-hover:w-full"}`}
+                  ></span>
+                </a>
+              </div>
+            ))}
 
+            {isLogin && (<div className="relative group"> <button className="uppercase text-sm font-semibold hover:text-red-500 transition-all duration-300"> Dashboard <span className="absolute left-0 right-0 -top-1 mx-auto w-0 h-[2px] bg-red-500 transition-all duration-300 group-hover:w-full"></span> </button> <div className="w-70 absolute hidden group-hover:block bg-white text-black rounded shadow-md mt-2 top-4"> {dashboardLinks.map((item, i) => (<Link key={i} href={item.href} className="block px-4 py-2 hover:bg-red-100 hover:text-red-600" > {item.name} </Link>))} </div> </div>)}
+            {isLogin && (<div className="relative group"> <button className="uppercase text-sm font-semibold hover:text-red-500 transition-all duration-300"> Profile <span className="absolute left-0 right-0 -top-1 mx-auto w-0 h-[2px] bg-red-500 transition-all duration-300 group-hover:w-full"></span> </button> <div className="absolute hidden group-hover:block bg-white text-black rounded shadow-md mt-2 top-4 w-70"> {profileLinks.map((item, i) => (<Link key={i} href={item.href} className="block px-4 py-2 hover:bg-red-100 hover:text-red-600" > {item.name} </Link>))} </div> </div>)}
+            {isLogin ? (
+              <button
+                onClick={handleLogout}
+                className="bg-red-600 px-4 py-2 rounded text-white hover:bg-red-700 transition-all"
+              >
+                Log Out
+              </button>
+            ) : (
+              <Link
+                href="/login2"
+                className="bg-blue-600 px-4 py-2 rounded text-white hover:bg-blue-700 transition-all"
+              >
+                Login
+              </Link>
+            )}
 
-          {/* Profile Dropdown */}
-          {data?._id && <div className="relative group">
-            <button className="uppercase text-sm font-semibold hover:text-blue-400">
-              Profile
-            </button>
-            <div className="absolute hidden group-hover:block bg-white text-black rounded shadow-md mt-2 top-4 w-70">
-              {profileLinks.map((item, i) => (
-                <Link
-                  key={i}
-                  href={item.href}
-                  className="block px-4 py-2 hover:bg-gray-200"
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </div>
-          </div>}
-
-
-          {data?._id ? (
-            <button
-              onClick={logout}
-              className="bg-red-600 px-4 py-2 rounded text-white"
-            >
-              Log Out
-            </button>
-          ) : (
             <Link
-              href="/login2"
-              className="bg-blue-600 px-4 py-2 rounded text-white"
+              href="/get-started"
+              className="bg-gray-600 px-4 py-2 rounded text-white hover:bg-gray-700 transition-all"
             >
-              Login
+              Get Started
             </Link>
-          )}
-
-
-
-          {/* <button type="button" className="bg-gray-600 px-4 py-2 rounded text-white">
-            Get Started
-          </button> */}
-        </div>
-
-        {/* Mobile Menu Toggle */}
-        <button
-          className="md:hidden text-white"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          ☰
-        </button>
-      </div>
-
-      {/* Mobile Menu */}
-      {menuOpen && (
-        <div className="md:hidden bg-black/90 text-white px-4 py-3 space-y-3">
-          {sections.map((item) => (
-            <a
-              key={item}
-              href={`#${item}`}
-              className={`block uppercase font-semibold ${activeSection === item ? "text-blue-400" : ""
-                }`}
-              onClick={() => setMenuOpen(false)}
-            >
-              {item}
-            </a>
-          ))}
-
-          {/* Mobile Dashboard Dropdown */}
-          <div>
-            <button
-              onClick={() => setMobileDashboardOpen(!mobileDashboardOpen)}
-              className="w-full text-left font-semibold mt-2"
-            >
-              Dashboard {mobileDashboardOpen ? "▲" : "▼"}
-            </button>
-            {mobileDashboardOpen && (
-              <div className="ml-3">
-                {dashboardLinks.map((item, i) => (
-                  <Link
-                    key={i}
-                    href={item.href}
-                    className="block px-4 py-2 hover:bg-gray-200 text-white"
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-              </div>
-            )}
           </div>
 
-          {/* Mobile Profile Dropdown */}
-          <div>
-            <button
-              onClick={() => setMobileProfileOpen(!mobileProfileOpen)}
-              className="w-full text-left font-semibold mt-2"
-            >
-              Profile {mobileProfileOpen ? "▲" : "▼"}
-            </button>
-            {mobileProfileOpen && (
-              <div className="ml-3">
-                {profileLinks.map((item, i) => (
-                  <Link
-                    key={i}
-                    href={item.href}
-                    className="block px-4 py-2 hover:bg-gray-200 text-white"
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <Link
-            href="/login2"
-            className="bg-blue-600 px-4 py-2 rounded text-white block text-center"
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden text-white text-2xl"
+            onClick={() => setMenuOpen(!menuOpen)}
           >
-            Login
-          </Link>
-          <button className="w-full bg-gray-600 px-4 py-2 rounded text-white">
-            Get Started
+            ☰
           </button>
         </div>
-      )}
-    </header>
+
+        {/* Mobile Menu */}
+        {menuOpen && (
+          <div className="md:hidden bg-black/90 text-white px-4 py-3 space-y-3">
+            {sections.map((item) => (
+              <a
+                key={item}
+                href={`#${item}`}
+                className={`block uppercase font-semibold transition-all duration-300 ${activeSection === item ? "text-red-400" : "text-white"
+                  } hover:text-red-500`}
+                onClick={() => setMenuOpen(false)}
+              >
+                {item}
+              </a>
+            ))}
+
+            {isLogin && (<div className="relative group">
+              <button className="uppercase text-sm font-semibold hover:text-red-500 transition-all duration-300"> Dashboard <span className="absolute left-0 right-0 -top-1 mx-auto w-0 h-[2px] bg-red-500 transition-all duration-300 group-hover:w-full"></span> </button> <div className="w-70 absolute hidden group-hover:block bg-white text-black rounded shadow-md mt-2 top-4"> {dashboardLinks.map((item, i) => (<Link key={i} href={item.href} className="block px-4 py-2 hover:bg-red-100 hover:text-red-600" > {item.name} </Link>))} </div> </div>)}
+            {isLogin && (<div className="relative group">
+              <button className="uppercase text-sm font-semibold hover:text-red-500 transition-all duration-300">
+                Profile
+                <span className="absolute left-0 right-0 -top-1 mx-auto w-0 h-[2px] bg-red-500 transition-all duration-300 group-hover:w-full">
+                </span>
+              </button>
+              <div className="absolute hidden group-hover:block bg-white text-black rounded shadow-md mt-2 top-4 w-70"> {profileLinks.map((item, i) => (<Link key={i} href={item.href} className="block px-4 py-2 hover:bg-red-100 hover:text-red-600" > {item.name} </Link>))} </div> </div>)}
+
+            {isLogin ? (
+              <button
+                onClick={handleLogout}
+                className="w-full bg-red-600 px-4 py-2 rounded text-white"
+              >
+                Log Out
+              </button>
+            ) : (
+              <Link
+                href="/login2"
+                className="bg-blue-600 px-4 py-2 rounded text-white block text-center"
+              >
+                Login
+              </Link>
+            )}
+            <Link
+              href="/get-started"
+              className="bg-gray-600 px-4 py-2 rounded text-white block text-center"
+            >
+              Get Started
+            </Link>
+          </div>
+        )}
+      </header>
+
+    </>
   );
 }

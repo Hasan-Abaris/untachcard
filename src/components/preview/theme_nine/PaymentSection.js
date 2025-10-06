@@ -3,7 +3,11 @@ import React from "react";
 
 const PaymentSection = () => {
     return (
-        <div className="bg-yellow-400 rounded-xl shadow-lg p-6 max-w-lg mx-auto">
+        <div className="bg-yellow-400 rounded-xl shadow-lg p-6 max-w-lg mx-auto" style={{
+            backgroundImage: "url('/assets/banner/theme-nine.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+        }}>
             <h2 className="text-center text-lg font-bold">Payment</h2>
             <div className="mt-3 space-y-2">
                 <p>

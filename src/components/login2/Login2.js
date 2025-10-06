@@ -13,6 +13,8 @@ import { toastSuccessMessage } from "../common/messageShow/MessageShow";
 export default function Login2() {
     const router = useRouter()
     const dispatch = useDispatch();
+    const [loginAttempt, setLoginAttempt] = useState(false);
+
     const { loading, error, data } = useSelector((state) => state.auth);
     console.log(loading, error, data?._id);
 
@@ -29,25 +31,29 @@ export default function Login2() {
 
     const handleLoginSubmit = (e) => {
         e.preventDefault();
+        setLoginAttempt(true);
         dispatch(loginUser(loginForm));
     };
 
 
     useEffect(() => {
-        if (data?._id) {
+        if (loginAttempt && data?._id) {
             localStorage.setItem("token", data.token);
             localStorage.setItem("user_id", data._id);
             localStorage.setItem("isLogin", true);
             localStorage.setItem("email", data.email);
-            localStorage.setItem("profilePic", data.image?.url || "");
             localStorage.setItem("userName", `${data.firstname} ${data.lastname}`);
 
             toastSuccessMessage("Login Successfully");
-            router.push("/");
 
+            window.dispatchEvent(new Event("loginStatusChanged"));
+
+            setTimeout(() => {
+                router.push("/");
+            }, 1000);
 
         }
-    }, [data, router]);
+    }, [data, loginAttempt]);
 
 
     return (
@@ -82,7 +88,13 @@ export default function Login2() {
                 </div>
 
                 {/* Errors */}
-                {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
+                {error && (
+                    <p className="text-red-500 text-sm mb-2">
+                        {typeof error === "string"
+                            ? error
+                            : error?.message || "Something went wrong"}
+                    </p>
+                )}
 
                 {/* Login Button */}
                 <button

@@ -2,7 +2,11 @@ import React from "react";
 
 const PaymentSection = () => {
     return (
-        <div className="bg-pink-200 rounded-xl shadow-lg p-6 max-w-lg mx-auto">
+        <div className="bg-pink-200 rounded-xl shadow-lg p-6 max-w-lg mx-auto" style={{
+            backgroundImage: "url('/assets/banner/theme-ten.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+        }}>
             <h3 className="font-bold text-lg mb-4">Payment</h3>
             <p><b>Paypal:</b> yourid@domain.com</p>
             <p><b>UPI:</b> yourid@domain.com</p>

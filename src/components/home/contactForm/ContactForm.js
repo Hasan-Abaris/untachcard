@@ -4,8 +4,8 @@ import React from 'react'
 const ContactForm = () => {
     return (
         <div className="w-full py-12 px-4">
-            <div className="max-w-5xl mx-auto text-center">
-                <h2 className="text-3xl font-bold text-gray-800 uppercase mb-2">KEEP IN TOUCH</h2>
+            <div className="max-w-7xl mx-auto text-center">
+                <h2 className="text-3xl font-bold text-gray-800 uppercase mb-2 md:text-6xl">KEEP IN TOUCH</h2>
                 <div className="w-16 h-0.5 bg-gray-400 mx-auto mb-3"></div>
                 <p className="text-gray-500 mb-10">for any query Contact us</p>
 
@@ -39,7 +39,7 @@ const ContactForm = () => {
                     <div className="md:col-span-2">
                         <button
                             type="submit"
-                            className="w-full py-3 bg-gray-800 text-white font-medium uppercase tracking-wide hover:bg-gray-700 transition"
+                            className="w-full py-3 bg-gray-800 text-white font-medium uppercase tracking-wide hover:bg-red-700 transition"
                         >
                             Send Message
                         </button>

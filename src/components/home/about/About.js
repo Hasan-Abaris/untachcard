@@ -1,6 +1,7 @@
 
 
 export default function AboutSection() {
+
     return (
         <section
             id="about"
@@ -8,7 +9,7 @@ export default function AboutSection() {
         >
             <div className="max-w-7xl w-full">
                 {/* Heading */}
-                <h2 className="text-center text-3xl md:text-4xl font-bold mb-12">
+                <h2 className="text-center text-3xl md:text-6xl font-bold mb-12">
                     ITAP NEW GENERATION BUSINESS CARDS
                 </h2>
 
@@ -16,13 +17,13 @@ export default function AboutSection() {
                 <div className="grid md:grid-cols-2 gap-12 items-center">
                     {/* Left Text */}
                     <div className="space-y-6 text-gray-700 text-lg leading-relaxed">
-                        <p>
+                        <p className="mt-16 mb-16 text-[22px] leading-[30px]">
                             Time does not stand still, and along with it, technologies and ways
                             of interaction between people change. We have prepared not only a
                             worthy replacement for standard business cards, but also changed
                             the very approach to the exchange of contact information.
                         </p>
-                        <p>
+                        <p className="mt-16 mb-16 text-[22px] leading-[30px]">
                             Previously, you needed to make hundreds of paper business cards in
                             a printing house, which took up space in your wallet, and after use
                             they were usually thrown away. The time of paper has passed and now

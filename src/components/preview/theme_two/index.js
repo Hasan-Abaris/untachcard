@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Product from "./product";
@@ -10,28 +11,43 @@ import Enquiry from "./Enquiry";
 import Services from "./Services";
 import ProfileCard from "./profile";
 import WorkingHours from "./WorkingHours";
-function Themetwopage() {
+import { base_url } from "@/server";
+
+const Themetwopage = ({ slug }) => {
   const [card, setCard] = useState(null);
   const [loading, setLoading] = useState(true);
-  const slug = "Zabi"; // or pass dynamically
+
+  const fetchCard = async (slug) => {
+    try {
+      const token = window.localStorage.getItem("token");
+      // 1️⃣ Fetch by slug
+      const res = await axios.get(`${base_url}card/details/${slug}`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
+
+      if (res?.data?.success && res?.data?.data?.length > 0) {
+        setCard(res.data.data[0]);
+      } else {
+        // 2️⃣ fallback to demo
+        const demoRes = await axios.get(`${base_url}card/demo`);
+        setCard(demoRes.data.data[0]);
+      }
+    } catch (err) {
+      console.error("Primary API failed, using demo:", err);
+      try {
+        const demoRes = await axios.get(`${base_url}card/demo`);
+        setCard(demoRes.data.data[0]);
+      } catch (demoErr) {
+        console.error("Demo API also failed:", demoErr);
+        setCard(null);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchCard = async () => {
-      try {
-        const res = await axios.get(
-          `https://onlineparttimejobs.in/api/card/details/${slug}`
-        );
-        if (res.data.success && res.data.data.length > 0) {
-          setCard(res.data.data[0]);
-        }
-      } catch (err) {
-        console.error("Error fetching card:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCard();
+    if (slug) fetchCard(slug);
   }, [slug]);
 
   if (loading) return <p className="text-center mt-10">Loading card...</p>;
@@ -39,16 +55,18 @@ function Themetwopage() {
 
   return (
     <div>
-      <ProfileCard data={card} /> 
-      <Portfolio card={card} />
-      <Gallery card={card} />
-      <Testimonial card={card} />
-      <Qr card={card} />
-      <Enquiry card={card} />
-      <Services card={card} />
-      <WorkingHours/>
+      {/* Pass already fetched data to all components */}
+      <ProfileCard data={card} />
+      <Product data={card?.products || []} />
+      <Portfolio data={card?.portfolios || []} />
+      <Gallery data={card?.galleries || []} />
+      <Testimonial data={card?.testimonials || []} />
+      <Qr data={card?.fields || []} />
+      <Enquiry data={card} />
+      <Services data={card?.fields || []} />
+      <WorkingHours />
     </div>
   );
-}
+};
 
 export default Themetwopage;

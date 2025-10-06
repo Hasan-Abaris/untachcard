@@ -16,8 +16,8 @@ export default function AllTemplatespage() {
     { id: 8, name: "Theme Eight", image: "https://vcard.waptechy.com/assets/uploads/themes/eight.png", preview: "/preview/theme_eight/theme_eight/Zabi" },
     { id: 9, name: "Theme Nine", image: "https://vcard.waptechy.com/assets/uploads/themes/nine.png", preview: "/preview/theme_nine/theme_nine/Zabi" },
     { id: 10, name: "Theme Ten", image: "https://vcard.waptechy.com/assets/uploads/themes/ten.png", preview: "/preview/theme_ten/theme_ten/Zabi" },
-    { id: 11, name: "Theme Eleven", image: "https://vcard.waptechy.com/assets/uploads/themes/eleven.png", preview: "https://vcard.waptechy.com/amazingllll/theme_eleven" },
-    { id: 12, name: "Theme Twelve", image: "https://vcard.waptechy.com/assets/uploads/themes/twelve.png", preview: "https://vcard.waptechy.com/amazingllll/theme_twelve" },
+    { id: 11, name: "Theme Eleven", image: "https://vcard.waptechy.com/assets/uploads/themes/eleven.png", preview: "/preview/theme_eleven/theme_eleven/Zabi" },
+    { id: 12, name: "Theme Twelve", image: "https://vcard.waptechy.com/assets/uploads/themes/twelve.png", preview: "/preview/theme_twelve/theme_twelve/Zabi" },
   ];
 
   return (

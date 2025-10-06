@@ -5,7 +5,11 @@ import { FaEye, FaUserPlus, FaShareAlt, FaPhone, FaEnvelope, FaWhatsapp, FaMapMa
 const ProfileCard = ({ data }) => {
     const social = data?.social_options ? JSON.parse(data.social_options) : {};
     return (
-        <div className="bg-pink-200 rounded-xl shadow-lg p-6 text-center relative max-w-lg mx-auto">
+        <div className="bg-pink-200 rounded-xl shadow-lg p-6 text-center relative max-w-lg mx-auto" style={{
+            backgroundImage: "url('/assets/banner/theme-ten.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+        }}>
             {/* Views */}
             <div className="absolute top-3 right-3 flex items-center space-x-2 border px-3 py-1 rounded-full shadow">
                 <FaEye />

@@ -7,7 +7,11 @@ import { FaEnvelope, FaGlobe, FaMapMarkerAlt, FaPhone, FaWhatsapp } from "react-
 const ProfileCard = ({ data }) => {
     const social = data?.social_options ? JSON.parse(data.social_options) : {};
     return (
-        <div className="bg-yellow-400 rounded-xl shadow-lg overflow-hidden relative max-w-lg mx-auto text-center p-6">
+        <div className=" rounded-xl shadow-lg overflow-hidden relative max-w-lg mx-auto text-center p-6" style={{
+            backgroundImage: "url('/assets/banner/theme-nine.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+        }}>
             {/* Views */}
             <div className="absolute top-2 right-2 flex items-center space-x-2 text-sm bg-black/40 text-white px-3 py-1 rounded-lg">
                 <Eye size={16} /> <span>Views: {data?.views}</span>

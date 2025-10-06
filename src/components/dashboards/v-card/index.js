@@ -266,7 +266,7 @@ const VcardsPage = () => {
   if (!cardData) return <p>No card data available</p>;
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gray-50 p-6 pt-17">
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-semibold text-gray-800">vCards</h1>

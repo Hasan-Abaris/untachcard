@@ -3,7 +3,11 @@ import React from "react";
 
 const EnquiryForm = () => {
     return (
-        <div className="bg-pink-200 rounded-xl shadow-lg p-6 max-w-lg mx-auto">
+        <div className="bg-pink-200 rounded-xl shadow-lg p-6 max-w-lg mx-auto" style={{
+            backgroundImage: "url('/assets/banner/theme-ten.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+        }}>
             <h3 className="font-bold text-lg mb-4 text-center">Enquiry Form</h3>
             <form className="space-y-4">
                 <input

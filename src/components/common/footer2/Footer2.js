@@ -28,12 +28,12 @@ const Footer2 = () => {
                 <div>
                     <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
                     <p className="text-gray-300 text-sm">
-                        98B, 2nd Floor, Namberdar Estate, Taimoor Nagar, New Friends Colony, New Delhi-110025
+                       InfoTree Computers LLC, A 504,  Al Zahra Techno Centre,  Khaled Bin Waleed Street,  Bur Dubai, UAE
                     </p>
                     <p className="text-gray-300 text-sm mt-2">
-                        Email: <a href="mailto:info@itapcards.com" className="hover:underline">info@itapcards.com</a>
+                        Email: <a href="mailto:info@itapcards.com" className="hover:underline">info@itapitsolutions.com</a>
                     </p>
-                    <p className="text-gray-300 text-sm">Call: +00000000000</p>
+                    <p className="text-gray-300 text-sm">Call: +97 1- 527092174</p>
                 </div>
 
                 {/* Right - Social Icons */}

@@ -6,12 +6,12 @@ import Card from "../../components/all-templates/Card";
 
 export default function AllTemplatespage() {
   const themes = [
-    { id: 1, name: 'Theme One', image: '/assets/theme/theme1.png', preview: '/preview/theme_one' },
-    { id: 2, name: 'Theme Two', image: '/assets/theme/theme2.png', preview: '/preview/theme_two' },
-    { id: 3, name: 'Theme Three', image: '/assets/theme/theme3.png', preview: '/preview/theme_three' },
-    { id: 4, name: 'Theme Four', image: '/assets/theme/theme4.png', preview: '/preview/theme_four' },
-    { id: 5, name: 'Theme Five', image: '/assets/theme/theme5.png', preview: 'https://vcard.waptechy.com/amazingllll/theme_five' },
-    { id: 6, name: 'Theme Six', image: '/assets/theme/theme6.png', preview: 'https://vcard.waptechy.com/amazingllll/theme_six' },
+    { id: 1, name: 'Theme One', image: '/assets/theme/theme1.png', preview: '/preview/theme_one/theme_one/demo' },
+    { id: 2, name: 'Theme Two', image: '/assets/theme/theme2.png', preview: '/preview/theme_two/theme_two/demo' },
+    { id: 3, name: 'Theme Three', image: '/assets/theme/theme3.png', preview: '/preview/theme_three/theme_three/demo' },
+    { id: 4, name: 'Theme Four', image: '/assets/theme/theme4.png', preview: '/preview/theme_four/theme_four/demo' },
+    { id: 5, name: 'Theme Five', image: '/assets/theme/theme5.png', preview: '/preview/theme_five/theme_five/demo' },
+    { id: 6, name: 'Theme Six', image: '/assets/theme/theme6.png', preview: '/preview/theme_six/theme_six/demo/theme_six' },
     { id: 7, name: 'Theme Seven', image: '/assets/theme/theme7.png', preview: '/preview/theme_seven/theme_seven/demo' },
     { id: 8, name: 'Theme Eight', image: '/assets/theme/theme8.png', preview: '/preview/theme_eight/theme_eight/demo' },
     { id: 9, name: 'Theme Nine', image: '/assets/theme/theme9.png', preview: '/preview/theme_nine/theme_nine/demo' },

@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import {
   FaEnvelope,
@@ -10,67 +8,32 @@ import {
 } from "react-icons/fa";
 
 const ProfileCard = ({ data }) => {
-  if (!data) return null;
+  const social = data?.social_options ? JSON.parse(data.social_options) : {};
 
-  // 1️⃣ Initialize contact
-  let contact = {
-    mobile: null,
-    email: null,
-    address: null,
-    facebook: null,
-  };
-
-  // 2️⃣ Try parsing social_options
-  try {
-    if (data?.social_options && data.social_options.trim() !== "") {
-      const social = JSON.parse(data.social_options);
-      if (social.mandatory) contact = { ...contact, ...social.mandatory };
-    }
-  } catch {}
-
-  // 3️⃣ If missing, use fields from API
-  if (data?.fields?.length > 0) {
-    data.fields.forEach((f) => {
-      if (f.type === "mobile") contact.mobile = f.title;
-      if (f.type === "email") contact.email = f.title;
-      if (f.type === "address") contact.address = f.title;
-      if (f.type === "facebook") contact.facebook = f.url || f.title;
-    });
-  }
-
-  // 4️⃣ Only fallback to demo if nothing exists
-  if (!contact.mobile && !contact.email && !contact.address) {
-    contact = {
-      mobile: "+91 9876543210",
-      email: "demo@gmail.com",
-      address: "Demo City, India",
-      facebook: "https://facebook.com/demo",
-    };
-  }
-
+  // Construct image path safely
   const profileSrc = data?.profile
     ? `/assets/assets/uploads/card-profile/${data.profile}`
     : "/assets/default-avatar.png";
 
-  const whatsappNumber = contact.mobile
-    ? `https://wa.me/${contact.mobile}`
+  // WhatsApp link
+  const whatsappNumber = social?.mandatory?.mobile
+    ? `https://wa.me/${social.mandatory.mobile}`
     : null;
 
-  const facebookLink = contact.facebook
-    ? contact.facebook.startsWith("http")
-      ? contact.facebook
-      : `https://${contact.facebook}`
+  // Facebook link
+  const facebookLink = social?.mandatory?.facebook
+    ? social.mandatory.facebook.startsWith("http")
+      ? social.mandatory.facebook
+      : `https://${social.mandatory.facebook}`
     : null;
 
   return (
-    <div className="bg-white rounded-2xl shadow-2xl max-w-md mx-auto text-black overflow-hidden relative font-sans border border-gray-200 mt-10">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 h-32 relative mt-15">
-        {data?.views && (
-          <div className="absolute top-2 left-2 bg-white/20 text-white px-3 py-1 text-xs rounded-lg backdrop-blur-sm">
-            👁️ Views: {data.views}
-          </div>
-        )}
+    <div className="bg-white rounded-2xl shadow-2xl max-w-md mx-auto text-black overflow-hidden relative font-sans border border-gray-200">
+      {/* Header Section */}
+      <div className="bg-gradient-to-r from-blue-600 to-purple-600 h-32 relative mt-20">
+        <div className="absolute top-2 left-2 bg-white/20 text-white px-3 py-1 text-xs rounded-lg backdrop-blur-sm">
+          👁️ Views: {data?.views || 0}
+        </div>
         <div className="absolute inset-x-0 -bottom-12 flex justify-center">
           <Image
             src={profileSrc}
@@ -82,32 +45,28 @@ const ProfileCard = ({ data }) => {
         </div>
       </div>
 
-      {/* Content */}
+      {/* Content Section */}
       <div className="pt-16 px-6 pb-6 text-center">
-        <h2 className="text-2xl font-bold text-gray-900">
-          {data?.title || "Demo Name"}
-        </h2>
-        <p className="text-blue-500 mt-1 font-medium">
-          {data?.sub_title || "Demo Title"}
-        </p>
+        <h2 className="text-2xl font-bold text-gray-900">{data?.title}</h2>
+        <p className="text-blue-500 mt-1 font-medium">{data?.sub_title}</p>
         {data?.description && (
           <p className="mt-3 text-gray-700 leading-relaxed text-sm">
             {data.description}
           </p>
         )}
 
-        {/* Contact Info */}
+        {/* Contact / Social Info */}
         <div className="mt-6 space-y-3 text-left text-gray-800">
-          {contact.mobile && (
+          {social?.mandatory?.mobile && (
             <div className="flex items-center gap-3">
               <FaPhone className="text-blue-600" />
-              <span>{contact.mobile}</span>
+              <span>{social.mandatory.mobile}</span>
             </div>
           )}
-          {contact.email && (
+          {social?.mandatory?.email && (
             <div className="flex items-center gap-3">
               <FaEnvelope className="text-red-500" />
-              <span>{contact.email}</span>
+              <span>{social.mandatory.email}</span>
             </div>
           )}
           {whatsappNumber && (
@@ -123,10 +82,10 @@ const ProfileCard = ({ data }) => {
               </a>
             </div>
           )}
-          {contact.address && (
+          {social?.mandatory?.address && (
             <div className="flex items-center gap-3">
               <FaMapMarkerAlt className="text-gray-700" />
-              <span>{contact.address}</span>
+              <span>{social.mandatory.address}</span>
             </div>
           )}
           {facebookLink && (

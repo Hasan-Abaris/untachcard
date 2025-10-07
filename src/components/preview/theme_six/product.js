@@ -1,69 +1,88 @@
 "use client";
-import React from "react";
-import "@fortawesome/fontawesome-free/css/all.min.css";
 
-function Product() {
-  const products = [
-    {
-      id: 2,
-      image:
-        "https://vcard.waptechy.com/assets/uploads/product-image/1734443224-maxresdefault.jpg",
-      price: "100",
-      title: "Иванов Иван",
-      description: "yut7i",
-      link: "#enquiryform",
-      target: "",
-    },
-  ];
+import Image from "next/image";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
+const ProductServices = ({ data }) => {
+  console.log("ProductServices data:", data);
+
+  if (!data || data.length === 0)
+    return <p className="text-white text-center mt-15">No products found</p>;
 
   return (
-    <div className="flex justify-center items-center  bg-gray-100">
-      <div className="card p-4  max-w-md w-full">
-        <div className="card-header flex justify-center items-center p-4">
-          <h4 className="text-xl font-semibold text-black">Products and Services</h4>
-        </div>
+    <div
+      className="bg-pink-200 rounded-xl shadow-lg p-6 max-w-lg mx-auto"
+      style={{
+        backgroundImage: "url('/assets/banner/theme-ten.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <h3 className="font-bold text-lg mb-4">Products and Services</h3>
+      <Swiper
+        modules={[Navigation, Pagination]}
+        navigation
+        pagination={{ clickable: true }}
+        spaceBetween={20}
+        slidesPerView={1}
+      >
+        {data.map((item, index) => (
+          <SwiperSlide key={index}>
+            <div className="bg-transparent rounded-xl p-4 shadow-md">
+              <div className="relative">
+                <Image
+                  src={
+                    item?.image
+                      ? item.image.startsWith("http")
+                        ? item.image
+                        : `/uploads/${item.image}`
+                      : "/default-product.jpg"
+                  }
+                  alt={item.title || "Product"}
+                  width={600}
+                  height={300}
+                  className="rounded-lg object-cover"
+                />
+                {item.tag && (
+                  <span className="absolute top-2 right-2 bg-white text-black px-2 py-1 rounded text-xs">
+                    {item.tag}
+                  </span>
+                )}
+                {item.price && (
+                  <span className="absolute bottom-2 left-2 bg-black/70 px-2 py-1 rounded text-xs text-white">
+                    Price: {item.price}
+                  </span>
+                )}
+              </div>
 
-        <div className="relative">
-          {products.map((product) => (
-            <div key={product.id} className="w-full">
-              <article className="border rounded mb-3">
-                <div className="article-header relative">
-                  <div
-                    className="article-image h-48 bg-cover bg-center"
-                    style={{ backgroundImage: `url('${product.image}')` }}
-                  ></div>
-                  <div className="article-badge absolute top-2 right-2">
-                    <div className="article-badge-item bg-gray-800 text-black px-2 py-1 rounded">
-                      Price: {product.price || "N/A"}
-                    </div>
-                  </div>
-                </div>
-                <div className="article-details p-4">
-                  <div className="article-title">
-                    <h2 className="text-lg font-semibold text-center text-black">
-                      <a href={product.link} target={product.target}>
-                        {product.title}
-                      </a>
-                    </h2>
-                  </div>
-                  <p className="text-gray-600 text-center">{product.description}</p>
-                  <div className="article-cta mt-2 flex justify-center">
-                    <a
-                      href={product.link}
-                      target={product.target}
-                      className="text-blue-600 hover:underline flex items-center"
-                    >
-                      Enquiry <i className="fas fa-chevron-right ml-1"></i>
-                    </a>
-                  </div>
-                </div>
-              </article>
+              <h4 className="mt-4 text-lg font-semibold">{item.title}</h4>
+              <p className="text-gray-400 text-sm mt-2 line-clamp-3">
+                {item.description}
+              </p>
+
+              {item.url && (
+                <button
+                  className="mt-3 px-4 py-2 border border-white rounded-md hover:bg-white hover:text-black transition"
+                  onClick={() => {
+                    const finalUrl = item.url.startsWith("http")
+                      ? item.url
+                      : `https://${item.url}`;
+                    window.open(finalUrl, "_blank", "noopener,noreferrer");
+                  }}
+                >
+                  Enquiry →
+                </button>
+              )}
             </div>
-          ))}
-        </div>
-      </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </div>
   );
-}
+};
 
-export default Product;
+export default ProductServices;

@@ -107,8 +107,8 @@ const ThemeNine = () => {
 
             {dataDetails && <EnquiryForm data={dataDetails} />}
 
-            {dataDetails?.custumSection?.length > 0 && (
-                <CustomSection data={dataDetails?.fields} />
+            {dataDetails?.customsection?.length > 0 && (
+                <CustomSection data={dataDetails?.customsection} />
             )}
 
             {dataDetails?.working_hours && (

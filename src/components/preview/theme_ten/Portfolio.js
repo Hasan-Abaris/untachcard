@@ -9,6 +9,11 @@ import "swiper/css/pagination";
 import { useRouter } from "next/navigation";
 
 const Portfolio = ({ data }) => {
+    const linkSend = (url) => {
+        if (url) {
+            window.open(url, "_blank");
+        }
+    }
     return (
         <div className="bg-pink-200 rounded-xl shadow-lg p-6 max-w-lg mx-auto" style={{
             backgroundImage: "url('/assets/banner/theme-ten.jpg')",

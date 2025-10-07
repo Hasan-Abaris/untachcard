@@ -108,17 +108,19 @@ const Themeseven = () => {
 
             {dataDetails && <EnquiryForm data={dataDetails} />}
 
-            {dataDetails?.custumSection?.length > 0 && (
-                <CustomSection data={dataDetails?.fields} />
+            {dataDetails?.customsection?.length > 0 && (
+                <CustomSection data={dataDetails?.customsection} />
             )}
 
             {dataDetails?.working_hours && (
                 <WorkingHours data={dataDetails?.working_hours} />
             )}
 
+
             {dataDetails?.payment_options?.length > 0 && (
                 <PaymentSection data={dataDetails?.payment_options} />
             )}
+
         </div>
     );
 }

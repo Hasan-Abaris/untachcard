@@ -30,7 +30,7 @@ export const Testimonials = ({ data }) => {
             >
                 {data.map((item) => (
                     <SwiperSlide key={item._id}>
-                        <div className="text-center p-4 bg-gray-900 rounded-xl h-full flex flex-col items-center">
+                        <div className="text-center p-4 bg-transparent  rounded-xl h-full flex flex-col items-center">
                             <img
                                 src={item.image}
                                 alt={item.title || "client"}

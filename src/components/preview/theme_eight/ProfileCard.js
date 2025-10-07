@@ -1,6 +1,7 @@
 
+import ShareVCardModal from "@/components/common/shareVCardModal/ShareVCardModal";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { FaPhone, FaEnvelope, FaWhatsapp, FaMapMarkerAlt, FaGlobe, FaFacebookF, FaInstagram } from "react-icons/fa";
 
 const ProfileCard = ({ data }) => {
@@ -13,6 +14,12 @@ const ProfileCard = ({ data }) => {
     const website = getField("website");
     const facebook = getField("facebook");
     const instagram = getField("instagram");
+    const [open, setOpen] = useState(false);
+    const [modalData, setModalData] = useState(null)
+    const shareModal = async (data) => {
+        setModalData(data)
+        setOpen(true)
+    }
     return (
         <div className="bg-black text-white rounded-2xl shadow-lg overflow-hidden max-w-md mx-auto">
             {/* Cover Image */}
@@ -145,11 +152,17 @@ const ProfileCard = ({ data }) => {
                     <button className="px-4 py-2 bg-gray-800 rounded-lg hover:bg-gray-700">
                         Add to Phone Book
                     </button>
-                    <button className="px-4 py-2 bg-gray-800 rounded-lg hover:bg-gray-700">
+                    <button type="button" className="px-4 py-2 bg-gray-800 rounded-lg hover:bg-gray-700" onClick={() => shareModal(data)}>
                         Share
                     </button>
                 </div>
             </div>
+            <ShareVCardModal
+                isOpen={open}
+                onClose={() => setOpen(false)}
+                data={modalData}
+                theme="theme_eight/theme_eight"
+            />
         </div>
     );
 };

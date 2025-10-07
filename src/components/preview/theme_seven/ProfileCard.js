@@ -1,20 +1,29 @@
-
+"use client"
+import ShareVCardModal from "@/components/common/shareVCardModal/ShareVCardModal";
 import Image from "next/image";
+import { useState } from "react";
 import { FaEnvelope, FaFacebookF, FaGlobe, FaInstagram, FaMapMarkerAlt, FaPhone, FaWhatsapp } from "react-icons/fa";
 
 const ProfileCard = ({ data }) => {
     const social = data?.social_options ? JSON.parse(data.social_options) : {};
-    console.log(data?.fields);
+    // console.log(data?.fields);
+
 
     const getField = (type) =>
         data?.fields.find((item) => item.type.toLowerCase() === type.toLowerCase());
-
     const mobile = getField("mobile");
     const email = getField("email");
     const address = getField("address");
     const website = getField("website");
     const facebook = getField("facebook");
     const instagram = getField("instagram");
+
+    const [open, setOpen] = useState(false);
+    const [modalData, setModalData] = useState(null)
+    const shareModal = async (data) => {
+        setModalData(data)
+        setOpen(true)
+    }
 
     return (
         <div className="bg-black rounded-lg shadow-md text-center text-white max-w-md mx-auto relative overflow-hidden">
@@ -139,12 +148,18 @@ const ProfileCard = ({ data }) => {
                 </div>
 
                 <div className="mt-6 flex justify-center gap-4">
-                    <button className="px-4 py-2 border rounded-md">
+                    <button className="px-4 py-2 border rounded-md" >
                         Add to Phone Book
                     </button>
-                    <button className="px-4 py-2 border rounded-md">Share</button>
+                    <button type="button" className="px-4 py-2 border rounded-md" onClick={() => shareModal(data)}>Share</button>
                 </div>
             </div>
+            <ShareVCardModal
+                isOpen={open}
+                onClose={() => setOpen(false)}
+                data={modalData}
+                theme="theme_seven/theme_seven"
+            />
         </div>
     );
 };

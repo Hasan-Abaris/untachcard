@@ -7,23 +7,23 @@ import Portfolio from "./portfolio";
 import Gallery from "./Gallery";
 import Testimonials from "./Testimonial";
 import EnquiryForm from "./Enquiry";
-import CustomSection from "./Services";
 import Qr from "./Qr";
-import { useParams } from "next/navigation";
+import CustomSection from "./Custom";
+import WorkingHours from "./WorkingHours";
+import Payment from "./Payment";
 import { base_url } from "@/server";
 import axios from "axios";
+import AppointmentPage from "./appointment";
 
-const Themeonepage = () => {
-  const params = useParams();
+const Themeonepage = ({ slug }) => {
   const [dataDetails, setDetailsdata] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // ✅ Fetch card by slug or fallback to demo
   const fetchCardData = async (slug) => {
+    if (!slug) return setLoading(false);
+
     try {
       const token = window.localStorage.getItem("token");
-
-      // Try fetching card by slug
       const res = await axios.get(`${base_url}card/details/${slug}`, {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
@@ -31,12 +31,11 @@ const Themeonepage = () => {
       if (res?.data?.data?.length > 0) {
         setDetailsdata(res.data.data[0]);
       } else {
-        // fallback to demo API
         const demoRes = await axios.get(`${base_url}card/demo`);
         setDetailsdata(demoRes.data.data[0]);
       }
     } catch (err) {
-      console.error("Primary API failed, using demo:", err);
+      console.error("Primary API failed:", err);
       try {
         const demoRes = await axios.get(`${base_url}card/demo`);
         setDetailsdata(demoRes.data.data[0]);
@@ -50,53 +49,98 @@ const Themeonepage = () => {
   };
 
   useEffect(() => {
-    const slug = params?.slug || null;
     fetchCardData(slug);
-  }, [params]);
+  }, [slug]);
 
-  if (loading) {
+  if (loading)
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-white text-lg font-semibold animate-pulse">
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <p className="text-black text-lg font-semibold animate-pulse">
           Loading...
         </p>
       </div>
     );
-  }
 
-  if (!dataDetails) {
+  if (!dataDetails)
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-white text-lg font-semibold">No data found</p>
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <p className="text-black text-lg font-semibold">No data found</p>
       </div>
     );
-  }
 
   return (
-    <div className="min-h-screen">
-      {/* Pass already fetched data to ProfileCard */}
-      <ProfileCard data={dataDetails} />
+    <div className="min-h-screen bg-white text-black px-4 md:px-8 lg:px-16">
+      {/* Profile Section */}
+      <div className="my-8">
+        <ProfileCard data={dataDetails} />
+      </div>
 
-      {/* Product / Services */}
-      <ProductServices data={dataDetails?.sections || []} />
+      {/* Products and Services */}
+      <div className="my-8">
+        <ProductServices data={dataDetails?.products || []} />
+      </div>
 
       {/* Portfolio */}
-      <Portfolio data={dataDetails?.portfolios || []} />
+      <div className="my-8">
+        <Portfolio data={dataDetails?.portfolios || []} />
+      </div>
 
       {/* Gallery */}
-      <Gallery data={dataDetails?.galleries || []} />
+      <div className="my-8">
+        <Gallery data={dataDetails?.galleries || []} />
+      </div>
 
       {/* Testimonials */}
-      <Testimonials data={dataDetails?.testimonials || []} />
+      <div className="my-8">
+        <Testimonials data={dataDetails?.testimonials || []} />
+      </div>
 
       {/* Enquiry Form */}
-      <EnquiryForm data={dataDetails} />
+      <div className="my-8">
+        <EnquiryForm data={dataDetails} />
+      </div>
 
       {/* QR Section */}
-      <Qr data={dataDetails?.fields || []} />
+      <div className="my-8">
+        <Qr data={dataDetails?.fields || []} />
+      </div>
 
-      {/* Custom Section */}
-      <CustomSection data={dataDetails?.fields || []} />
+      {/* Custom Section Card */}
+      <div className="my-8 bg-white rounded-lg shadow-lg p-6 max-w-3xl mx-auto">
+        <h3 className="text-xl font-bold mb-2 text-center">Custom Section</h3>
+        <CustomSection data={dataDetails?.customsection || []} />
+      </div>
+
+      {/* Working Hours Card */}
+      <div className="my-8 bg-white rounded-lg shadow-lg p-6 max-w-3xl mx-auto">
+        <h3 className="text-xl font-bold mb-2 text-center">Working Hours</h3>
+        <WorkingHours
+          data={
+            dataDetails?.customsection?.find(
+              (item) => item.title === "Working Hours"
+            ) || null
+          }
+        />
+      </div>
+
+      {/* Payment Card */}
+      <div className="my-8 bg-white rounded-lg shadow-lg p-6 max-w-3xl mx-auto">
+        <h3 className="text-xl font-bold mb-2 text-center">Payment</h3>
+        <Payment
+          data={
+            dataDetails?.customsection?.find(
+              (item) => item.title === "Payment"
+            ) || null
+          }
+        />
+
+        {/* Custom Section Card */}
+      <div className="my-8 rounded-lg shadow-lg p-6 max-w-3xl mx-auto">
+        <h3 className="text-xl font-bold mb-2 text-center"></h3>
+        <AppointmentPage data={dataDetails?.customsection || []} />
+      </div>
+
+      </div>
     </div>
   );
 };

@@ -30,7 +30,7 @@ const ProfileCard = ({ data }) => {
   return (
     <div className="bg-white rounded-2xl shadow-2xl max-w-md mx-auto text-black overflow-hidden relative font-sans border border-gray-200">
       {/* Header Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 h-32 relative">
+      <div className="bg-gradient-to-r from-blue-600 to-purple-600 h-32 relative mt-20">
         <div className="absolute top-2 left-2 bg-white/20 text-white px-3 py-1 text-xs rounded-lg backdrop-blur-sm">
           👁️ Views: {data?.views || 0}
         </div>

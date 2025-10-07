@@ -19,7 +19,9 @@ const NewVcardPage = () => {
     <div className="min-h-screen bg-gray-50 p-6">
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
+        <Link href="/edits/BasicDetails">
         <h1 className="text-2xl font-semibold text-gray-800">New vCard</h1>
+        </Link>
        
        <Link href="/dashboard/vcards">
         <button className="bg-indigo-100 text-indigo-600 px-4 py-2 rounded hover:bg-indigo-200 cursor-pointer">

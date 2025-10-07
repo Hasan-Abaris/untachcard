@@ -1,0 +1,9 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/page": "app/page.js",
+  "/preview/theme_five/[name]/[slug]/page": "app/preview/theme_five/[name]/[slug]/page.js",
+  "/preview/theme_six/[name]/[slug]/page": "app/preview/theme_six/[name]/[slug]/page.js",
+  "/preview/theme_seven/[name]/[slug]/page": "app/preview/theme_seven/[name]/[slug]/page.js",
+  "/preview/theme_eight/[name]/[slug]/page": "app/preview/theme_eight/[name]/[slug]/page.js",
+  "/preview/theme_one/[name]/[slug]/page": "app/preview/theme_one/[name]/[slug]/page.js"
+}

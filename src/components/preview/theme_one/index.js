@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import ProfileCard from "./profile";
 import ProductServices from "./product";
@@ -6,123 +7,141 @@ import Portfolio from "./portfolio";
 import Gallery from "./Gallery";
 import Testimonials from "./Testimonial";
 import EnquiryForm from "./Enquiry";
-import CustomSection from "./Services";
-import { useParams } from "next/navigation";
+import Qr from "./Qr";
+import CustomSection from "./Custom";
+import WorkingHours from "./WorkingHours";
+import Payment from "./Payment";
 import { base_url } from "@/server";
 import axios from "axios";
-import Qr from "./Qr";
+import AppointmentPage from "./appointment";
 
-const Themeonepage = () => {
-  const params = useParams(); 
+const Themeonepage = ({ slug }) => {
   const [dataDetails, setDetailsdata] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
 
-  const cardDetailsget = async (slug) => {
-    if (!slug) return;
+  const fetchCardData = async (slug) => {
+    if (!slug) return setLoading(false);
+
     try {
       const token = window.localStorage.getItem("token");
       const res = await axios.get(`${base_url}card/details/${slug}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
 
       if (res?.data?.data?.length > 0) {
         setDetailsdata(res.data.data[0]);
-        setError(false);
       } else {
-        setError(true);
+        const demoRes = await axios.get(`${base_url}card/demo`);
+        setDetailsdata(demoRes.data.data[0]);
       }
     } catch (err) {
-      console.error("API error:", err);
-      setError(true);
+      console.error("Primary API failed:", err);
+      try {
+        const demoRes = await axios.get(`${base_url}card/demo`);
+        setDetailsdata(demoRes.data.data[0]);
+      } catch (demoErr) {
+        console.error("Demo API also failed:", demoErr);
+        setDetailsdata(null);
+      }
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    const slug = params?.slug || "abdul-quadir-abaris-softech"; // fallback slug
-    setLoading(true);
-    cardDetailsget(slug);
-  }, [params]);
+    fetchCardData(slug);
+  }, [slug]);
 
-  if (loading) {
+  if (loading)
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-white text-lg font-semibold animate-pulse">
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <p className="text-black text-lg font-semibold animate-pulse">
           Loading...
         </p>
       </div>
     );
-  }
 
-  if (error || !dataDetails) {
+  if (!dataDetails)
     return (
-      <div className="min-h-screen flex items-center justify-center ">
-        <p className="text-white text-lg font-semibold">No data found</p>
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <p className="text-black text-lg font-semibold">No data found</p>
       </div>
     );
-  }
 
   return (
-    <div className="min-h-screen">
-  {/* Profile Card */}
-  {dataDetails ? (
-    <ProfileCard data={dataDetails} />
-  ) : (
-    <ProfileCard data={{ name: "John Doe", title: "Web Developer" }} />
-  )}
+    <div className="min-h-screen bg-white text-black px-4 md:px-8 lg:px-16">
+      {/* Profile Section */}
+      <div className="my-8">
+        <ProfileCard data={dataDetails} />
+      </div>
 
-  {/* Product / Services */}
-  {dataDetails?.sections?.length > 0 ? (
-    <ProductServices data={dataDetails.sections} />
-  ) : (
-    <ProductServices data={[{ title: "Service 1", desc: "Description" }]} />
-  )}
+      {/* Products and Services */}
+      <div className="my-8">
+        <ProductServices data={dataDetails?.products || []} />
+      </div>
 
-  {/* Portfolio */}
-  {dataDetails?.portfolios?.length > 0 ? (
-    <Portfolio data={dataDetails.portfolios} />
-  ) : (
-    <Portfolio data={[{ project: "Sample Project", img: "/placeholder.png" }]} />
-  )}
+      {/* Portfolio */}
+      <div className="my-8">
+        <Portfolio data={dataDetails?.portfolios || []} />
+      </div>
 
-  {/* Gallery */}
-  {dataDetails?.galleries?.length > 0 ? (
-    <Gallery data={dataDetails.galleries} />
-  ) : (
-    <Gallery data={[{ img: "/placeholder.png", title: "Sample Image" }]} />
-  )}
+      {/* Gallery */}
+      <div className="my-8">
+        <Gallery data={dataDetails?.galleries || []} />
+      </div>
 
-  {/* Testimonials */}
-  {dataDetails?.testimonials?.length > 0 ? (
-    <Testimonials data={dataDetails.testimonials} />
-  ) : (
-    <Testimonials data={[{ name: "Jane Doe", comment: "Great!" }]} />
-  )}
+      {/* Testimonials */}
+      <div className="my-8">
+        <Testimonials data={dataDetails?.testimonials || []} />
+      </div>
 
-  {/* Enquiry Form */}
-  {dataDetails ? (
-    <EnquiryForm data={dataDetails} />
-  ) : (
-    <EnquiryForm data={{ email: "", message: "" }} />
-  )}
+      {/* Enquiry Form */}
+      <div className="my-8">
+        <EnquiryForm data={dataDetails} />
+      </div>
 
-  {/* QR Section */}
-  {dataDetails?.customSection?.length > 0 ? (
-    <Qr data={dataDetails.fields} />
-  ) : (
-    <Qr data={[{ label: "QR Code", value: "https://example.com" }]} />
-  )}
+      {/* QR Section */}
+      <div className="my-8">
+        <Qr data={dataDetails?.fields || []} />
+      </div>
 
-  {/* Custom Section */}
-  {dataDetails?.customSection?.length > 0 ? (
-    <CustomSection data={dataDetails.fields} />
-  ) : (
-    <CustomSection data={[{ title: "Custom Section", content: "Sample content" }]} />
-  )}
-</div>
+      {/* Custom Section Card */}
+      <div className="my-8 bg-white rounded-lg shadow-lg p-6 max-w-3xl mx-auto">
+        <h3 className="text-xl font-bold mb-2 text-center">Custom Section</h3>
+        <CustomSection data={dataDetails?.customsection || []} />
+      </div>
 
+      {/* Working Hours Card */}
+      <div className="my-8 bg-white rounded-lg shadow-lg p-6 max-w-3xl mx-auto">
+        <h3 className="text-xl font-bold mb-2 text-center">Working Hours</h3>
+        <WorkingHours
+          data={
+            dataDetails?.customsection?.find(
+              (item) => item.title === "Working Hours"
+            ) || null
+          }
+        />
+      </div>
+
+      {/* Payment Card */}
+      <div className="my-8 bg-white rounded-lg shadow-lg p-6 max-w-3xl mx-auto">
+        <h3 className="text-xl font-bold mb-2 text-center">Payment</h3>
+        <Payment
+          data={
+            dataDetails?.customsection?.find(
+              (item) => item.title === "Payment"
+            ) || null
+          }
+        />
+
+        {/* Custom Section Card */}
+      <div className="my-8 rounded-lg shadow-lg p-6 max-w-3xl mx-auto">
+        <h3 className="text-xl font-bold mb-2 text-center"></h3>
+        <AppointmentPage data={dataDetails?.customsection || []} />
+      </div>
+
+      </div>
+    </div>
   );
 };
 

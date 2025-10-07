@@ -12,6 +12,7 @@ import PaymentSection from './PaymentSection'
 import { useParams } from 'next/navigation'
 import { base_url } from '@/server'
 import axios from 'axios'
+import AppointmentPage from './appointment'
 
 const Themeseven = () => {
     const params = useParams();
@@ -120,8 +121,10 @@ const Themeseven = () => {
             {dataDetails?.payment_options?.length > 0 && (
                 <PaymentSection data={dataDetails?.payment_options} />
             )}
-
-        </div>
+            {/* Appointment */}
+                    <AppointmentPage data={dataDetails?.customsection || []} />
+                  </div>
+       
     );
 }
 

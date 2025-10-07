@@ -1,5 +1,6 @@
+import ShareVCardModal from "@/components/common/shareVCardModal/ShareVCardModal";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { FaEye, FaUserPlus, FaShareAlt, FaPhone, FaEnvelope, FaWhatsapp, FaMapMarkerAlt, FaGlobe, FaInstagram, FaFacebookF } from "react-icons/fa";
 
 const ProfileCard = ({ data }) => {
@@ -13,6 +14,12 @@ const ProfileCard = ({ data }) => {
     const website = getField("website");
     const facebook = getField("facebook");
     const instagram = getField("instagram");
+    const [open, setOpen] = useState(false);
+    const [modalData, setModalData] = useState(null)
+    const shareModal = async (data) => {
+        setModalData(data)
+        setOpen(true)
+    }
     return (
         <div className="bg-pink-200 rounded-xl shadow-lg p-6 text-center relative max-w-lg mx-auto" style={{
             backgroundImage: "url('/assets/banner/theme-ten.jpg')",
@@ -22,7 +29,7 @@ const ProfileCard = ({ data }) => {
             {/* Views */}
             <div className="absolute top-3 right-3 flex items-center space-x-2 border px-3 py-1 rounded-full shadow">
                 <FaEye />
-                <span className="text-sm">Views: 5353</span>
+                <span className="text-sm">Views: {data?.views}</span>
             </div>
 
             {/* Profile Image */}
@@ -146,10 +153,16 @@ const ProfileCard = ({ data }) => {
                 <button className="flex items-center gap-2 border px-4 py-2 rounded-lg hover:bg-gray-100 transition">
                     <FaUserPlus /> Add to Phone Book
                 </button>
-                <button className="flex items-center gap-2 border px-4 py-2 rounded-lg hover:bg-gray-100 transition">
+                <button type="button" className="flex items-center gap-2 border px-4 py-2 rounded-lg hover:bg-gray-100 transition" onClick={() => shareModal(data)}>
                     <FaShareAlt /> Share
                 </button>
             </div>
+            <ShareVCardModal
+                isOpen={open}
+                onClose={() => setOpen(false)}
+                data={modalData}
+                theme="theme_ten/theme_ten"
+            />
         </div>
     );
 };

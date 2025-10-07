@@ -104,7 +104,9 @@ const ThemeNine = () => {
         <Testimonials data={dataDetails?.testimonials} />
       )}
 
-      {dataDetails && <EnquiryForm data={dataDetails} />}
+            {dataDetails?.customsection?.length > 0 && (
+                <CustomSection data={dataDetails?.customsection} />
+            )}
 
       {dataDetails?.custumSection?.length > 0 && (
         <CustomSection data={dataDetails?.fields} />

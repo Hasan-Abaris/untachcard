@@ -26,12 +26,18 @@ const ProductServices = ({ data }) => {
                         <div className="bg-gray-900 rounded-xl p-4 shadow-md">
                             <div className="relative">
                                 <Image
-                                    src={item?.image}
-                                    alt={item.title || "Product"}
+                                    src={
+                                        item.image.startsWith("http")
+                                            ? item.image
+                                            : `https://res.cloudinary.com/uploads/${item.image}`
+                                    }
+                                    alt={item.title}
                                     width={600}
                                     height={300}
                                     className="rounded-lg object-cover"
                                 />
+                                {/* {console.log();
+                                } */}
                                 {item.tag && (
                                     <span className="absolute top-2 right-2 bg-white text-black px-2 py-1 rounded text-xs">
                                         {item.tag}

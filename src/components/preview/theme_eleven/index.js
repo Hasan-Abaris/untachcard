@@ -101,9 +101,9 @@ const ThemeNine = () => {
         <Gallery data={dataDetails?.galleries} />
       )}
 
-      {dataDetails?.testimonials?.length > 0 && (
-        <Testimonials data={dataDetails?.testimonials} />
-      )}
+            {dataDetails?.customsection?.length > 0 && (
+                <CustomSection data={dataDetails?.customsection} />
+            )}
 
       {dataDetails && <EnquiryForm data={dataDetails} />}
 

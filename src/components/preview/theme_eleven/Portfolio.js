@@ -33,7 +33,7 @@ export const Portfolio = ({ data }) => {
             >
                 {data?.map((item, index) => (
                     <SwiperSlide key={index}>
-                        <div className="rounded-lg overflow-hidden bg-gray-900 p-4">
+                        <div className="rounded-lg overflow-hidden  p-4">
                             <img
                                 src={`/assets/assets/uploads/card-banner/${item?.image}`}
                                 alt="portfolio"

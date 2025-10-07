@@ -1,5 +1,5 @@
 import React from "react";
-import { FiPlus } from "react-icons/fi"; 
+import { FiPlus } from "react-icons/fi";
 
 const packagesData = [
   {
@@ -18,9 +18,9 @@ const packagesData = [
     experience: "2 yrs+",
     products: "Mac, Kryolan and similar brands",
     images: [
-       "/assets/images/m1.jpg",
-       "/assets/images/m2.jpg",
-       "/assets/images/m3.jpg",
+      "/assets/images/m1.jpg",
+      "/assets/images/m2.jpg",
+      "/assets/images/m3.jpg",
     ],
   },
   {
@@ -40,8 +40,8 @@ const packagesData = [
     products: "Huda Beauty, Bobbi Brown, Sephora...",
     images: [
       "/assets/images/m4.jpg",
-       "/assets/images/m5.jpg",
-       "/assets/images/bridalwear.jpg",
+      "/assets/images/m5.jpg",
+      "/assets/images/bridalwear.jpg",
     ],
   },
   {

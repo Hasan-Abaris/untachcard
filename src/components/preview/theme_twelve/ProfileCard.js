@@ -1,7 +1,8 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Phone, Mail, MapPin } from "lucide-react";
 import { FaEnvelope, FaFacebookF, FaGlobe, FaInstagram, FaMapMarkerAlt, FaPhone, FaWhatsapp } from "react-icons/fa";
+import ShareVCardModal from "@/components/common/shareVCardModal/ShareVCardModal";
 
 const ProfileCard = ({ data }) => {
     const social = data?.social_options ? JSON.parse(data.social_options) : {};
@@ -14,6 +15,13 @@ const ProfileCard = ({ data }) => {
     const website = getField("website");
     const facebook = getField("facebook");
     const instagram = getField("instagram");
+
+    const [open, setOpen] = useState(false);
+    const [modalData, setModalData] = useState(null)
+    const shareModal = async (data) => {
+        setModalData(data)
+        setOpen(true)
+    }
     return (
         <div className="w-full bg-black text-white rounded-lg shadow-lg overflow-hidden max-w-md mx-auto">
             {/* Profile Image */}
@@ -135,10 +143,16 @@ const ProfileCard = ({ data }) => {
                     <button className="w-1/2 py-2 text-sm border border-gray-600 rounded hover:bg-gray-800 transition">
                         Add to Phone Book
                     </button>
-                    <button className="w-1/2 py-2 text-sm border border-gray-600 rounded hover:bg-gray-800 transition">
+                    <button type="button" className="w-1/2 py-2 text-sm border border-gray-600 rounded hover:bg-gray-800 transition" onClick={() => shareModal(data)}>
                         Share
                     </button>
                 </div>
+                <ShareVCardModal
+                    isOpen={open}
+                    onClose={() => setOpen(false)}
+                    data={modalData}
+                    theme="theme_seven/theme_seven"
+                />
             </div>
         </div>
     )

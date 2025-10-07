@@ -40,11 +40,12 @@ const OurCards = () => {
 
     // ✅ Handle click based on login
     const handlePreviewClick = (previewUrl) => {
-        if (!isLogin) {
-            router.push("/login2");
-        } else {
-            window.open(previewUrl, "_blank");
-        }
+        window.open(previewUrl, "_blank");
+        // if (!isLogin) {
+        //     router.push("/login2");
+        // } else {
+        //     window.open(previewUrl, "_blank");
+        // }
     };
 
     return (

@@ -28,7 +28,11 @@ const ProductServices = ({ data }) => {
                         <div className="bg-transparent rounded-xl p-4 shadow-md">
                             <div className="relative">
                                 <Image
-                                    src={item?.image}
+                                    src={
+                                        item.image.startsWith("http")
+                                            ? item.image
+                                            : `https://res.cloudinary.com/uploads/${item.image}`
+                                    }
                                     alt={item.title || "Product"}
                                     width={600}
                                     height={300}

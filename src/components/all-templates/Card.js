@@ -8,7 +8,7 @@ export default function Card({ card }) {
         <h3>{card.name}</h3>
         <p>{card.designation}</p>
         <Link href={`cardDetails/${card.id}`}>
-          <button>View Details</button>
+          <button>View Detail</button>
         </Link>
       </div>
     </div>

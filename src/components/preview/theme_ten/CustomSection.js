@@ -8,8 +8,8 @@ const CustomSection = ({ data }) => {
     };
     return (
         <>
-            {data?.map((item) => {
-                return <div className="bg-pink-200 rounded-xl shadow-lg p-6 max-w-lg mx-auto" style={{
+            {data?.map((item,index) => {
+                return <div key={index} className="bg-pink-200 rounded-xl shadow-lg p-6 max-w-lg mx-auto" style={{
                     backgroundImage: "url('/assets/banner/theme-ten.jpg')",
                     backgroundSize: "cover",
                     backgroundPosition: "center",

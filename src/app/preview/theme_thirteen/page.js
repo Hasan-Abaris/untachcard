@@ -1,12 +1,12 @@
-import ProfileCard from '@/components/preview/theme_thirteen'
+import Thirteenpagemain from '@/components/preview/theme_thirteen'
 import React from 'react'
 
-function page() {
+function Thirteenpage() {
   return (
     <div>
-      <ProfileCard/>
+      <Thirteenpagemain/>
     </div>
   )
 }
 
-export default page
+export default Thirteenpage

@@ -1,105 +1,59 @@
-"use client";
-import Image from "next/image";
-import {
-  FaFacebookF,
-  FaPhone,
-  FaEnvelope,
-  FaLink,
-  FaInstagram,
-} from "react-icons/fa";
+import React from "react";
+import Profile from "./profile";
+import Gallery from "./Gallery";
+import ProductSection from "./ProductSection";
 
-const ProfileCard = ({ data }) => {
-  const social = data?.social_options ? JSON.parse(data.social_options) : {};
-
-  const profileSrc = data?.profile
-    ? `/assets/assets/uploads/card-profile/${data.profile}`
-    : "/assets/default-avatar.png";
+export default function Thirteenpagemain() {
+  const products = [
+    {
+      title: "Luxury Villa Design",
+      price: "350,000.00",
+      image: "https://infyvcards-demo.nyc3.digitaloceanspaces.com/vcards/products/24899/P1.jpg",
+      link: "#",
+    },
+    {
+      title: "Contemporary Apartment Complex",
+      price: "1,000,000.00",
+      image: "https://infyvcards-demo.nyc3.digitaloceanspaces.com/vcards/products/24900/P2.jpg",
+      link: "#",
+    },
+    {
+      title: "Corporate Office Interiors",
+      price: "150,000.00",
+      image: "https://infyvcards-demo.nyc3.digitaloceanspaces.com/vcards/products/24901/P3.jpg",
+      link: "#",
+    },
+    {
+      title: "Retail Showroom Design",
+      price: "60,000.00",
+      image: "https://infyvcards-demo.nyc3.digitaloceanspaces.com/vcards/products/24902/P4.jpg",
+      link: "#",
+    },
+  ];
 
   return (
-    <div className="bg-gradient-to-b from-orange-200 to-orange-300 max-w-sm mx-auto rounded-3xl overflow-hidden shadow-lg font-sans">
-      {/* Cover image */}
-      <div className="relative h-40 w-full">
-        <Image
-          src="/assets/bg-cover.jpg" // You can replace with your cover image
-          alt="cover"
-          fill
-          className="object-cover"
+    <div className="min-h-screen bg-gray-50 flex flex-col items-center overflow-visible">
+      {/* Profile Section */}
+      <section className="w-full max-w-5xl px-4 mt-12 mb-16">
+        <Profile />
+      </section>
+
+      {/* Gallery Section */}
+      <section className="w-full max-w-6xl px-4 mb-12">
+        <Gallery
+          images={[
+            "https://infyvcards-demo.nyc3.digitaloceanspaces.com/vcards/gallery/24904/G1.jpg",
+            "https://infyvcards-demo.nyc3.digitaloceanspaces.com/vcards/gallery/24905/G2.jpg",
+            "https://infyvcards-demo.nyc3.digitaloceanspaces.com/vcards/gallery/24906/G3.jpg",
+            "https://infyvcards-demo.nyc3.digitaloceanspaces.com/vcards/gallery/24907/G4.jpg",
+          ]}
         />
-        {/* Profile Image */}
-        <div className="absolute left-1/2 -bottom-12 transform -translate-x-1/2">
-          <Image
-            src={profileSrc}
-            alt={data?.title || "Profile"}
-            width={100}
-            height={100}
-            className="rounded-full border-4 border-white shadow-md object-cover"
-          />
-        </div>
-      </div>
+      </section>
 
-      {/* Info Section */}
-      <div className="pt-16 pb-8 px-6 text-center bg-orange-100">
-        <h2 className="text-xl font-bold text-gray-800">{data?.title}</h2>
-        <p className="italic text-gray-600">{data?.sub_title}</p>
-
-        <hr className="my-3 border-orange-400 w-20 mx-auto" />
-
-        {data?.description && (
-          <p className="text-gray-700 text-sm leading-relaxed">
-            {data.description}
-          </p>
-        )}
-
-        {/* Social / Contact */}
-        <div className="mt-6 space-y-3 text-left">
-          {social?.mandatory?.facebook && (
-            <div className="flex items-center gap-3 bg-white rounded-xl px-4 py-2">
-              <FaFacebookF className="text-orange-500" />
-              <span>Facebook</span>
-            </div>
-          )}
-          {social?.mandatory?.mobile && (
-            <div className="flex items-center gap-3 bg-white rounded-xl px-4 py-2">
-              <FaPhone className="text-orange-500" />
-              <span>{social.mandatory.mobile}</span>
-            </div>
-          )}
-          {social?.mandatory?.email && (
-            <div className="flex items-center gap-3 bg-white rounded-xl px-4 py-2">
-              <FaEnvelope className="text-orange-500" />
-              <span>{social.mandatory.email}</span>
-            </div>
-          )}
-          {social?.mandatory?.website && (
-            <div className="flex items-center gap-3 bg-white rounded-xl px-4 py-2">
-              <FaLink className="text-orange-500" />
-              <a
-                href={social.mandatory.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-800 hover:underline"
-              >
-                {social.mandatory.website}
-              </a>
-            </div>
-          )}
-          {social?.mandatory?.instagram && (
-            <div className="flex items-center gap-3 bg-white rounded-xl px-4 py-2">
-              <FaInstagram className="text-orange-500" />
-              <span>Follow me @{social.mandatory.instagram}</span>
-            </div>
-          )}
-        </div>
-
-        {/* Buttons */}
-        <div className="mt-6 flex justify-center gap-3">
-          <button className="flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded-lg text-sm shadow hover:bg-orange-600">
-            <span>📇</span> Add to Contact
-          </button>
-        </div>
-      </div>
+      {/* Product Section */}
+      <section className="w-full max-w-6xl px-4 mb-12">
+        <ProductSection products={products} />
+      </section>
     </div>
   );
-};
-
-export default ProfileCard;
+}

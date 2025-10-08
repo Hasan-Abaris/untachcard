@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    unoptimized: true, // optional
-    domains: ["onlineparttimejobs.in"], // ✅ allow this domain
+    unoptimized: false,
+    domains: ["onlineparttimejobs.in"], 
   },
 };
 

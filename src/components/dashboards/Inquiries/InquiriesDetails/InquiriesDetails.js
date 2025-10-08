@@ -7,7 +7,7 @@ const InquiriesDetails = ({ isOpen, onClose, detailsId }) => {
     if (!isOpen) return null;
 
     const [detailsData, setDetailsData] = useState(null)
-    console.log(detailsData);
+    // console.log(detailsData);
 
     const getByIdData = async (id) => {
         try {
@@ -46,7 +46,6 @@ const InquiriesDetails = ({ isOpen, onClose, detailsId }) => {
                 <div className="space-y-4 text-gray-700 text-sm sm:text-base">
                     <p>
                         <span className="font-semibold">vCard Name : {detailsData?.cardId?.title}</span>{" "}
-
                     </p>
                     <p>
                         <span className="font-semibold">Name: {detailsData?.name}</span>

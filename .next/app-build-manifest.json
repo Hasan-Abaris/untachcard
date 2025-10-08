@@ -12,17 +12,11 @@
       "static/css/app/page.css",
       "static/chunks/app/page.js"
     ],
-    "/preview/theme_five/[name]/[slug]/page": [
+    "/preview/theme_eight/[name]/[slug]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/preview/theme_five/[name]/[slug]/page.css",
-      "static/chunks/app/preview/theme_five/[name]/[slug]/page.js"
-    ],
-    "/preview/theme_six/[name]/[slug]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/preview/theme_six/[name]/[slug]/page.css",
-      "static/chunks/app/preview/theme_six/[name]/[slug]/page.js"
+      "static/css/app/preview/theme_eight/[name]/[slug]/page.css",
+      "static/chunks/app/preview/theme_eight/[name]/[slug]/page.js"
     ],
     "/preview/theme_seven/[name]/[slug]/page": [
       "static/chunks/webpack.js",
@@ -30,11 +24,20 @@
       "static/css/app/preview/theme_seven/[name]/[slug]/page.css",
       "static/chunks/app/preview/theme_seven/[name]/[slug]/page.js"
     ],
-    "/preview/theme_eight/[name]/[slug]/page": [
+    "/dashboards/Inquiries/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/preview/theme_eight/[name]/[slug]/page.css",
-      "static/chunks/app/preview/theme_eight/[name]/[slug]/page.js"
+      "static/chunks/app/dashboards/Inquiries/page.js"
+    ],
+    "/dashboards/plans/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/dashboards/plans/page.js"
+    ],
+    "/dashboards/plans/orderSummary/[id]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/dashboards/plans/orderSummary/[id]/page.js"
     ],
     "/preview/theme_one/[name]/[slug]/page": [
       "static/chunks/webpack.js",

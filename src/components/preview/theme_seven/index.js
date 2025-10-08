@@ -122,9 +122,9 @@ const Themeseven = () => {
                 <PaymentSection data={dataDetails?.payment_options} />
             )}
             {/* Appointment */}
-                    <AppointmentPage data={dataDetails?.customsection || []} />
-                  </div>
-       
+            {dataDetails && <AppointmentPage data={dataDetails} />}
+        </div>
+
     );
 }
 

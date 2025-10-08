@@ -1,31 +1,88 @@
-
-import React from 'react'
+"use client"
+import Loader from '@/components/common/loader/Loader';
+import { toastSuccessMessage, toastSuccessMessageError } from '@/components/common/messageShow/MessageShow';
+import { base_url } from '@/server';
+import { Pagination, Popconfirm } from 'antd';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
 import { MdDelete } from 'react-icons/md';
 
 const Appointments = () => {
+    const [inquiryData, setInquiryData] = useState([]);
+    const [loader, seyLoader] = useState(false)
+    const [detailsId, setDetailsId] = useState(null);
+    const [page, setPage] = useState(0);
+    const [count, setCount] = useState(10);
+    const [total, setTotal] = useState(0);
 
+
+    const inquryGet = async () => {
+        seyLoader(true)
+        try {
+            const token = window.localStorage.getItem("token");
+            const res = await axios.get(`${base_url}card-appointment/my-appointment?page=0&count=10`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            setInquiryData(res?.data?.data || []);
+            setTotal(res?.data?.totalRecords || 0);
+            seyLoader(false)
+        } catch (error) {
+            seyLoader(false)
+            alert("server side error")
+        }
+    }
+
+    useEffect(() => {
+        inquryGet();
+    }, [page, count]);
+
+
+
+
+
+    const handleDelete = async (id) => {
+        try {
+            seyLoader(true);
+            const token = window.localStorage.getItem("token");
+            const res = await axios.delete(`${base_url}card-appointment/delete/public/${id}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+
+            if (res?.data?.success) {
+                toastSuccessMessage(res?.data?.msg);
+                inquryGet();
+                seyLoader(false);
+            } else {
+                toastSuccessMessageError(res?.data?.msg || "Unable to delete inquiry.");
+            }
+        } catch (error) {
+            toastSuccessMessageError("Delete failed! Server error.");
+            seyLoader(false);
+        } finally {
+            seyLoader(false);
+        }
+    };
 
     return (
         <>
-
+            {loader && <Loader />}
             <div className="pt-19 p-4">
                 <div className=" bg-white shadow-lg rounded-lg p-6">
                     <h1 className="text-2xl font-bold text-pink-600 text-center">
-                        Appointments
+                        Appointment
                     </h1>
                 </div>
             </div>
 
             <div className="w-full px-4 py-6">
                 {/* Header */}
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+                {/* <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
                     <div className="relative w-full md:w-1/3">
                         <input
                             type="text"
                             placeholder="Search"
                             className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-400"
-                        // value={search}
-                        // onChange={(e) => setSearch(e.target.value)}
+                       
                         />
                         <svg
                             className="absolute left-3 top-2.5 text-gray-400 w-5 h-5"
@@ -42,7 +99,7 @@ const Appointments = () => {
                         </svg>
                     </div>
 
-                </div>
+                </div> */}
 
                 {/* Table */}
                 <div className="overflow-x-auto shadow rounded-lg">
@@ -55,38 +112,79 @@ const Appointments = () => {
                                 <th className="py-3 px-6 text-center">PHONE</th>
                                 <th className="py-3 px-6 text-center">ATTACHMENT TIME</th>
                                 <th className="py-3 px-6 text-center">STATUS</th>
-                                <th className="py-3 px-6 text-center">TYPE
-                                </th>
-
+                                {/* <th className="py-3 px-6 text-center">TYPE
+                                </th> */}
                                 <th className="py-3 px-6 text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody className="text-gray-700 text-sm">
-                            <tr className='text-center'>
-                                <td>Deshal</td>
-                                <td><span className="bg-indigo-600 text-white text-xs px-3 py-1 rounded-md">
-                                    test
-                                </span></td>
-                                <td>test@test.com</td>
-                                <td>98786543210</td>
-                                <td>10:00 AM - 02:00 PM</td>
-                                <td>Pending </td>
-                                <td>Free
-                                </td>
+                            {inquiryData.length > 0 ? (
+                                inquiryData.map((item, index) => (
+                                    <tr key={index} className="text-center">
+                                        <td>{item.cardId?.title || "N/A"}</td>
+                                        <td>
+                                            <span className="bg-indigo-600 text-white text-xs px-3 py-1 rounded-md">
+                                                {item.name}
+                                            </span>
+                                        </td>
+                                        <td>{item.email}</td>
+                                        <td>{item.mobile}</td>
 
-                                <td className="py-4 px-4 text-center text-blue-500 flex" >
-
-
-                                    <MdDelete size={25} color='red' />
-
-                                </td>
-
-                            </tr>
+                                        <td>
+                                            {new Date(item.date).toLocaleString("en-GB", {
+                                                timeZone: "UTC",
+                                                day: "2-digit",
+                                                month: "short",
+                                                year: "numeric",
+                                                hour: "2-digit",
+                                                minute: "2-digit",
+                                                hour12: true,
+                                            })}
+                                        </td>
+                                        <td>--</td>
+                                        <td className="py-4 px-4 text-center text-blue-500 flex justify-center gap-3">
+                                            {/* <FaEye size={25} onClick={() => openDeatils(item)} /> */}
+                                            <Popconfirm
+                                                title="Delete Appointments"
+                                                description="Are you sure you want to delete this appointments?"
+                                                okText="Yes"
+                                                cancelText="No"
+                                                onConfirm={() => handleDelete(item._id)}
+                                            >
+                                                <MdDelete
+                                                    size={22}
+                                                    color="red"
+                                                    className="cursor-pointer hover:scale-110 transition"
+                                                />
+                                            </Popconfirm>
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan={7} className="text-center py-4">No Appointments found</td>
+                                </tr>
+                            )}
 
                         </tbody>
                     </table>
                 </div>
-
+                {total > 0 && (
+                    <div className="flex  mt-6 justify-between">
+                        Total Data {total}
+                        <Pagination
+                            current={page}
+                            pageSize={count}
+                            total={total}
+                            onChange={(p, ps) => {
+                                setPage(p);
+                                setCount(ps);
+                            }}
+                            showSizeChanger
+                            pageSizeOptions={['10', '20', '50']}
+                        />
+                    </div>
+                )}
 
 
 

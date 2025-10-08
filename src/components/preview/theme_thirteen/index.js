@@ -1,59 +1,133 @@
-import React from "react";
-import Profile from "./profile";
-import Gallery from "./Gallery";
-import ProductSection from "./ProductSection";
+"use client";
 
-export default function Thirteenpagemain() {
-  const products = [
-    {
-      title: "Luxury Villa Design",
-      price: "350,000.00",
-      image: "https://infyvcards-demo.nyc3.digitaloceanspaces.com/vcards/products/24899/P1.jpg",
-      link: "#",
-    },
-    {
-      title: "Contemporary Apartment Complex",
-      price: "1,000,000.00",
-      image: "https://infyvcards-demo.nyc3.digitaloceanspaces.com/vcards/products/24900/P2.jpg",
-      link: "#",
-    },
-    {
-      title: "Corporate Office Interiors",
-      price: "150,000.00",
-      image: "https://infyvcards-demo.nyc3.digitaloceanspaces.com/vcards/products/24901/P3.jpg",
-      link: "#",
-    },
-    {
-      title: "Retail Showroom Design",
-      price: "60,000.00",
-      image: "https://infyvcards-demo.nyc3.digitaloceanspaces.com/vcards/products/24902/P4.jpg",
-      link: "#",
-    },
-  ];
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { base_url } from "@/server";
+
+import ProfileCard from "./profile";
+import ProductServices from "./ProductSection";
+import Gallery from "./Gallery";
+import Testimonials from "./testimonials";
+import EnquiryForm from "./Enquiry";
+import Qr from "./QR";
+import CustomSection from "./Custom";
+import WorkingHours from "./WorkingHours";
+import Payment from "./Payment";
+import AppointmentPage from "./Appointment";
+
+const Thirteenpagemain = ({ slug }) => {
+  const [dataDetails, setDetailsdata] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  const fetchCardData = async (slug) => {
+    if (!slug) return setLoading(false);
+
+    try {
+      const token = window.localStorage.getItem("token");
+      const res = await axios.get(`${base_url}card/details/${slug}`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
+
+      if (res?.data?.data?.length > 0) {
+        setDetailsdata(res.data.data[0]);
+        setError(false);
+      } else {
+        const demoRes = await axios.get(`${base_url}card/demo`);
+        setDetailsdata(demoRes.data.data[0]);
+        setError(false);
+      }
+    } catch (err) {
+      console.error("Primary API failed:", err);
+      try {
+        const demoRes = await axios.get(`${base_url}card/demo`);
+        setDetailsdata(demoRes.data.data[0]);
+        setError(false);
+      } catch (demoErr) {
+        console.error("Demo API also failed:", demoErr);
+        setError(true);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchCardData(slug);
+  }, [slug]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-pink-500 via-blue-500 to-cyan-900">
+        <p className="text-white text-lg font-semibold animate-pulse">
+          Loading card...
+        </p>
+      </div>
+    );
+  }
+
+  if (error || !dataDetails) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-sky-500 via-white to-pink-400">
+        <p className="text-white text-lg font-semibold">No data found!</p>
+      </div>
+    );
+  }
+
+  // Separate sections
+  const workingHoursData = dataDetails.customsection?.find(
+    (item) => item.title === "Working Hours"
+  );
+  const paymentData = dataDetails.customsection?.find(
+    (item) => item.title === "Payment"
+  );
+  const otherCustomSections = dataDetails.customsection?.filter(
+    (item) => item.title !== "Working Hours" && item.title !== "Payment"
+  );
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center overflow-visible">
+    <div className="min-h-screen bg-white text-black px-4 md:px-8 lg:px-16 space-y-12">
       {/* Profile Section */}
-      <section className="w-full max-w-5xl px-4 mt-12 mb-16">
-        <Profile />
-      </section>
+      {dataDetails && <ProfileCard data={dataDetails} />}
+
+      {/* Products Section */}
+      {dataDetails?.products?.length > 0 && (
+        <ProductServices data={dataDetails.products} />
+      )}
 
       {/* Gallery Section */}
-      <section className="w-full max-w-6xl px-4 mb-12">
-        <Gallery
-          images={[
-            "https://infyvcards-demo.nyc3.digitaloceanspaces.com/vcards/gallery/24904/G1.jpg",
-            "https://infyvcards-demo.nyc3.digitaloceanspaces.com/vcards/gallery/24905/G2.jpg",
-            "https://infyvcards-demo.nyc3.digitaloceanspaces.com/vcards/gallery/24906/G3.jpg",
-            "https://infyvcards-demo.nyc3.digitaloceanspaces.com/vcards/gallery/24907/G4.jpg",
-          ]}
-        />
-      </section>
+      {dataDetails?.galleries?.length > 0 && (
+        <Gallery data={dataDetails.galleries} />
+      )}
 
-      {/* Product Section */}
-      <section className="w-full max-w-6xl px-4 mb-12">
-        <ProductSection products={products} />
-      </section>
+      {/* Testimonials Section */}
+      {dataDetails?.testimonials?.length > 0 && (
+        <Testimonials data={dataDetails.testimonials} />
+      )}
+
+      {/* Enquiry Form */}
+      <EnquiryForm data={dataDetails} />
+
+      {/* QR Section */}
+      {dataDetails?.fields?.length > 0 && <Qr data={dataDetails.fields} />}
+
+      {/* Custom Sections */}
+      {otherCustomSections?.length > 0 && (
+        <CustomSection data={otherCustomSections} />
+      )}
+
+      {/* Working Hours */}
+      {workingHoursData && <WorkingHours data={workingHoursData} />}
+
+      {/* Payment */}
+      {paymentData && <Payment data={paymentData} />}
+
+      {/* Appointment */}
+      {dataDetails?.customsection?.length > 0 && (
+        <AppointmentPage data={dataDetails.customsection} />
+      )}
     </div>
   );
-}
+};
+
+export default Thirteenpagemain;

@@ -69,7 +69,7 @@ const Appointments = () => {
             <div className="pt-19 p-4">
                 <div className=" bg-white shadow-lg rounded-lg p-6">
                     <h1 className="text-2xl font-bold text-pink-600 text-center">
-                        Appointments
+                        Appointment
                     </h1>
                 </div>
             </div>

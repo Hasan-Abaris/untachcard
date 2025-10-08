@@ -63,7 +63,7 @@ const Inquiries = () => {
                 toastSuccessMessageError(res?.data?.msg || "Unable to delete inquiry.");
             }
         } catch (error) {
-            message.error("Delete failed! Server error.");
+            toastSuccessMessageError("Delete failed! Server error.");
         } finally {
             seyLoader(false);
         }

@@ -7,7 +7,9 @@ const InquiriesDetails = ({ isOpen, onClose, detailsId }) => {
     // Hooks must be at top level
     const [detailsData, setDetailsData] = useState(null);
 
-    // Fetch data function
+
+    // console.log(detailsData);
+
     const getByIdData = async (id) => {
         try {
             const token = window.localStorage.getItem("token");
@@ -47,8 +49,7 @@ const InquiriesDetails = ({ isOpen, onClose, detailsId }) => {
                 {/* Inquiry Info */}
                 <div className="space-y-4 text-gray-700 text-sm sm:text-base">
                     <p>
-                        <span className="font-semibold">vCard Name: </span>
-                        {detailsData?.cardId?.title || "-"}
+                        <span className="font-semibold">vCard Name : {detailsData?.cardId?.title}</span>{" "}
                     </p>
                     <p>
                         <span className="font-semibold">Name: </span>

@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import ProfileCard from "./profile";
 import ProductServices from "./product";
 import Portfolio from "./portfolio";
-import Gallery from "./Gallery";
 import Testimonials from "./Testimonial";
 import EnquiryForm from "./Enquiry";
 import Qr from "./Qr";
@@ -14,6 +13,7 @@ import Payment from "./Payment";
 import { base_url } from "@/server";
 import axios from "axios";
 import AppointmentPage from "./appointment";
+import Gallery from "./Gallery";
 
 const Themetwopage = ({ slug }) => {
   const [dataDetails, setDetailsdata] = useState(null);
@@ -71,7 +71,7 @@ const Themetwopage = ({ slug }) => {
   return (
     <div className="min-h-screen bg-white text-black px-4 md:px-8 lg:px-16">
       {/* Profile Section */}
-      <div className="my-8">
+      <div className="">
         <ProfileCard data={dataDetails} />
       </div>
 
@@ -137,7 +137,7 @@ const Themetwopage = ({ slug }) => {
         {/* Custom Section Card */}
       <div className="my-8 rounded-lg shadow-lg p-6 max-w-3xl mx-auto">
         <h3 className="text-xl font-bold mb-2 text-center"></h3>
-        <AppointmentPage data={dataDetails?.customsection || []} />
+            {dataDetails && <AppointmentPage data={dataDetails} />}
       </div>
 
       </div>

@@ -71,7 +71,7 @@ const ThemeThreepage = ({ slug }) => {
   return (
     <div className="min-h-screen bg-white text-black px-4 md:px-8 lg:px-16">
       {/* Profile Section */}
-      <div className="my-8">
+      <div className="">
         <ProfileCard data={dataDetails} />
       </div>
 
@@ -137,7 +137,7 @@ const ThemeThreepage = ({ slug }) => {
         {/* Custom Section Card */}
       <div className="my-8 rounded-lg shadow-lg p-6 max-w-3xl mx-auto">
         <h3 className="text-xl font-bold mb-2 text-center"></h3>
-        <AppointmentPage data={dataDetails?.customsection || []} />
+            {dataDetails && <AppointmentPage data={dataDetails} />}
       </div>
 
       </div>

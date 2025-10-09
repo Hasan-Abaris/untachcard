@@ -2,109 +2,236 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Calendar } from "lucide-react";
+import axios from "axios";
+import { base_url } from "@/server";
+import { toastSuccessMessage, toastSuccessMessageError } from "@/components/common/messageShow/MessageShow";
+import { ToastContainer } from "react-toastify";
+import Loader from "@/components/common/loader/Loader";
 
-export default function AppointmentPage() {
-  const [formData, setFormData] = useState({
+export default function AppointmentPage({ data, cardData }) {
+  const [loader, setLoader] = useState(false);
+  const [initialValue, setInitialValue] = useState({
     name: "",
-    phone: "",
     email: "",
+    mobile: "",
+    query: "",
+    cardId: "",
     date: "",
-    comments: "",
   });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setInitialValue((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert(`Appointment booked for ${formData.name}!`);
-    // Here, you can call your API to submit the formData
+  const submitData = async () => {
+    setLoader(true);
+    const payload = { ...initialValue, cardId: data?._id };
+
+    try {
+      const res = await axios.post(`${base_url}card-appointment/appointment`, payload);
+      if (res?.data?.success) {
+        toastSuccessMessage("Your appointment has been submitted successfully. We’ll get back to you soon!");
+        setInitialValue({ name: "", email: "", mobile: "", query: "", cardId: "", date: "" });
+      } else {
+        toastSuccessMessageError(res?.data?.msg || "Something went wrong!");
+      }
+    } catch (error) {
+      toastSuccessMessageError(error?.message || "Network error!");
+    } finally {
+      setLoader(false);
+    }
+  };
+
+  // ✅ Dynamic CSS Styles
+  const styles = {
+    page: {
+      background:
+        cardData?.card_bg_type === "Color"
+          ? cardData?.card_bg || "#f9fafb"
+          : cardData?.card_bg_type === "Image"
+          ? `url(${cardData?.card_bg}) center/cover no-repeat`
+          : "#f9fafb",
+      fontFamily: cardData?.card_font || "sans-serif",
+      minHeight: "100vh",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      padding: "1.5rem",
+    },
+    container: {
+      backgroundColor: "#fff",
+      borderRadius: "16px",
+      boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
+      padding: "2rem",
+      width: "100%",
+      maxWidth: "600px",
+      color: cardData?.card_font_color || "#000",
+    },
+    title: {
+      fontSize: "2rem",
+      fontWeight: "700",
+      textAlign: "center",
+      marginBottom: "0.5rem",
+      color: cardData?.card_font_color || "#111827",
+    },
+    subtitle: {
+      textAlign: "center",
+      color: "#6b7280",
+      marginBottom: "1.5rem",
+    },
+    profileBox: {
+      background: "linear-gradient(to bottom, #fff, #f3f4f6)",
+      padding: "1rem",
+      borderRadius: "12px",
+      textAlign: "center",
+      marginBottom: "1.5rem",
+    },
+    profileName: {
+      fontWeight: "700",
+      fontSize: "1.25rem",
+      marginTop: "0.5rem",
+      color: cardData?.card_font_color || "#000",
+    },
+    input: {
+      width: "100%",
+      padding: "0.9rem",
+      border: "1px solid #d1d5db",
+      borderRadius: "0.75rem",
+      outline: "none",
+      transition: "all 0.3s ease",
+      fontFamily: cardData?.card_font || "sans-serif",
+    },
+    inputFocus: {
+      borderColor: cardData?.card_font_color || "#06b6d4",
+      boxShadow: `0 0 0 2px ${cardData?.card_font_color || "#06b6d4"}33`,
+    },
+    button: {
+      width: "100%",
+      backgroundColor: cardData?.card_font_color || "#06b6d4",
+      color: "#fff",
+      fontWeight: "600",
+      padding: "0.9rem",
+      borderRadius: "0.75rem",
+      border: "none",
+      cursor: "pointer",
+      textTransform: "uppercase",
+      transition: "all 0.3s ease",
+      boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
+    },
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
-      <div className="bg-white w-full max-w-lg rounded-xl shadow-xl p-6 relative">
-        {/* Header */}
-        <h2 className="text-2xl font-semibold text-center mb-2">Appointment</h2>
-        <p className="text-center text-gray-500 mb-4">
-          Fill out the form below to book your appointment.
-        </p>
+    <>
+      {loader && <Loader />}
+      <div style={styles.page}>
+        <div style={styles.container}>
+          {/* Header */}
+          <h2 style={styles.title}>Appointment</h2>
+          <p style={styles.subtitle}>Fill out the form below to book your appointment.</p>
 
-        {/* Profile Section */}
-        <div className="bg-gradient-to-b from-white to-gray-200 p-4 rounded-lg text-center mb-4">
-          <Image
-            src="#"
-            alt="Profile"
-            width={90}
-            height={90}
-            className="rounded-full border border-black mx-auto"
-          />
-          <h1 className="text-xl font-bold mt-2 mb-3 text-black">
-           Name Here
-          </h1>
-        </div>
-
-        {/* Appointment Form */}
-        <form onSubmit={handleSubmit} className="space-y-3">
-          <input
-            type="text"
-            name="name"
-            placeholder="Name"
-            value={formData.name}
-            onChange={handleChange}
-            className="w-full border rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-cyan-400"
-            required
-          />
-          <input
-            type="tel"
-            name="phone"
-            placeholder="Phone"
-            value={formData.phone}
-            onChange={handleChange}
-            className="w-full border rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-cyan-400"
-            required
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            className="w-full border rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-cyan-400"
-            required
-          />
-
-          {/* Date Picker */}
-          <div className="relative">
-            <Calendar className="absolute right-3 top-3 text-gray-400" />
-            <input
-              type="date"
-              name="date"
-              value={formData.date}
-              onChange={handleChange}
-              className="w-full border rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-cyan-400"
-              required
-            />
+          {/* Profile Section */}
+          <div style={styles.profileBox}>
+            {data?.image_source === "local" ? (
+              <Image
+                src={`/assets/assets/uploads/card-profile/${data?.profile}`}
+                alt="Profile"
+                width={90}
+                height={90}
+                className="rounded-full border border-black mx-auto"
+              />
+            ) : (
+              <Image
+                src={data?.profile}
+                alt="Profile"
+                width={90}
+                height={90}
+                className="rounded-full border border-black mx-auto"
+              />
+            )}
+            <h1 style={styles.profileName}>{data?.title || "No Title"}</h1>
           </div>
 
-          <textarea
-            name="comments"
-            placeholder="Comments"
-            value={formData.comments}
-            onChange={handleChange}
-            className="w-full border rounded-md p-3 min-h-[80px] focus:outline-none focus:ring-2 focus:ring-cyan-400"
-          ></textarea>
+          {/* Appointment Form */}
+          <form className="space-y-3">
+            <input
+              type="text"
+              placeholder="Name"
+              name="name"
+              value={initialValue.name}
+              onChange={handleChange}
+              style={styles.input}
+              onFocus={(e) => Object.assign(e.target.style, styles.inputFocus)}
+              onBlur={(e) => (e.target.style.boxShadow = "none")}
+            />
+            <input
+              type="number"
+              placeholder="Phone"
+              name="mobile"
+              value={initialValue.mobile}
+              onChange={handleChange}
+              style={styles.input}
+              onFocus={(e) => Object.assign(e.target.style, styles.inputFocus)}
+              onBlur={(e) => (e.target.style.boxShadow = "none")}
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              name="email"
+              value={initialValue.email}
+              onChange={handleChange}
+              style={styles.input}
+              onFocus={(e) => Object.assign(e.target.style, styles.inputFocus)}
+              onBlur={(e) => (e.target.style.boxShadow = "none")}
+            />
+            <input
+              type="datetime-local"
+              name="date"
+              value={initialValue.date}
+              onChange={handleChange}
+              style={styles.input}
+              onFocus={(e) => Object.assign(e.target.style, styles.inputFocus)}
+              onBlur={(e) => (e.target.style.boxShadow = "none")}
+            />
+            <textarea
+              placeholder="Comments"
+              name="query"
+              value={initialValue.query}
+              onChange={handleChange}
+              style={{ ...styles.input, minHeight: "80px", resize: "none" }}
+              onFocus={(e) => Object.assign(e.target.style, styles.inputFocus)}
+              onBlur={(e) => (e.target.style.boxShadow = "none")}
+            ></textarea>
 
-          <button
-            type="submit"
-            className="w-full bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-3 rounded-md uppercase"
-          >
-            Book Appointment
-          </button>
-        </form>
+            <button
+              type="button"
+              onClick={submitData}
+              style={{
+                ...styles.button,
+                opacity:
+                  !initialValue.name ||
+                  !initialValue.email ||
+                  !initialValue.mobile ||
+                  !initialValue.date ||
+                  !initialValue.query
+                    ? 0.5
+                    : 1,
+                cursor:
+                  !initialValue.name ||
+                  !initialValue.email ||
+                  !initialValue.mobile ||
+                  !initialValue.date ||
+                  !initialValue.query
+                    ? "not-allowed"
+                    : "pointer",
+              }}
+            >
+              Book Appointment
+            </button>
+          </form>
+        </div>
+        <ToastContainer />
       </div>
-    </div>
+    </>
   );
 }

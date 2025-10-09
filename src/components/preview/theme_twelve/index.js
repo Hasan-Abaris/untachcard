@@ -105,13 +105,12 @@ const ThemeTwelve = () => {
         <Testimonials data={dataDetails?.testimonials} />
       )}
 
-            {dataDetails?.customsection?.length > 0 && (
-                <CustomSection data={dataDetails?.customsection} />
-            )}
-
-      {dataDetails?.custumSection?.length > 0 && (
-        <CustomSection data={dataDetails?.fields} />
+      {dataDetails && <EnquiryForm data={dataDetails} />}
+      {dataDetails?.customsection?.length > 0 && (
+        <CustomSection data={dataDetails?.customsection} />
       )}
+
+
 
       {dataDetails?.working_hours && (
         <WorkingHours data={dataDetails?.working_hours} />

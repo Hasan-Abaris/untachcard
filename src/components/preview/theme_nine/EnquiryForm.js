@@ -4,7 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 import { ToastContainer } from "react-toastify";
 
-const EnquiryForm = ({ data }) => {
+const EnquiryForm = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
     const [initialValue, setInitialValue] = useState({
         name: "",
         email: "",
@@ -47,40 +47,63 @@ const EnquiryForm = ({ data }) => {
 
     }
     return (
-        <div className="bg-yellow-400 rounded-xl shadow-lg p-6 max-w-lg mx-auto text-center" style={{
-            backgroundImage: "url('/assets/banner/theme-nine.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-        }}>
+        <div
+            className="rounded-xl shadow-lg p-6 max-w-lg mx-auto text-center"
+            style={{
+                background:
+                    data?.card_bg_type === "Image" && dataDetails?.card_bg
+                        ? `url(${data.card_bg}) center/cover no-repeat`
+                        : cardBg,
+                color: fontColor,
+                fontFamily: cardFont
+            }}
+        >
             <h2 className="text-xl font-bold mb-4">Enquiry Form</h2>
             <form className="space-y-4">
                 <input
                     type="text"
                     placeholder="Name"
                     className="w-full border rounded-lg px-4 py-2"
-                    name="name" value={initialValue?.name} onChange={handleChange}
+                    name="name"
+                    value={initialValue?.name}
+                    onChange={handleChange}
                 />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <input
                         type="email"
                         placeholder="Email"
                         className="border rounded-lg px-4 py-2"
-                        name="email" value={initialValue?.email} onChange={handleChange}
+                        name="email"
+                        value={initialValue?.email}
+                        onChange={handleChange}
                     />
                     <input
                         type="number"
                         placeholder="Mobile"
                         className="border rounded-lg px-4 py-2"
-                        name="mobile" value={initialValue?.mobile} onChange={handleChange}
+                        name="mobile"
+                        value={initialValue?.mobile}
+                        onChange={handleChange}
                     />
                 </div>
                 <textarea
                     placeholder="Type your message"
                     className="w-full border rounded-lg px-4 py-2"
                     rows="4"
-                    name="query" value={initialValue?.query} onChange={handleChange}
+                    name="query"
+                    value={initialValue?.query}
+                    onChange={handleChange}
                 ></textarea>
-                <button className="border px-6 py-2 rounded-lg hover:bg-black hover:text-white" disabled={!initialValue?.name || !initialValue?.email || !initialValue?.query || !initialValue?.mobile} onClick={submitData}>
+                <button
+                    className="border px-6 py-2 rounded-lg hover:bg-black hover:text-white"
+                    disabled={
+                        !initialValue?.name ||
+                        !initialValue?.email ||
+                        !initialValue?.query ||
+                        !initialValue?.mobile
+                    }
+                    onClick={submitData}
+                >
                     Send
                 </button>
             </form>

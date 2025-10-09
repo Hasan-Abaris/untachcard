@@ -5,14 +5,17 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination"
-export const ProductServices = ({ data }) => {
+export const ProductServices = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
     if (!data || data.length === 0) return null;
     return (
-        <div className="bg-white/30 backdrop-blur-lg rounded-2xl shadow-lg p-6 max-w-md mx-auto" style={{
-            backgroundImage: "url('/assets/banner/theme-eleven.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-        }}>
+        <div
+            className="rounded-2xl shadow-lg p-6 max-w-md mx-auto backdrop-blur-lg"
+            style={{
+                background: cardBg,
+                color: fontColor,
+                fontFamily: cardFont,
+            }}
+        >
             <h2 className="text-lg font-semibold mb-4 text-center">
                 Products and Services
             </h2>
@@ -34,7 +37,7 @@ export const ProductServices = ({ data }) => {
                             <div className="relative">
                                 <Image
                                     src={
-                                        item.image.startsWith("http")
+                                        item.image?.startsWith("http")
                                             ? item.image
                                             : `https://res.cloudinary.com/uploads/${item.image}`
                                     }
@@ -54,15 +57,17 @@ export const ProductServices = ({ data }) => {
                                     </span>
                                 )}
                             </div>
+
                             <h4 className="mt-4 text-lg font-semibold">{item.title}</h4>
-                            <p className="text-sm mt-2 line-clamp-3">
-                                {item.description}
-                            </p>
+                            <p className="text-sm mt-2 line-clamp-3">{item.description}</p>
+
                             <button
                                 className="mt-3 px-4 py-2 border border-white rounded-md hover:bg-white hover:text-black transition"
                                 onClick={() => {
                                     if (!item?.url) return;
-                                    const finalUrl = item.url.startsWith("http") ? item.url : `https://${item.url}`;
+                                    const finalUrl = item.url.startsWith("http")
+                                        ? item.url
+                                        : `https://${item.url}`;
                                     window.open(finalUrl, "_blank", "noopener,noreferrer");
                                 }}
                             >
@@ -72,7 +77,6 @@ export const ProductServices = ({ data }) => {
                     </SwiperSlide>
                 ))}
             </Swiper>
-
         </div>
     );
 };

@@ -9,7 +9,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { useRouter } from "next/navigation";
 
-export const Portfolio = ({ data }) => {
+export const Portfolio = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
     const router = useRouter()
     const linkSend = (url) => {
         if (url) {
@@ -17,11 +17,14 @@ export const Portfolio = ({ data }) => {
         }
     }
     return (
-        <div className="bg-white/30 backdrop-blur-lg rounded-2xl shadow-lg p-6 max-w-md mx-auto" style={{
-            backgroundImage: "url('/assets/banner/theme-eleven.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-        }}>
+        <div
+            className="rounded-2xl shadow-lg p-6 max-w-md mx-auto backdrop-blur-lg"
+            style={{
+                background: cardBg,
+                color: fontColor,
+                fontFamily: cardFont,
+            }}
+        >
             <h2 className="text-lg font-semibold mb-4 text-center">Portfolio</h2>
             <Swiper
                 modules={[Navigation, Pagination]}
@@ -33,16 +36,18 @@ export const Portfolio = ({ data }) => {
             >
                 {data?.map((item, index) => (
                     <SwiperSlide key={index}>
-                        <div className="rounded-lg overflow-hidden  p-4">
+                        <div className="rounded-lg overflow-hidden p-4 bg-white/10 backdrop-blur-sm">
                             <img
                                 src={`/assets/assets/uploads/card-banner/${item?.image}`}
-                                alt="portfolio"
+                                alt={item?.title || "portfolio"}
                                 className="rounded-lg w-full h-48 object-cover"
                             />
-                            <p className="mt-4 text-sm text-gray-300">
-                                {item?.description}
-                            </p>
-                            <button type="button" className="mt-3 px-4 py-2 border rounded hover:bg-gray-700" onClick={() => linkSend(item?.url)}>
+                            <p className="mt-4 text-sm text-gray-300">{item?.description}</p>
+                            <button
+                                type="button"
+                                className="mt-3 px-4 py-2 border rounded hover:bg-gray-700 hover:text-white transition"
+                                onClick={() => linkSend(item?.url)}
+                            >
                                 View
                             </button>
                         </div>

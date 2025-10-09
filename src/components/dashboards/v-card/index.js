@@ -362,7 +362,7 @@ const VcardsPage = () => {
                   <div className="flex items-center gap-2 text-indigo-500">
                     <a
                       // http://localhost:3319
-                      href={`https://i-tap-cards-9vx4.vercel.app/preview/theme_eight/theme_eight/${card?.slug}`}
+                      href={`https://i-tap-cards-9vx4.vercel.app/preview/${card?.theme_name}/${card?.theme_name}/${card?.slug}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hover:underline"

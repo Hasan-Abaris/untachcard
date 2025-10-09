@@ -69,7 +69,7 @@ const Appointments = () => {
             <div className="pt-19 p-4">
                 <div className=" bg-white shadow-lg rounded-lg p-6">
                     <h1 className="text-2xl font-bold text-pink-600 text-center">
-                        Appointment
+                        Appointments
                     </h1>
                 </div>
             </div>
@@ -110,7 +110,7 @@ const Appointments = () => {
                                 <th className="py-3 px-6 text-left">NAME</th>
                                 <th className="py-3 px-6 text-center">EMAIL</th>
                                 <th className="py-3 px-6 text-center">PHONE</th>
-                                <th className="py-3 px-6 text-center">ATTACHMENT TIME</th>
+                                <th className="py-3 px-6 text-center">APPOINTMENT DATE/TIME</th>
                                 <th className="py-3 px-6 text-center">STATUS</th>
                                 {/* <th className="py-3 px-6 text-center">TYPE
                                 </th> */}

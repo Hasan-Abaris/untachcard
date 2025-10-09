@@ -6,11 +6,17 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Star } from "lucide-react";
-const Testimonials = ({ data }) => {
+const Testimonials = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
     if (!data || data.length === 0) return null;
     return (
-        <div className="bg-black text-white rounded-2xl shadow-lg p-6 max-w-md mx-auto">
-            <h2 className="text-center font-semibold text-lg mb-4">Testimonials</h2>
+        <div
+            className="rounded-2xl shadow-lg p-6 max-w-md mx-auto"
+            style={{ background: themeBg, color: fontColor, fontFamily: cardFont }}
+        >
+            <h2 className="text-center font-semibold text-lg mb-4" style={{ color: fontColor }}>
+                {data?.section_title || "Testimonials"}
+            </h2>
+
             <Swiper
                 modules={[Navigation, Pagination]}
                 navigation
@@ -24,7 +30,10 @@ const Testimonials = ({ data }) => {
             >
                 {data.map((item) => (
                     <SwiperSlide key={item._id}>
-                        <div className="text-center p-4 bg-gray-900 rounded-xl h-full flex flex-col items-center">
+                        <div
+                            className="text-center p-4 rounded-xl h-full flex flex-col items-center"
+                            style={{ background: cardBg, color: fontColor, fontFamily: cardFont }}
+                        >
                             <img
                                 src={item.image}
                                 alt={item.title || "client"}
@@ -40,7 +49,9 @@ const Testimonials = ({ data }) => {
                                     />
                                 ))}
                             </div>
-                            <p className="text-gray-400 mt-2 text-sm">{item.description}</p>
+                            <p className="mt-2 text-sm" style={{ color: fontColor }}>
+                                {item.description}
+                            </p>
                         </div>
                     </SwiperSlide>
                 ))}

@@ -5,15 +5,20 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination"
-const ProductServices = ({ data }) => {
+const ProductServices = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
     if (!data || data.length === 0) return null;
     return (
-        <div className="bg-yellow-400 rounded-xl shadow-lg p-6 max-w-lg mx-auto text-center" style={{
-            backgroundImage: "url('/assets/banner/theme-nine.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-        }}>
-            <h2 className="text-xl font-bold mb-4">Products and Services</h2>
+        <div
+            className="rounded-xl shadow-lg p-6 max-w-lg mx-auto text-center"
+            style={{
+                background: cardBg,
+                color: fontColor,
+                fontFamily: cardFont,
+            }}
+        >
+            <h2 className="text-xl font-bold mb-4" style={{ color: fontColor }}>
+                Products and Services
+            </h2>
             <Swiper
                 modules={[Navigation, Pagination]}
                 navigation
@@ -52,16 +57,21 @@ const ProductServices = ({ data }) => {
                                 )}
                             </div>
 
-                            <h4 className="mt-4 text-lg font-semibold text-white">{item.title}</h4>
-                            <p className="text-white text-sm mt-2 line-clamp-3">
+                            <h4 className="mt-4 text-lg font-semibold" style={{ color: fontColor }}>
+                                {item.title}
+                            </h4>
+                            <p className="text-sm mt-2 line-clamp-3" style={{ color: fontColor }}>
                                 {item.description}
                             </p>
 
                             <button
-                                className="mt-3 px-4 py-2 border border-white rounded-md hover:bg-white hover:text-black transition text-white"
+                                className="mt-3 px-4 py-2 border border-white rounded-md hover:bg-white hover:text-black transition"
+                                style={{ color: fontColor }}
                                 onClick={() => {
                                     if (!item?.url) return;
-                                    const finalUrl = item.url.startsWith("http") ? item.url : `https://${item.url}`;
+                                    const finalUrl = item.url.startsWith("http")
+                                        ? item.url
+                                        : `https://${item.url}`;
                                     window.open(finalUrl, "_blank", "noopener,noreferrer");
                                 }}
                             >

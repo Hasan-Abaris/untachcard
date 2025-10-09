@@ -4,7 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 import { ToastContainer } from "react-toastify";
 
-const EnquiryForm = ({ data }) => {
+const EnquiryForm = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
     const [initialValue, setInitialValue] = useState({
         name: "",
         email: "",
@@ -46,42 +46,62 @@ const EnquiryForm = ({ data }) => {
 
     }
     return (
-        <div className="bg-black text-white rounded-2xl shadow-lg p-6 max-w-md mx-auto">
-            <h2 className="text-center font-semibold text-lg mb-4">Enquiry Form</h2>
+        <div
+            className="rounded-2xl shadow-lg p-6 max-w-md mx-auto"
+            style={{ background: themeBg, color: fontColor, fontFamily: cardFont }}
+        >
+            <h2 className="text-center font-semibold text-lg mb-4" style={{ color: fontColor }}>
+                {data?.section_title || "Enquiry Form"}
+            </h2>
+
             <form className="space-y-4">
                 <input
                     type="text"
                     placeholder="Name"
                     autoComplete="off"
-                    className="w-full px-4 py-2 rounded bg-gray-900 border border-gray-700 focus:outline-none"
-                    name="name" value={initialValue?.name} onChange={handleChange}
+                    name="name"
+                    value={initialValue?.name}
+                    onChange={handleChange}
+                    style={{ background: cardBg, color: fontColor, fontFamily: cardFont }}
+                    className="w-full px-4 py-2 rounded border focus:outline-none"
                 />
                 <div className="grid grid-cols-2 gap-4">
                     <input
                         type="email"
                         placeholder="Email"
                         autoComplete="off"
-                        className="px-4 py-2 rounded bg-gray-900 border border-gray-700 focus:outline-none"
-                        name="email" value={initialValue?.email} onChange={handleChange}
+                        name="email"
+                        value={initialValue?.email}
+                        onChange={handleChange}
+                        style={{ background: cardBg, color: fontColor, fontFamily: cardFont }}
+                        className="px-4 py-2 rounded border focus:outline-none"
                     />
                     <input
                         type="number"
                         placeholder="Mobile"
                         autoComplete="off"
-                        className="px-4 py-2 rounded bg-gray-900 border border-gray-700 focus:outline-none"
-                        name="mobile" value={initialValue?.mobile} onChange={handleChange}
+                        name="mobile"
+                        value={initialValue?.mobile}
+                        onChange={handleChange}
+                        style={{ background: cardBg, color: fontColor, fontFamily: cardFont }}
+                        className="px-4 py-2 rounded border focus:outline-none"
                     />
                 </div>
                 <textarea
                     placeholder="Type your message"
                     rows="4"
-                    className="w-full px-4 py-2 rounded bg-gray-900 border border-gray-700 focus:outline-none"
-                    name="query" value={initialValue?.query} onChange={handleChange}
+                    name="query"
+                    value={initialValue?.query}
+                    onChange={handleChange}
+                    style={{ background: cardBg, color: fontColor, fontFamily: cardFont }}
+                    className="w-full px-4 py-2 rounded border focus:outline-none"
                 ></textarea>
                 <button
                     type="button"
-                    className="px-6 py-2 bg-white text-black rounded hover:bg-gray-300"
-                    disabled={!initialValue?.name || !initialValue?.email || !initialValue?.query || !initialValue?.mobile} onClick={submitData}
+                    disabled={!initialValue?.name || !initialValue?.email || !initialValue?.query || !initialValue?.mobile}
+                    onClick={submitData}
+                    style={{ background: fontColor, color: cardBg, fontFamily: cardFont }}
+                    className="px-6 py-2 rounded hover:opacity-90"
                 >
                     Send
                 </button>

@@ -4,7 +4,7 @@ import { base_url } from "@/server";
 import axios from "axios";
 import { useState } from "react";
 import { ToastContainer } from "react-toastify";
-export const EnquiryForm = ({ data }) => {
+export const EnquiryForm = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
     const [initialValue, setInitialValue] = useState({
         name: "",
         email: "",
@@ -47,40 +47,61 @@ export const EnquiryForm = ({ data }) => {
 
     }
     return (
-        <div className="bg-white/30 backdrop-blur-lg rounded-2xl shadow-lg p-6 max-w-md mx-auto" style={{
-            backgroundImage: "url('/assets/banner/theme-eleven.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-        }}>
+        <div
+            className="rounded-2xl shadow-lg p-6 max-w-md mx-auto backdrop-blur-lg"
+            style={{
+                background: cardBg,
+                color: fontColor,
+                fontFamily: cardFont,
+            }}
+        >
             <h2 className="text-lg font-semibold mb-4 text-center">Enquiry Form</h2>
             <form className="space-y-4">
                 <input
                     type="text"
                     placeholder="Name"
-                    className="w-full border rounded-lg p-2"
-                    name="name" value={initialValue?.name} onChange={handleChange}
+                    name="name"
+                    value={initialValue?.name}
+                    onChange={handleChange}
+                    className="w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-400"
                 />
                 <div className="flex gap-2">
                     <input
                         type="email"
                         placeholder="Email"
-                        className="w-1/2 border rounded-lg p-2"
-                        name="email" value={initialValue?.email} onChange={handleChange}
+                        name="email"
+                        value={initialValue?.email}
+                        onChange={handleChange}
+                        className="w-1/2 border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-400"
                     />
                     <input
                         type="number"
                         placeholder="Mobile"
-                        className="w-1/2 border rounded-lg p-2"
-                        name="mobile" value={initialValue?.mobile} onChange={handleChange}
+                        name="mobile"
+                        value={initialValue?.mobile}
+                        onChange={handleChange}
+                        className="w-1/2 border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-400"
                     />
                 </div>
                 <textarea
                     placeholder="Type your message..."
-                    className="w-full border rounded-lg p-2"
+                    name="query"
+                    value={initialValue?.query}
+                    onChange={handleChange}
                     rows="3"
-                    name="query" value={initialValue?.query} onChange={handleChange}
+                    className="w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-400"
                 ></textarea>
-                <button type="button" className="w-full border py-2 rounded-lg hover:bg-white hover:text-black transition" disabled={!initialValue?.name || !initialValue?.email || !initialValue?.query || !initialValue?.mobile} onClick={submitData}>
+                <button
+                    type="button"
+                    className="w-full border py-2 rounded-lg hover:bg-white hover:text-black transition"
+                    disabled={
+                        !initialValue?.name ||
+                        !initialValue?.email ||
+                        !initialValue?.query ||
+                        !initialValue?.mobile
+                    }
+                    onClick={submitData}
+                >
                     Send
                 </button>
             </form>

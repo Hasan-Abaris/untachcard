@@ -9,18 +9,21 @@ import "swiper/css/pagination";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 
-export const Gallery = ({ data }) => {
+export const Gallery = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
     const [open, setOpen] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
 
     if (!data || data.length === 0) return null;
 
     return (
-        <div className="bg-white/30 backdrop-blur-lg rounded-2xl shadow-lg p-6 max-w-md mx-auto" style={{
-            backgroundImage: "url('/assets/banner/theme-eleven.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-        }}>
+        <div
+            className="rounded-2xl shadow-lg p-6 max-w-md mx-auto backdrop-blur-lg"
+            style={{
+                background: cardBg,
+                color: fontColor,
+                fontFamily: cardFont,
+            }}
+        >
             <h2 className="text-lg font-semibold mb-4 text-center">Gallery</h2>
             <Swiper
                 modules={[Navigation, Pagination]}
@@ -35,15 +38,22 @@ export const Gallery = ({ data }) => {
             >
                 {data.map((item, index) => (
                     <SwiperSlide key={index}>
-                        <img
-                            src={item?.url}
-                            alt="gallery"
-                            className="rounded-lg cursor-pointer w-full h-64 object-cover"
-                            onClick={() => {
-                                setCurrentIndex(index);
-                                setOpen(true);
-                            }}
-                        />
+                        <div className="relative rounded-lg overflow-hidden shadow-sm">
+                            <img
+                                src={item?.url}
+                                alt={item?.title || "gallery"}
+                                className="rounded-lg cursor-pointer w-full h-64 object-cover"
+                                onClick={() => {
+                                    setCurrentIndex(index);
+                                    setOpen(true);
+                                }}
+                            />
+                            {item.title && (
+                                <span className="absolute bottom-2 left-2 bg-black/50 text-white text-xs px-2 py-1 rounded">
+                                    {item.title}
+                                </span>
+                            )}
+                        </div>
                     </SwiperSlide>
                 ))}
             </Swiper>

@@ -9,17 +9,23 @@ import "swiper/css/pagination";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 
-const Gallery = ({ data }) => {
+const Gallery = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
     const [open, setOpen] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
 
     if (!data || data.length === 0) return null;
     return (
-        <div className="bg-yellow-400 rounded-xl shadow-lg p-6 max-w-lg mx-auto text-center" style={{
-            backgroundImage: "url('/assets/banner/theme-nine.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-        }}>
+        <div
+            className="rounded-xl shadow-lg p-6 max-w-lg mx-auto text-center"
+            style={{
+                background:
+                    data?.card_bg_type === "Image" && data?.card_bg
+                        ? `url(${data.card_bg}) center/cover no-repeat`
+                        : cardBg,
+                color: fontColor,
+                fontFamily: cardFont,
+            }}
+        >
             <h2 className="text-xl font-bold mb-4">Gallery</h2>
             <Swiper
                 modules={[Navigation, Pagination]}
@@ -31,6 +37,7 @@ const Gallery = ({ data }) => {
                     640: { slidesPerView: 2 },
                     1024: { slidesPerView: 2 },
                 }}
+                className="rounded-lg"
             >
                 {data.map((item, index) => (
                     <SwiperSlide key={index}>

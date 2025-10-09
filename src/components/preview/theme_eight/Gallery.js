@@ -9,15 +9,20 @@ import "swiper/css/pagination";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 
-const Gallery = ({ data }) => {
+const Gallery = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
     const [open, setOpen] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
 
     if (!data || data.length === 0) return null;
 
     return (
-        <div className="bg-black text-white rounded-2xl shadow-lg p-6 max-w-md mx-auto">
-            <h2 className="text-center font-semibold text-lg mb-4">Gallery</h2>
+        <div
+            className="rounded-2xl shadow-lg p-6 max-w-md mx-auto"
+            style={{ background: themeBg, color: fontColor, fontFamily: cardFont }}
+        >
+            <h2 className="text-center font-semibold text-lg mb-4" style={{ color: fontColor }}>
+                {data?.section_title || "Gallery"}
+            </h2>
 
             <Swiper
                 modules={[Navigation, Pagination]}
@@ -34,8 +39,9 @@ const Gallery = ({ data }) => {
                     <SwiperSlide key={index}>
                         <img
                             src={item?.url}
-                            alt="gallery"
+                            alt={item?.title || "gallery"}
                             className="rounded-lg cursor-pointer w-full h-64 object-cover"
+                            style={{ border: `1px solid ${fontColor}` }}
                             onClick={() => {
                                 setCurrentIndex(index);
                                 setOpen(true);

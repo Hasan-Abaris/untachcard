@@ -9,18 +9,23 @@ import "swiper/css/pagination";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 
-const Gallery = ({ data }) => {
+const Gallery = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
     const [open, setOpen] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
 
     if (!data || data.length === 0) return null;
     return (
-        <div className="bg-pink-200 rounded-xl shadow-lg p-6 max-w-lg mx-auto" style={{
-            backgroundImage: "url('/assets/banner/theme-ten.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-        }}>
-            <h3 className="font-bold text-lg mb-4">Gallery</h3>
+        <div
+            className="rounded-xl shadow-lg p-6 max-w-lg mx-auto"
+            style={{
+                background: cardBg,
+                color: fontColor,
+                fontFamily: cardFont,
+            }}
+        >
+            <h3 className="font-bold text-lg mb-4 text-center">Gallery</h3>
+
+            {/* Swiper Carousel */}
             <Swiper
                 modules={[Navigation, Pagination]}
                 navigation
@@ -35,9 +40,13 @@ const Gallery = ({ data }) => {
                 {data.map((item, index) => (
                     <SwiperSlide key={index}>
                         <img
-                            src={item?.url}
-                            alt="gallery"
-                            className="rounded-lg cursor-pointer w-full h-64 object-cover"
+                            src={
+                                item?.url?.startsWith("http")
+                                    ? item.url
+                                    : `/assets/assets/uploads/gallery/${item?.url}`
+                            }
+                            alt={item?.title || "Gallery Image"}
+                            className="rounded-lg cursor-pointer w-full h-64 object-cover border border-white/20 hover:opacity-90 transition"
                             onClick={() => {
                                 setCurrentIndex(index);
                                 setOpen(true);
@@ -51,7 +60,11 @@ const Gallery = ({ data }) => {
             <Lightbox
                 open={open}
                 close={() => setOpen(false)}
-                slides={data.map((item) => ({ src: item.url }))}
+                slides={data.map((item) => ({
+                    src: item?.url?.startsWith("http")
+                        ? item.url
+                        : `/assets/assets/uploads/gallery/${item?.url}`,
+                }))}
                 index={currentIndex}
             />
         </div>

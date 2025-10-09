@@ -4,7 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 import { ToastContainer } from "react-toastify";
 
-const EnquiryForm = ({ data }) => {
+const EnquiryForm = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
     const [initialValue, setInitialValue] = useState({
         name: "",
         email: "",
@@ -47,17 +47,98 @@ const EnquiryForm = ({ data }) => {
 
     }
     return (
-        <div className="bg-black text-white rounded-lg p-4 shadow-md max-w-md mx-auto">
-            <h3 className="font-semibold mb-3">Enquiry Form</h3>
+
+        <div
+            className="rounded-lg p-4 shadow-md max-w-md mx-auto"
+            style={{
+                background: cardBg || "#000",
+                color: fontColor || "#fff",
+            }}
+        >
+            <h3
+                className="font-semibold mb-3 text-center text-lg"
+                style={{ color: fontColor || "#fff" }}
+            >
+                Enquiry Form
+            </h3>
+
             <form className="space-y-3">
-                <input type="text" placeholder="Name" className="w-full px-3 py-2 border rounded bg-transparent" name="name" value={initialValue?.name} onChange={handleChange} />
-                <input type="email" placeholder="Email" className="w-full px-3 py-2 border rounded bg-transparent" name="email" value={initialValue?.email} onChange={handleChange} />
-                <input type="number" placeholder="Mobile" className="w-full px-3 py-2 border rounded bg-transparent" name="mobile" value={initialValue?.mobile} onChange={handleChange} />
-                <textarea placeholder="Type your message" className="w-full px-3 py-2 border rounded bg-transparent" name="query" value={initialValue?.query} onChange={handleChange}></textarea>
-                <button type="button" className="px-4 py-2 border rounded-md cursor-pointer" disabled={!initialValue?.name || !initialValue?.email || !initialValue?.query || !initialValue?.mobile} onClick={submitData}>Send</button>
+                <input
+                    type="text"
+                    placeholder="Name"
+                    name="name"
+                    value={initialValue.name}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 border rounded bg-transparent outline-none"
+                    style={{
+                        borderColor: fontColor || "#fff",
+                        color: fontColor || "#fff",
+                    }}
+                />
+                <input
+                    type="email"
+                    placeholder="Email"
+                    name="email"
+                    value={initialValue.email}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 border rounded bg-transparent outline-none"
+                    style={{
+                        borderColor: fontColor || "#fff",
+                        color: fontColor || "#fff",
+                    }}
+                />
+                <input
+                    type="number"
+                    placeholder="Mobile"
+                    name="mobile"
+                    value={initialValue.mobile}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 border rounded bg-transparent outline-none"
+                    style={{
+                        borderColor: fontColor || "#fff",
+                        color: fontColor || "#fff",
+                    }}
+                />
+                <textarea
+                    placeholder="Type your message"
+                    name="query"
+                    value={initialValue.query}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 border rounded bg-transparent outline-none resize-none h-24"
+                    style={{
+                        borderColor: fontColor || "#fff",
+                        color: fontColor || "#fff",
+                    }}
+                ></textarea>
+
+                <button
+                    type="button"
+                    onClick={submitData}
+                    disabled={
+                        !initialValue.name ||
+                        !initialValue.email ||
+                        !initialValue.mobile ||
+                        !initialValue.query
+                    }
+                    className={`w-full px-4 py-2 border rounded-md transition font-medium ${!initialValue.name ||
+                        !initialValue.email ||
+                        !initialValue.mobile ||
+                        !initialValue.query
+                        ? "opacity-50 cursor-not-allowed"
+                        : "hover:bg-white hover:text-black"
+                        }`}
+                    style={{
+                        borderColor: fontColor || "#fff",
+                        color: fontColor || "#fff",
+                    }}
+                >
+                    Send
+                </button>
             </form>
+
             <ToastContainer />
         </div>
+
     );
 };
 

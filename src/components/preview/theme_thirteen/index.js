@@ -123,9 +123,7 @@ const Thirteenpagemain = ({ slug }) => {
       {paymentData && <Payment data={paymentData} />}
 
       {/* Appointment */}
-      {dataDetails?.customsection?.length > 0 && (
-        <AppointmentPage data={dataDetails.customsection} />
-      )}
+      {dataDetails && <AppointmentPage data={dataDetails} />}
     </div>
   );
 };

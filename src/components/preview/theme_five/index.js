@@ -144,7 +144,7 @@ const ThemeFivepage = ({ slug }) => {
       {/* Appointment */}
       <div className="my-8 rounded-lg shadow-lg p-6 max-w-3xl mx-auto">
         <h3 className="text-xl font-bold mb-2 text-center">Appointment</h3>
-        <AppointmentPage data={dataDetails?.customsection || []} />
+            {dataDetails && <AppointmentPage data={dataDetails} />}
       </div>
     </div>
   );

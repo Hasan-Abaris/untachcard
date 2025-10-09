@@ -7,22 +7,43 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-const ProductServices = ({ data }) => {
+const ProductServices = ({ data, cardStyles }) => {
+  // cardStyles can contain dynamic styling from API like card_bg, card_font, card_font_color
   console.log("ProductServices data:", data);
+  console.log("ProductServices dynamic styles:", cardStyles);
 
   if (!data || data.length === 0)
     return <p className="text-white text-center mt-15">No products found</p>;
 
+  // Dynamic background style
+  const bgStyle =
+    cardStyles?.card_bg_type === "Color"
+      ? { backgroundColor: cardStyles.card_bg }
+      : cardStyles?.card_theme_bg_type === "Image"
+      ? {
+          backgroundImage: `url(/assets/assets/uploads/card-background/${cardStyles.card_theme_bg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }
+      : {};
+
+  // Dynamic font style
+  const fontStyle = {
+    fontFamily: cardStyles?.card_font || "sans-serif",
+    color: cardStyles?.card_font_color || "#000000",
+  };
+
   return (
     <div
-      className="bg-pink-200 rounded-xl shadow-lg p-6 max-w-lg mx-auto"
-      style={{
-        backgroundImage: "url('/assets/banner/theme-ten.jpg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
+      className="rounded-xl shadow-lg p-6 max-w-lg mx-auto"
+      style={{ ...bgStyle, ...fontStyle }}
     >
-      <h3 className="font-bold text-lg mb-4">Products and Services</h3>
+      <h3
+        className="font-bold text-lg mb-4"
+        style={{ color: cardStyles?.title_color || fontStyle.color }}
+      >
+        Products and Services
+      </h3>
       <Swiper
         modules={[Navigation, Pagination]}
         navigation
@@ -32,7 +53,10 @@ const ProductServices = ({ data }) => {
       >
         {data.map((item, index) => (
           <SwiperSlide key={index}>
-            <div className="bg-transparent rounded-xl p-4 shadow-md">
+            <div
+              className="bg-transparent rounded-xl p-4 shadow-md"
+              style={{ fontFamily: fontStyle.fontFamily, color: fontStyle.color }}
+            >
               <div className="relative">
                 <Image
                   src={

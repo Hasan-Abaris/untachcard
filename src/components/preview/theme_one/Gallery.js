@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 
 const Gallery = ({ data }) => {
+  console.log("Gallery data:", data); // Check API response
+
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 

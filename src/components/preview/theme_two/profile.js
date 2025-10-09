@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import {
   FaEnvelope,
@@ -7,7 +9,7 @@ import {
   FaFacebook,
 } from "react-icons/fa";
 
-const ProfileCard = ({ data }) => {
+const ProfileCard = ({ data, cardStyles }) => {
   const social = data?.social_options ? JSON.parse(data.social_options) : {};
 
   // Construct image path safely
@@ -15,25 +17,78 @@ const ProfileCard = ({ data }) => {
     ? `/assets/assets/uploads/card-profile/${data.profile}`
     : "/assets/default-avatar.png";
 
-  // WhatsApp link
+  // WhatsApp & Facebook links
   const whatsappNumber = social?.mandatory?.mobile
     ? `https://wa.me/${social.mandatory.mobile}`
     : null;
 
-  // Facebook link
   const facebookLink = social?.mandatory?.facebook
     ? social.mandatory.facebook.startsWith("http")
       ? social.mandatory.facebook
       : `https://${social.mandatory.facebook}`
     : null;
 
+  // Dynamic styles
+  const styles = {
+    container: {
+      backgroundColor: cardStyles?.card_bg || "#fff",
+      fontFamily: cardStyles?.card_font || "sans-serif",
+      color: cardStyles?.card_font_color || "#000",
+      borderRadius: "1rem",
+      border: `1px solid ${cardStyles?.card_border_color || "#e5e7eb"}`,
+      boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+      overflow: "hidden",
+    },
+    headerBg: {
+      background: cardStyles?.header_bg_gradient || "linear-gradient(to right, #2563eb, #8b5cf6)",
+    },
+    title: {
+      color: cardStyles?.header_color || "#1e3a8a",
+      fontFamily: cardStyles?.card_font || "sans-serif",
+      fontWeight: "bold",
+    },
+    subtitle: {
+      color: cardStyles?.subheader_color || "#3b82f6",
+      fontFamily: cardStyles?.card_font || "sans-serif",
+      fontWeight: "500",
+    },
+    text: {
+      color: cardStyles?.card_font_color || "#000",
+      fontFamily: cardStyles?.card_font || "sans-serif",
+    },
+    button: {
+      backgroundColor: cardStyles?.button_bg || "#f3f4f6",
+      color: cardStyles?.button_font_color || "#111827",
+      border: `1px solid ${cardStyles?.button_border_color || "#d1d5db"}`,
+      padding: "8px 16px",
+      borderRadius: "6px",
+      fontSize: "0.875rem",
+      cursor: "pointer",
+      transition: "all 0.2s ease",
+    },
+    icon: {
+      color: cardStyles?.icon_color || "#1e40af",
+    },
+    link: {
+      color: cardStyles?.link_color || "#1d4ed8",
+      textDecoration: "none",
+    },
+  };
+
   return (
-    <div className="bg-white rounded-2xl shadow-2xl max-w-md mx-auto text-black overflow-hidden relative font-sans border border-gray-200">
+    <div className="max-w-md mx-auto relative" style={styles.container}>
       {/* Header Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 h-32 relative mt-20">
-        <div className="absolute top-2 left-2 bg-white/20 text-white px-3 py-1 text-xs rounded-lg backdrop-blur-sm">
+      <div className="h-32 relative mt-20" style={styles.headerBg}>
+        <div
+          className="absolute top-2 left-2 px-3 py-1 text-xs rounded-lg backdrop-blur-sm"
+          style={{
+            backgroundColor: cardStyles?.views_bg || "rgba(255,255,255,0.25)",
+            color: cardStyles?.views_text || "#fff",
+          }}
+        >
           👁️ Views: {data?.views || 0}
         </div>
+
         <div className="absolute inset-x-0 -bottom-12 flex justify-center">
           <Image
             src={profileSrc}
@@ -47,56 +102,47 @@ const ProfileCard = ({ data }) => {
 
       {/* Content Section */}
       <div className="pt-16 px-6 pb-6 text-center">
-        <h2 className="text-2xl font-bold text-gray-900">{data?.title}</h2>
-        <p className="text-blue-500 mt-1 font-medium">{data?.sub_title}</p>
+        <h2 style={styles.title}>{data?.title}</h2>
+        <p style={styles.subtitle}>{data?.sub_title}</p>
+
         {data?.description && (
-          <p className="mt-3 text-gray-700 leading-relaxed text-sm">
+          <p className="mt-3 text-sm leading-relaxed" style={styles.text}>
             {data.description}
           </p>
         )}
 
         {/* Contact / Social Info */}
-        <div className="mt-6 space-y-3 text-left text-gray-800">
+        <div className="mt-6 space-y-3 text-left" style={styles.text}>
           {social?.mandatory?.mobile && (
             <div className="flex items-center gap-3">
-              <FaPhone className="text-blue-600" />
+              <FaPhone style={styles.icon} />
               <span>{social.mandatory.mobile}</span>
             </div>
           )}
           {social?.mandatory?.email && (
             <div className="flex items-center gap-3">
-              <FaEnvelope className="text-red-500" />
+              <FaEnvelope style={styles.icon} />
               <span>{social.mandatory.email}</span>
             </div>
           )}
           {whatsappNumber && (
             <div className="flex items-center gap-3">
-              <FaWhatsapp className="text-green-500" />
-              <a
-                href={whatsappNumber}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:underline text-blue-700"
-              >
+              <FaWhatsapp style={styles.icon} />
+              <a href={whatsappNumber} target="_blank" rel="noopener noreferrer" style={styles.link}>
                 Message on WhatsApp
               </a>
             </div>
           )}
           {social?.mandatory?.address && (
             <div className="flex items-center gap-3">
-              <FaMapMarkerAlt className="text-gray-700" />
+              <FaMapMarkerAlt style={styles.icon} />
               <span>{social.mandatory.address}</span>
             </div>
           )}
           {facebookLink && (
             <div className="flex items-center gap-3">
-              <FaFacebook className="text-blue-600" />
-              <a
-                href={facebookLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:underline text-blue-700"
-              >
+              <FaFacebook style={styles.icon} />
+              <a href={facebookLink} target="_blank" rel="noopener noreferrer" style={styles.link}>
                 Visit Facebook
               </a>
             </div>
@@ -105,10 +151,18 @@ const ProfileCard = ({ data }) => {
 
         {/* Action Buttons */}
         <div className="mt-8 flex justify-center gap-4">
-          <button className="px-4 py-2 border border-gray-400 rounded-md text-sm text-gray-700 hover:bg-gray-900 hover:text-white transition-all duration-200">
+          <button
+            style={styles.button}
+            onMouseOver={(e) => (e.currentTarget.style.opacity = "0.8")}
+            onMouseOut={(e) => (e.currentTarget.style.opacity = "1")}
+          >
             Add to Phone Book
           </button>
-          <button className="px-4 py-2 border border-gray-400 rounded-md text-sm text-gray-700 hover:bg-gray-900 hover:text-white transition-all duration-200">
+          <button
+            style={styles.button}
+            onMouseOver={(e) => (e.currentTarget.style.opacity = "0.8")}
+            onMouseOut={(e) => (e.currentTarget.style.opacity = "1")}
+          >
             Share
           </button>
         </div>

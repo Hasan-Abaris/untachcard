@@ -84,33 +84,49 @@ const ThemeNine = () => {
     );
   }
 
+  const cardBg =
+    dataDetails?.card_bg_type === "Transparent"
+      ? "transparent"
+      : dataDetails?.card_bg || "#000";
+  const fontColor = dataDetails?.card_font_color || "#fff";
+  const cardFont = dataDetails?.card_font || "inherit";
+  const themeBg =
+    dataDetails?.card_theme_bg_type === "Transparent"
+      ? "transparent"
+      : dataDetails?.card_theme_bg || "#111";
+
   return (
-    <div className="min-h-screen bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-400 p-6 space-y-6 pt-19">
-      {dataDetails && <ProfileCard data={dataDetails} />}
+    <div className="min-h-screen p-6 space-y-6 pt-19"
+      style={{
+        background:
+          themeBg && themeBg !== "transparent"
+            ? themeBg
+            : "linear-gradient(to right, #a855f7, #3b82f6, #22d3ee)",
+      }}>
+      {dataDetails && <ProfileCard data={dataDetails} themeBg={themeBg} cardBg={cardBg} fontColor={fontColor} cardFont={cardFont} />}
 
       {dataDetails?.products?.length > 0 && (
-        <ProductServices data={dataDetails?.products} />
+        <ProductServices data={dataDetails?.products} themeBg={themeBg} cardBg={cardBg} fontColor={fontColor} cardFont={cardFont} />
       )}
 
       {dataDetails?.portfolios?.length > 0 && (
-        <Portfolio data={dataDetails?.portfolios} />
+        <Portfolio data={dataDetails?.portfolios} themeBg={themeBg} cardBg={cardBg} fontColor={fontColor} cardFont={cardFont} />
       )}
 
       {dataDetails?.galleries?.length > 0 && (
-        <Gallery data={dataDetails?.galleries} />
+        <Gallery data={dataDetails?.galleries} themeBg={themeBg} cardBg={cardBg} fontColor={fontColor} cardFont={cardFont} />
       )}
 
       {dataDetails?.testimonials?.length > 0 && (
-        <Testimonials data={dataDetails?.testimonials} />
+        <Testimonials data={dataDetails?.testimonials} themeBg={themeBg} cardBg={cardBg} fontColor={fontColor} cardFont={cardFont} />
       )}
 
-            {dataDetails?.customsection?.length > 0 && (
-                <CustomSection data={dataDetails?.customsection} />
-            )}
-
-      {dataDetails?.custumSection?.length > 0 && (
-        <CustomSection data={dataDetails?.fields} />
+      {dataDetails && <EnquiryForm data={dataDetails} themeBg={themeBg} cardBg={cardBg} fontColor={fontColor} cardFont={cardFont} />}
+      {dataDetails?.customsection?.length > 0 && (
+        <CustomSection data={dataDetails?.customsection} themeBg={themeBg} cardBg={cardBg} fontColor={fontColor} cardFont={cardFont} />
       )}
+
+
 
       {dataDetails?.working_hours && (
         <WorkingHours data={dataDetails?.working_hours} />
@@ -120,7 +136,7 @@ const ThemeNine = () => {
         <PaymentSection data={dataDetails?.payment_options} />
       )}
       {/* Appointment */}
-      <AppointmentPage data={dataDetails?.customsection || []} />
+      {dataDetails && <AppointmentPage data={dataDetails} themeBg={themeBg} cardBg={cardBg} fontColor={fontColor} cardFont={cardFont} />}
     </div>
   );
 };

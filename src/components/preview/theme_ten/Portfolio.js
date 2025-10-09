@@ -8,19 +8,25 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { useRouter } from "next/navigation";
 
-const Portfolio = ({ data }) => {
+const Portfolio = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
     const linkSend = (url) => {
         if (url) {
             window.open(url, "_blank");
         }
     }
     return (
-        <div className="bg-pink-200 rounded-xl shadow-lg p-6 max-w-lg mx-auto" style={{
-            backgroundImage: "url('/assets/banner/theme-ten.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-        }}>
-            <h3 className="font-bold text-lg mb-4">Portfolio</h3>
+        <div
+            className="rounded-xl shadow-lg p-6 max-w-lg mx-auto"
+            style={{
+                background: cardBg,
+                color: fontColor,
+                fontFamily: cardFont,
+            }}
+        >
+            <h3 className="font-bold text-lg mb-4 text-center">
+                Portfolio
+            </h3>
+
             <Swiper
                 modules={[Navigation, Pagination]}
                 spaceBetween={20}
@@ -31,26 +37,35 @@ const Portfolio = ({ data }) => {
             >
                 {data?.map((item, index) => (
                     <SwiperSlide key={index}>
-                        <div>
+                        <div className="bg-transparent rounded-lg p-4 backdrop-blur-sm shadow-md">
+                            {/* Portfolio Image */}
                             <img
-                                src={`/assets/assets/uploads/card-banner/${item?.image}`}
-                                alt="portfolio"
-                                className="rounded-lg w-full"
+                                src={
+                                    item?.image?.startsWith("http")
+                                        ? item.image
+                                        : `/assets/assets/uploads/card-banner/${item?.image}`
+                                }
+                                alt={item?.title || "Portfolio"}
+                                className="rounded-lg w-full object-cover"
                             />
+
+                            {/* Portfolio Info */}
                             <h4 className="mt-3 font-semibold">{item?.title}</h4>
-                            <p className="text-gray-600 text-sm mt-2">
+                            <p className="text-gray-200 text-sm mt-2 line-clamp-3">
                                 {item?.description}
                             </p>
-                            <button className="mt-4 border px-4 py-2 rounded-lg hover:bg-gray-100 transition" onClick={() => linkSend(item?.url)}>
-                                View
+
+                            {/* View Button */}
+                            <button
+                                className="mt-4 border border-white px-4 py-2 rounded-lg hover:bg-white hover:text-black transition"
+                                onClick={() => linkSend(item?.url)}
+                            >
+                                View →
                             </button>
                         </div>
-
-
                     </SwiperSlide>
                 ))}
             </Swiper>
-
         </div>
     );
 };

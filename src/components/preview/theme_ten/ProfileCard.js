@@ -3,7 +3,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { FaEye, FaUserPlus, FaShareAlt, FaPhone, FaEnvelope, FaWhatsapp, FaMapMarkerAlt, FaGlobe, FaInstagram, FaFacebookF } from "react-icons/fa";
 
-const ProfileCard = ({ data }) => {
+const ProfileCard = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
     const social = data?.social_options ? JSON.parse(data.social_options) : {};
     const getField = (type) =>
         data?.fields.find((item) => item.type.toLowerCase() === type.toLowerCase());
@@ -21,41 +21,45 @@ const ProfileCard = ({ data }) => {
         setOpen(true)
     }
     return (
-        <div className="bg-pink-200 rounded-xl shadow-lg p-6 text-center relative max-w-lg mx-auto" style={{
-            backgroundImage: "url('/assets/banner/theme-ten.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-        }}>
+        <div
+            className="rounded-xl shadow-lg p-6 text-center relative max-w-lg mx-auto"
+            style={{
+                background: cardBg,
+                color: fontColor,
+                fontFamily: cardFont,
+            }}
+        >
             {/* Views */}
-            <div className="absolute top-3 right-3 flex items-center space-x-2 border px-3 py-1 rounded-full shadow">
+            <div className="absolute top-3 right-3 flex items-center space-x-2 border px-3 py-1 rounded-full shadow bg-white/70 backdrop-blur-sm">
                 <FaEye />
                 <span className="text-sm">Views: {data?.views}</span>
             </div>
 
             {/* Profile Image */}
-            {data?.image_source === 'local' ?
+            {data?.image_source === "local" ? (
                 <Image
                     src={`/assets/assets/uploads/card-profile/${data?.profile}`}
                     alt="Profile"
                     width={100}
                     height={100}
                     className="w-28 h-28 rounded-full mx-auto border-4 border-white shadow-md"
-                /> : <Image
+                />
+            ) : (
+                <Image
                     src={data?.profile}
                     alt="Profile"
                     width={100}
                     height={100}
                     className="w-28 h-28 rounded-full mx-auto border-4 border-white shadow-md"
-                />}
+                />
+            )}
 
             {/* Name */}
             <h2 className="mt-3 text-xl font-bold flex items-center justify-center gap-1">
                 {data?.title} <span className="text-blue-500">✔</span>
             </h2>
             <p className="text-gray-600">{data?.sub_title}</p>
-            <p className="mt-2 text-gray-700 text-sm">
-                {data?.description}
-            </p>
+            <p className="mt-2 text-gray-700 text-sm">{data?.description}</p>
 
             {/* Contact Info */}
             <div className="mt-6 space-y-2 text-left">
@@ -93,6 +97,7 @@ const ProfileCard = ({ data }) => {
                         </a>
                     </div>
                 )}
+
                 {address && (
                     <div className="flex items-center gap-3">
                         <FaMapMarkerAlt className="text-2xl text-yellow-400" />
@@ -106,6 +111,7 @@ const ProfileCard = ({ data }) => {
                         </a>
                     </div>
                 )}
+
                 {website && (
                     <div className="flex items-center gap-3">
                         <FaGlobe className="text-2xl text-yellow-400" />
@@ -119,6 +125,7 @@ const ProfileCard = ({ data }) => {
                         </a>
                     </div>
                 )}
+
                 {facebook && (
                     <div className="flex items-center gap-3">
                         <FaFacebookF className="text-2xl text-blue-500" />
@@ -153,10 +160,15 @@ const ProfileCard = ({ data }) => {
                 <button className="flex items-center gap-2 border px-4 py-2 rounded-lg hover:bg-gray-100 transition">
                     <FaUserPlus /> Add to Phone Book
                 </button>
-                <button type="button" className="flex items-center gap-2 border px-4 py-2 rounded-lg hover:bg-gray-100 transition" onClick={() => shareModal(data)}>
+                <button
+                    type="button"
+                    className="flex items-center gap-2 border px-4 py-2 rounded-lg hover:bg-gray-100 transition"
+                    onClick={() => shareModal(data)}
+                >
                     <FaShareAlt /> Share
                 </button>
             </div>
+
             <ShareVCardModal
                 isOpen={open}
                 onClose={() => setOpen(false)}

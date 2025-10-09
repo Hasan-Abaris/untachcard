@@ -4,7 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 import { ToastContainer } from "react-toastify";
 
-const EnquiryForm = ({ data }) => {
+const EnquiryForm = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
     const [initialValue, setInitialValue] = useState({
         name: "",
         email: "",
@@ -47,43 +47,100 @@ const EnquiryForm = ({ data }) => {
 
     }
     return (
-        <div className="bg-pink-200 rounded-xl shadow-lg p-6 max-w-lg mx-auto" style={{
-            backgroundImage: "url('/assets/banner/theme-ten.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-        }}>
+        <div
+            className="rounded-xl shadow-lg p-6 max-w-lg mx-auto"
+            style={{
+                background: cardBg,
+                color: fontColor,
+                fontFamily: cardFont,
+            }}
+        >
             <h3 className="font-bold text-lg mb-4 text-center">Enquiry Form</h3>
-            <form className="space-y-4">
+
+            <form
+                className="space-y-4 rounded-xl p-4"
+                style={{
+                    background: cardBg || "rgba(255,255,255,0.7)",
+                    color: fontColor || "#000",
+                    fontFamily: cardFont || "inherit",
+                }}
+            >
                 <input
                     type="text"
                     placeholder="Name"
-                    className="w-full border rounded-lg px-4 py-2"
-                    name="name" value={initialValue?.name} onChange={handleChange}
+                    name="name"
+                    value={initialValue.name}
+                    onChange={handleChange}
+                    className="w-full border rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-blue-400"
+                    style={{
+                        color: fontColor,
+                        fontFamily: cardFont,
+                        background: "transparent",
+                        borderColor: fontColor ? `${fontColor}33` : "#ccc",
+                    }}
                 />
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <input
                         type="email"
                         placeholder="Email"
-                        className="w-full border rounded-lg px-4 py-2"
-                        name="email" value={initialValue?.email} onChange={handleChange}
+                        name="email"
+                        value={initialValue.email}
+                        onChange={handleChange}
+                        className="w-full border rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-blue-400"
+                        style={{
+                            color: fontColor,
+                            fontFamily: cardFont,
+                            background: "transparent",
+                            borderColor: fontColor ? `${fontColor}33` : "#ccc",
+                        }}
                     />
                     <input
                         type="number"
                         placeholder="Mobile"
-                        className="w-full border rounded-lg px-4 py-2"
-                        name="mobile" value={initialValue?.mobile} onChange={handleChange}
+                        name="mobile"
+                        value={initialValue.mobile}
+                        onChange={handleChange}
+                        className="w-full border rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-blue-400"
+                        style={{
+                            color: fontColor,
+                            fontFamily: cardFont,
+                            background: "transparent",
+                            borderColor: fontColor ? `${fontColor}33` : "#ccc",
+                        }}
                     />
                 </div>
+
                 <textarea
                     placeholder="Type your message"
+                    name="query"
                     rows="4"
-                    className="w-full border rounded-lg px-4 py-2"
-                    name="query" value={initialValue?.query} onChange={handleChange}
+                    value={initialValue.query}
+                    onChange={handleChange}
+                    className="w-full border rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-blue-400"
+                    style={{
+                        color: fontColor,
+                        fontFamily: cardFont,
+                        background: "transparent",
+                        borderColor: fontColor ? `${fontColor}33` : "#ccc",
+                    }}
                 ></textarea>
-                <button type="button" className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition" disabled={!initialValue?.name || !initialValue?.email || !initialValue?.query || !initialValue?.mobile} onClick={submitData}>
+
+                <button
+                    type="button"
+                    onClick={submitData}
+                    disabled={!initialValue.name || !initialValue.email || !initialValue.query || !initialValue.mobile}
+                    className="w-full mt-2 rounded-lg px-6 py-2 font-semibold transition"
+                    style={{
+                        background: fontColor || "#007bff",
+                        color: fontColor || "#fff",
+                        opacity: (!initialValue.name || !initialValue.email || !initialValue.query || !initialValue.mobile) ? 0.6 : 1,
+                    }}
+                >
                     Send
                 </button>
             </form>
+
             <ToastContainer />
         </div>
     );

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { FaEnvelope, FaFacebookF, FaGlobe, FaInstagram, FaMapMarkerAlt, FaPhone, FaWhatsapp } from "react-icons/fa";
 import ShareVCardModal from "@/components/common/shareVCardModal/ShareVCardModal";
 
-const ProfileCard = ({ data }) => {
+const ProfileCard = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
     const social = data?.social_options ? JSON.parse(data.social_options) : {};
     const getField = (type) =>
         data?.fields.find((item) => item.type.toLowerCase() === type.toLowerCase());
@@ -23,11 +23,14 @@ const ProfileCard = ({ data }) => {
         setOpen(true)
     }
     return (
-        <div className=" rounded-xl shadow-lg overflow-hidden relative max-w-lg mx-auto text-center p-6" style={{
-            backgroundImage: "url('/assets/banner/theme-nine.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-        }}>
+        <div
+            className="rounded-xl shadow-lg overflow-hidden relative max-w-lg mx-auto text-center p-6"
+            style={{
+                background: cardBg,
+                color: fontColor,
+                fontFamily: cardFont,
+            }}
+        >
             {/* Views */}
             <div className="absolute top-2 right-2 flex items-center space-x-2 text-sm bg-black/40 text-white px-3 py-1 rounded-lg">
                 <Eye size={16} /> <span>Views: {data?.views}</span>
@@ -41,16 +44,17 @@ const ProfileCard = ({ data }) => {
                 width={100}
                 height={100}
             />
-            {/* <img
-                src="/assets/cardPreview/sever-profile.jpg"
-                alt="profile"
-                className="w-32 h-32 rounded-full border-4 border-white mx-auto object-cover"
-            /> */}
 
             {/* Info */}
-            <h2 className="text-2xl font-bold mt-3">{data?.title} ✅</h2>
-            <p className="font-semibold">{data?.sub_title}</p>
-            <p className="italic">{data?.description}</p>
+            <h2 className="text-2xl font-bold mt-3" style={{ color: fontColor, fontFamily: cardFont }}>
+                {data?.title} ✅
+            </h2>
+            <p className="font-semibold" style={{ color: fontColor, fontFamily: cardFont }}>
+                {data?.sub_title}
+            </p>
+            <p className="italic" style={{ color: fontColor, fontFamily: cardFont }}>
+                {data?.description}
+            </p>
 
             {/* Contact */}
             <div className="mt-4 space-y-2 text-left">
@@ -64,12 +68,7 @@ const ProfileCard = ({ data }) => {
                 {email && (
                     <div className="flex items-center gap-3">
                         <FaEnvelope className="text-2xl text-yellow-400" />
-                        <a
-                            href={`mailto:${email.url}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="hover:underline"
-                        >
+                        <a href={`mailto:${email.url}`} target="_blank" rel="noopener noreferrer" className="hover:underline">
                             {email.title}
                         </a>
                     </div>
@@ -88,41 +87,29 @@ const ProfileCard = ({ data }) => {
                         </a>
                     </div>
                 )}
+
                 {address && (
                     <div className="flex items-center gap-3">
                         <FaMapMarkerAlt className="text-2xl text-yellow-400" />
-                        <a
-                            href={address.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="hover:underline"
-                        >
+                        <a href={address.url} target="_blank" rel="noopener noreferrer" className="hover:underline">
                             {address.title}
                         </a>
                     </div>
                 )}
+
                 {website && (
                     <div className="flex items-center gap-3">
                         <FaGlobe className="text-2xl text-yellow-400" />
-                        <a
-                            href={website.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="hover:underline"
-                        >
+                        <a href={website.url} target="_blank" rel="noopener noreferrer" className="hover:underline">
                             {website.url}
                         </a>
                     </div>
                 )}
+
                 {facebook && (
                     <div className="flex items-center gap-3">
                         <FaFacebookF className="text-2xl text-blue-500" />
-                        <a
-                            href={facebook.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="hover:underline"
-                        >
+                        <a href={facebook.url} target="_blank" rel="noopener noreferrer" className="hover:underline">
                             Facebook
                         </a>
                     </div>
@@ -131,12 +118,7 @@ const ProfileCard = ({ data }) => {
                 {instagram && (
                     <div className="flex items-center gap-3">
                         <FaInstagram className="text-2xl text-pink-500" />
-                        <a
-                            href={instagram.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="hover:underline"
-                        >
+                        <a href={instagram.url} target="_blank" rel="noopener noreferrer" className="hover:underline">
                             Instagram
                         </a>
                     </div>
@@ -145,19 +127,23 @@ const ProfileCard = ({ data }) => {
 
             {/* Buttons */}
             <div className="mt-4 flex justify-around">
-                <button className="border px-4 py-2 rounded-lg flex items-center space-x-2">
+                <button
+                    className="border px-4 py-2 rounded-lg flex items-center space-x-2"
+                    style={{ color: fontColor, fontFamily: cardFont }}
+                >
                     <UserPlus size={16} /> <span>Add to Phone Book</span>
                 </button>
-                <button type="button" className="border px-4 py-2 rounded-lg flex items-center space-x-2" onClick={() => shareModal(data)}>
+                <button
+                    type="button"
+                    className="border px-4 py-2 rounded-lg flex items-center space-x-2"
+                    onClick={() => shareModal(data)}
+                    style={{ color: fontColor, fontFamily: cardFont }}
+                >
                     <Share2 size={16} /> <span>Share</span>
                 </button>
             </div>
-            <ShareVCardModal
-                isOpen={open}
-                onClose={() => setOpen(false)}
-                data={modalData}
-                theme="theme_nine/theme_nine"
-            />
+
+            <ShareVCardModal isOpen={open} onClose={() => setOpen(false)} data={modalData} theme="theme_nine/theme_nine" />
         </div>
     );
 };

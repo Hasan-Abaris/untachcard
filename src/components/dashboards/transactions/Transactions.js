@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react'
 import { FaEye } from 'react-icons/fa';
 import { ToastContainer } from 'react-toastify';
 import InvoiceModal from './invoiceModal/InvoiceModal';
+import { Pagination } from 'antd';
 
 const Transactions = () => {
     const [isOpen, setIsOpen] = useState(false);

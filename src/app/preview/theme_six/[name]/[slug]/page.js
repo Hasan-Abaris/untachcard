@@ -1,5 +1,3 @@
-// app/preview/theme_one/[slug]/page.js
-
 import  ThemeSixpage  from "@/components/preview/theme_six";
 
 

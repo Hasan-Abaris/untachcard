@@ -2,7 +2,8 @@
 const nextConfig = {
   images: {
     unoptimized: true,
-    domains: ["onlineparttimejobs.in"],
+    domains: ["onlineparttimejobs.in"], 
+
   },
 };
 

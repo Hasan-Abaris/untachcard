@@ -1,13 +1,21 @@
 "use client";
 import React, { useState } from "react";
 
-const Gallery = ({ data }) => {
+const Gallery = ({ data, cardData }) => {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
   if (!data || data.length === 0) {
     return (
-      <p className="text-gray-400 text-center mt-4">No gallery available.</p>
+      <p
+        className="text-center mt-4"
+        style={{
+          color: cardData?.card_font_color || "#9ca3af",
+          fontFamily: cardData?.card_font || "sans-serif",
+        }}
+      >
+        No gallery available.
+      </p>
     );
   }
 
@@ -21,36 +29,99 @@ const Gallery = ({ data }) => {
     setSelectedImage(null);
   };
 
+  // Dynamic styles using card data
+  const styles = {
+    container: {
+      background:
+        cardData?.card_bg_type === "Color"
+          ? cardData?.card_bg || "#f3f4f6"
+          : cardData?.card_bg_type === "Image"
+          ? `url(${cardData?.card_bg}) center/cover no-repeat`
+          : "#f3f4f6",
+      color: cardData?.card_font_color || "#000000",
+      fontFamily: cardData?.card_font || "sans-serif",
+      borderRadius: "12px",
+      boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+      padding: "1.5rem",
+      margin: "2rem auto",
+      maxWidth: "80rem",
+    },
+    title: {
+      fontSize: "1.8rem",
+      fontWeight: 700,
+      textAlign: "center",
+      marginBottom: "1.5rem",
+      color: cardData?.card_font_color || "#111827",
+      fontFamily: cardData?.card_font || "sans-serif",
+    },
+    imageBox: {
+      width: "12rem",
+      height: "12rem",
+      borderRadius: "10px",
+      cursor: "pointer",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      transition: "transform 0.3s ease",
+      boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+    },
+    overlay: {
+      backgroundColor: "rgba(0,0,0,0.8)",
+      position: "fixed",
+      inset: 0,
+      zIndex: 50,
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    closeBtn: {
+      position: "absolute",
+      top: "8px",
+      right: "8px",
+      backgroundColor: "#1f2937",
+      color: "#fff",
+      padding: "0.5rem",
+      borderRadius: "50%",
+      cursor: "pointer",
+      border: "none",
+      fontSize: "1rem",
+    },
+  };
+
   return (
-    <div className="my-8 max-w-5xl mx-auto p-4 bg-gray-100 rounded-lg shadow-lg">
+    <div style={styles.container}>
       {/* Gallery Title */}
-      <h3 className="text-2xl font-bold text-center mb-6">Gallery</h3>
+      <h3 style={styles.title}>Gallery</h3>
 
       {/* Gallery Images */}
       <div className="flex flex-wrap justify-center gap-4">
         {data.map((item) => (
           <div
             key={item._id}
-            className="w-48 h-48 bg-cover bg-center rounded-lg cursor-pointer shadow-md hover:scale-105 transition-transform"
-            style={{ backgroundImage: `url(${item.url})` }}
+            style={{
+              ...styles.imageBox,
+              backgroundImage: `url(${item.url})`,
+            }}
             onClick={() => openLightbox(item.url)}
+            onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
+            onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
           ></div>
         ))}
       </div>
 
       {/* Lightbox */}
       {isLightboxOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50">
+        <div style={styles.overlay}>
           <div className="relative max-w-3xl w-full p-4">
             <img
               src={selectedImage}
               alt="Gallery Item"
               className="w-full h-auto rounded"
+              style={{
+                borderRadius: "10px",
+                boxShadow: "0 0 20px rgba(0,0,0,0.4)",
+              }}
             />
-            <button
-              onClick={closeLightbox}
-              className="absolute top-2 right-2 bg-gray-800 text-white p-2 rounded-full hover:bg-gray-600"
-            >
+            <button style={styles.closeBtn} onClick={closeLightbox}>
               ✕
             </button>
           </div>

@@ -64,14 +64,14 @@ const ThemeSixpage = ({ slug }) => {
 
   if (!dataDetails) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-400">
+      <div className="min-h-screen flex items-center justify-center">
         <p className="text-white text-lg font-semibold">No data found</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-400 p-6 space-y-6">
+    <div className="min-h-screen  p-6 space-y-6">
       {/* Profile Section */}
       <div className="my-8">
         <ProfileCard data={dataDetails} />
@@ -138,7 +138,7 @@ const ThemeSixpage = ({ slug }) => {
         {/* Appointment */}
               <div className="my-8 rounded-lg shadow-lg p-6 max-w-3xl mx-auto">
                 <h3 className="text-xl font-bold mb-2 text-center">Appointment</h3>
-                <AppointmentPage data={dataDetails?.customsection || []} />
+            {dataDetails && <AppointmentPage data={dataDetails} />}
               </div>
       </div>
     </div>

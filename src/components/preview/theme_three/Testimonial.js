@@ -2,11 +2,15 @@
 import React, { useState } from "react";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
-const Testimonial = ({ data }) => {
+const Testimonial = ({ data, cardStyles }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   if (!data || data.length === 0) {
-    return <p className="text-gray-400 text-center mt-4">No testimonials available.</p>;
+    return (
+      <p className="text-gray-400 text-center mt-4">
+        No testimonials available.
+      </p>
+    );
   }
 
   const nextSlide = () => {
@@ -31,9 +35,26 @@ const Testimonial = ({ data }) => {
     return stars;
   };
 
+  // Dynamic CSS
+  const containerStyle = {
+    backgroundColor: cardStyles?.card_bg || "#f3f4f6",
+    fontFamily: cardStyles?.card_font || "sans-serif",
+    color: cardStyles?.card_font_color || "#000000",
+    backgroundImage:
+      cardStyles?.card_theme_bg_type === "Image" && cardStyles?.card_theme_bg
+        ? `url(/assets/assets/uploads/card-background/${cardStyles.card_theme_bg})`
+        : "none",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  };
+  console.log("Testimonials applied CSS:", containerStyle);
+
   return (
     <div className="my-8 flex justify-center">
-      <div className="w-full max-w-4xl p-6 bg-gray-100 rounded-lg shadow-lg">
+      <div
+        className="w-full max-w-4xl p-6 rounded-lg shadow-lg"
+        style={containerStyle}
+      >
         {/* Section Title */}
         <h3 className="text-2xl font-bold text-center mb-6">Testimonials</h3>
 
@@ -54,8 +75,12 @@ const Testimonial = ({ data }) => {
                     src={testimonial.image}
                     className="w-16 h-16 rounded-full object-cover mx-auto"
                   />
-                  <h4 className="mt-3 text-lg font-semibold">{testimonial.name}</h4>
-                  <div className="flex justify-center mt-1">{renderStars(testimonial.rating)}</div>
+                  <h4 className="mt-3 text-lg font-semibold">
+                    {testimonial.name}
+                  </h4>
+                  <div className="flex justify-center mt-1">
+                    {renderStars(testimonial.rating)}
+                  </div>
                   <p className="text-gray-600 mt-2">{testimonial.text}</p>
                 </div>
               </div>

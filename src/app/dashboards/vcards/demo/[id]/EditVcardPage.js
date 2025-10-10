@@ -24,36 +24,50 @@ import Seo from "@/components/dashboards/v-card/edits/Seo";
 import Privacy from "@/components/dashboards/v-card/edits/Privacy";
 import Terms from "@/components/dashboards/v-card/edits/Terms&C";
 import Managesection from "@/components/dashboards/v-card/edits/managesection";
+import VcardsPage from "@/components/dashboards/v-card";
+import ListServiceProduct from "@/components/dashboards/v-card/listServiceProduct/ListServiceProduct";
+import PortfolioList from "@/components/dashboards/v-card/portfolioList/PortfolioList";
+import ListGallery from "@/components/dashboards/v-card/listGallery/ListGallery";
+import ListTestimonial from "@/components/dashboards/v-card/listTestimonial/ListTestimonial";
+import CustomSectionList from "@/components/dashboards/v-card/customSectionList/CustomSectionList";
+import Qr from "@/components/dashboards/v-card/qr/Qr";
 
 const menuItems = [
-  { key: "basic", label: "Basic Details" },
+  // { key: "basic", label: "Basic Details" },
+  { key: "CardList", label: "Card List" },
   // { key: "templates", label: "Card Templates" },
   { key: "templates", label: "Card Templates" },
+  { key: "listProductsServices", label: "List Products & Services" },
+  { key: "PortfolioList", label: "Portfolio List" },
+  { key: "galleryList", label: "Gallery List" },
+  { key: "testimonialList", label: "Testimonial List" },
+  { key: "customSectionList", label: "Custom Section List" },
+  { key: "QRCode", label: "QR Code" },
 
-  { key: "dynamic", label: "Dynamic Card" },
-  { key: "hours", label: "Business Hours" },
-  { key: "qrcode", label: "Customize QR Code" },
-  { key: "services", label: "Services" },
-  { key: "products", label: "Products" },
-  { key: "insta", label: "InstaEmbed" },
-  { key: "gallery", label: "Galleries" },
-  { key: "blogs", label: "Blogs" },
-  { key: "testimonials", label: "Testimonials" },
-  { key: "iframe", label: "Iframes" },
-  { key: "appointment", label: "Appointments" },
-  { key: "social_links", label: "Social links – Website" },
-  { key: "custom_links", label: "Custom Links" },
-  { key: "banner", label: "Banner" },
-  { key: "advanced", label: "Advanced" },
-  { key: "fonts", label: "Fonts" },
-  { key: "seo", label: "SEO" },
-  { key: "privacy", label: "Privacy Policy" },
-  { key: "terms", label: "Terms & Conditions" },
-  { key: "manage_section", label: "Manage Section" },
+  // { key: "dynamic", label: "Dynamic Card" },
+  // { key: "hours", label: "Business Hours" },
+  // { key: "qrcode", label: "Customize QR Code" },
+  // { key: "services", label: "Services" },
+  // { key: "products", label: "Products" },
+  // { key: "insta", label: "InstaEmbed" },
+  // { key: "gallery", label: "Galleries" },
+  // { key: "blogs", label: "Blogs" },
+  // { key: "testimonials", label: "Testimonials" },
+  // { key: "iframe", label: "Iframes" },
+  // { key: "appointment", label: "Appointments" },
+  // { key: "social_links", label: "Social links – Website" },
+  // { key: "custom_links", label: "Custom Links" },
+  // { key: "banner", label: "Banner" },
+  // { key: "advanced", label: "Advanced" },
+  // { key: "fonts", label: "Fonts" },
+  // { key: "seo", label: "SEO" },
+  // { key: "privacy", label: "Privacy Policy" },
+  // { key: "terms", label: "Terms & Conditions" },
+  // { key: "manage_section", label: "Manage Section" },
 ];
 
 export default function EditVcardPage() {
-  const [activeTab, setActiveTab] = useState("basic");
+  const [activeTab, setActiveTab] = useState("CardList");
 
   return (
     <div className="h-auto pt-17">
@@ -61,12 +75,12 @@ export default function EditVcardPage() {
         {/* Sidebar (Fixed) */}
         <aside className="w-64 bg-white border-r shadow-sm sticky top-0">
           <div className="p-4 border-b">
-            <h2 className="text-lg font-semibold">Edit Card </h2>
+            <h2 className="text-lg font-semibold">Cards Management</h2>
           </div>
           <nav className="p-4 space-y-2">
-            {menuItems.map((item) => (
+            {menuItems.map((item, i) => (
               <button
-                key={item.key}
+                key={i}
                 onClick={() => setActiveTab(item.key)}
                 className={`block w-full text-left px-3 py-2 rounded-md transition ${activeTab === item.key
                   ? "bg-indigo-100 text-indigo-600 font-medium"
@@ -82,7 +96,7 @@ export default function EditVcardPage() {
         {/* Main Content */}
         <main className="flex-1 p-6 pb-24 overflow-y-auto">
           {/* Header */}
-          <div className="flex justify-between items-center mb-6">
+          {/* <div className="flex justify-between items-center mb-6">
             <h1 className="text-2xl font-semibold text-gray-800">Edit Card</h1>
             <Link
               href="/Dashboard/vcards"
@@ -90,11 +104,22 @@ export default function EditVcardPage() {
             >
               Back
             </Link>
-          </div>
+          </div> */}
 
           {/* Dynamic Content Box */}
           <div className="bg-white rounded-lg shadow-md p-6">
-            {activeTab === "basic" && <BasicDetails />}
+            {/* {activeTab === "basic" && <BasicDetails />} */}
+            {activeTab === "CardList" && <VcardsPage />}
+            {activeTab === "listProductsServices" && <ListServiceProduct />}
+            {activeTab === "PortfolioList" && <PortfolioList />}
+            {activeTab === "galleryList" && <ListGallery />}
+            {activeTab === "testimonialList" && <ListTestimonial />}
+            {activeTab === "customSectionList" && <CustomSectionList />}
+            {activeTab === "QRCode" && <Qr />}
+
+
+
+
             {activeTab === "templates" && <Templates />}
             {activeTab === "dynamic" && <Dynamiccard />}
             {activeTab === "hours" && <Buisnesscard />}

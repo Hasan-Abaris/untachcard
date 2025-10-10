@@ -12,235 +12,11 @@ import {
   FiPhone,
 } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
+import NewVcardModal from "./create-vcard";
 
 const VcardsPage = () => {
-  const [vcards, setVcards] = useState([
-    {
-      id: 1,
-      name: "TechCorp",
-      subtitle: "IT Solutions",
-      preview: "https://vcards.abaris.in/techcorp",
-      img: "/vcard.png",
-      createdAt: "Sep 25 2025",
-      active: true,
-    },
-    {
-      id: 2,
-      name: "GreenMart",
-      subtitle: "Organic Store",
-      preview: "https://vcards.abaris.in/greenmart",
-      img: "/vcard2.png",
-      createdAt: "Sep 25 2025",
-      active: true,
-    },
-    {
-      id: 3,
-      name: "Sanvi Infosys",
-      subtitle: "Computer Sales",
-      preview: "https://vcards.abaris.in/sanvi",
-      img: "/vcard3.png",
-      createdAt: "Sep 25 2025",
-      active: true,
-    },
-    {
-      id: 4,
-      name: "MiSa",
-      subtitle: "Software Agency",
-      preview: "https://vcards.abaris.in/misa",
-      img: "/vcard4.png",
-      createdAt: "Sep 25 2025",
-      active: true,
-    },
-    {
-      id: 5,
-      name: "Hema",
-      subtitle: "Engineer",
-      preview: "https://vcards.abaris.in/hema",
-      img: "/vcard5.png",
-      createdAt: "Sep 24 2025",
-      active: true,
-    },
-    {
-      id: 6,
-      name: "FoodieHub",
-      subtitle: "Restaurant",
-      preview: "https://vcards.abaris.in/foodiehub",
-      img: "/vcard.png",
-      createdAt: "Sep 24 2025",
-      active: false,
-    },
-    {
-      id: 7,
-      name: "FitZone",
-      subtitle: "Gym & Fitness",
-      preview: "https://vcards.abaris.in/fitzone",
-      img: "/vcard2.png",
-      createdAt: "Sep 24 2025",
-      active: true,
-    },
-    {
-      id: 8,
-      name: "GlamStudio",
-      subtitle: "Salon",
-      preview: "https://vcards.abaris.in/glamstudio",
-      img: "/vcard3.png",
-      createdAt: "Sep 23 2025",
-      active: true,
-    },
-    {
-      id: 9,
-      name: "EduSpark",
-      subtitle: "Online Coaching",
-      preview: "https://vcards.abaris.in/eduspark",
-      img: "/vcard4.png",
-      createdAt: "Sep 23 2025",
-      active: false,
-    },
-    {
-      id: 10,
-      name: "HealthNest",
-      subtitle: "Clinic",
-      preview: "https://vcards.abaris.in/healthnest",
-      img: "/vcard5.png",
-      createdAt: "Sep 22 2025",
-      active: true,
-    },
-    {
-      id: 11,
-      name: "QuickFix",
-      subtitle: "Repair Services",
-      preview: "https://vcards.abaris.in/quickfix",
-      img: "/vcard.png",
-      createdAt: "Sep 22 2025",
-      active: true,
-    },
-    {
-      id: 12,
-      name: "BakeHouse",
-      subtitle: "Bakery",
-      preview: "https://vcards.abaris.in/bakehouse",
-      img: "/vcard2.png",
-      createdAt: "Sep 22 2025",
-      active: true,
-    },
-    {
-      id: 13,
-      name: "StyleHive",
-      subtitle: "Fashion Boutique",
-      preview: "https://vcards.abaris.in/stylehive",
-      img: "/vcard3.png",
-      createdAt: "Sep 21 2025",
-      active: true,
-    },
-    {
-      id: 14,
-      name: "PetCare",
-      subtitle: "Pet Grooming",
-      preview: "https://vcards.abaris.in/petcare",
-      img: "/vcard4.png",
-      createdAt: "Sep 21 2025",
-      active: true,
-    },
-    {
-      id: 15,
-      name: "ArtNest",
-      subtitle: "Art Studio",
-      preview: "https://vcards.abaris.in/artnest",
-      img: "/vcard5.png",
-      createdAt: "Sep 21 2025",
-      active: false,
-    },
-    {
-      id: 16,
-      name: "TravelPro",
-      subtitle: "Travel Agency",
-      preview: "https://vcards.abaris.in/travelpro",
-      img: "/vcard.png",
-      createdAt: "Sep 20 2025",
-      active: true,
-    },
-    {
-      id: 17,
-      name: "BookNook",
-      subtitle: "Book Store",
-      preview: "https://vcards.abaris.in/booknook",
-      img: "/vcard2.png",
-      createdAt: "Sep 20 2025",
-      active: true,
-    },
-    {
-      id: 18,
-      name: "SweetSpot",
-      subtitle: "Dessert Shop",
-      preview: "https://vcards.abaris.in/sweetspot",
-      img: "/vcard3.png",
-      createdAt: "Sep 19 2025",
-      active: true,
-    },
-    {
-      id: 19,
-      name: "LensCraft",
-      subtitle: "Photography",
-      preview: "https://vcards.abaris.in/lenscraft",
-      img: "/vcard4.png",
-      createdAt: "Sep 19 2025",
-      active: true,
-    },
-    {
-      id: 20,
-      name: "BrightMind",
-      subtitle: "Counseling",
-      preview: "https://vcards.abaris.in/brightmind",
-      img: "/vcard5.png",
-      createdAt: "Sep 18 2025",
-      active: true,
-    },
-    {
-      id: 21,
-      name: "CodeNest",
-      subtitle: "Software Dev",
-      preview: "https://vcards.abaris.in/codenest",
-      img: "/vcard.png",
-      createdAt: "Sep 18 2025",
-      active: true,
-    },
-    {
-      id: 22,
-      name: "DailyBites",
-      subtitle: "Cafe",
-      preview: "https://vcards.abaris.in/dailybites",
-      img: "/vcard2.png",
-      createdAt: "Sep 18 2025",
-      active: true,
-    },
-    {
-      id: 23,
-      name: "MegaMart",
-      subtitle: "Supermarket",
-      preview: "https://vcards.abaris.in/megamart",
-      img: "/vcard3.png",
-      createdAt: "Sep 17 2025",
-      active: false,
-    },
-    {
-      id: 24,
-      name: "GlowSkin",
-      subtitle: "Skin Clinic",
-      preview: "https://vcards.abaris.in/glowskin",
-      img: "/vcard4.png",
-      createdAt: "Sep 17 2025",
-      active: true,
-    },
-    {
-      id: 25,
-      name: "BuildUp",
-      subtitle: "Construction",
-      preview: "https://vcards.abaris.in/buildup",
-      img: "/vcard5.png",
-      createdAt: "Sep 17 2025",
-      active: true,
-    },
-  ]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [editCard, setEditCard] = useState(null);
 
   const [dropdownOpen, setDropdownOpen] = useState({});
 
@@ -254,11 +30,30 @@ const VcardsPage = () => {
 
   const dispatch = useDispatch()
   const { cardData, loading, error } = useSelector((state) => state.auth)
-  console.log(cardData);
+  // console.log(cardData);
 
   useEffect(() => {
     dispatch(fetchUseCard());
   }, [dispatch]);
+
+  const handleCreateModal = () => {
+    setEditCard(null);
+    setIsOpen(true);
+  };
+
+
+  const handleEditModal = (card) => {
+    console.log(card);
+
+    setEditCard(card?._id);
+    setIsOpen(true);
+  };
+
+  // ✅ close modal
+  const handleCloseModal = () => {
+    setIsOpen(false);
+    setEditCard(null);
+  };
 
 
   if (loading) return <p>Loading cards...</p>;
@@ -266,12 +61,12 @@ const VcardsPage = () => {
   if (!cardData) return <p>No card data available</p>;
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6 pt-17">
+    <div className="min-h-screen bg-gray-50 ">
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-semibold text-gray-800">vCards</h1>
+        <h1 className="text-2xl font-semibold text-gray-800">Card List</h1>
         <div className="flex gap-3">
-          <button className="bg-gray-200 p-2 rounded hover:bg-gray-300">
+          {/* <button className="bg-gray-200 p-2 rounded hover:bg-gray-300">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="w-5 h-5"
@@ -286,8 +81,8 @@ const VcardsPage = () => {
                 d="M4 6h16M4 12h16M4 18h16"
               />
             </svg>
-          </button>
-          <button className="bg-gray-200 p-2 rounded hover:bg-gray-300">
+          </button> */}
+          {/* <button className="bg-gray-200 p-2 rounded hover:bg-gray-300">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="w-5 h-5"
@@ -302,33 +97,33 @@ const VcardsPage = () => {
                 d="M4 6h16M4 12h16m-7 6h7"
               />
             </svg>
-          </button>
+          </button> */}
 
-          <Link href="/Dashboard/vcards/create">
-            <button className="bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600 cursor-pointer">
-              New vCard
-            </button>
-          </Link>
+          {/* <Link href="/Dashboard/vcards/create"> */}
+          <button className="bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600 cursor-pointer" onClick={handleCreateModal}>
+            New vCard
+          </button>
+          {/* </Link> */}
         </div>
       </div>
 
       {/* Search Bar */}
-      <div className="mb-4">
+      {/* <div className="mb-4">
         <input
           type="text"
           placeholder="Search"
           className="w-full md:w-64 px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200"
         />
-      </div>
+      </div> */}
 
       {/* Table */}
       <div className="bg-white rounded-lg shadow overflow-x-auto">
         <table className="w-full text-left">
           <thead className="bg-gray-100 text-gray-600 text-sm">
             <tr>
-              <th className="px-4 py-3">
+              {/* <th className="px-4 py-3">
                 <input type="checkbox" />
-              </th>
+              </th> */}
               <th className="px-4 py-3">VCARD NAME</th>
               <th className="px-4 py-3">PREVIEW URL</th>
               <th className="px-4 py-3">STATS</th>
@@ -342,9 +137,9 @@ const VcardsPage = () => {
           <tbody className="text-gray-700">
             {cardData && cardData?.data?.map((card) => (
               <tr key={card._id} className="border-b hover:bg-gray-50">
-                <td className="px-4 py-3">
+                {/* <td className="px-4 py-3">
                   <input type="checkbox" />
-                </td>
+                </td> */}
                 <td className="px-4 py-3 flex items-center gap-2">
                   <img
                     src={card.img}
@@ -402,9 +197,11 @@ const VcardsPage = () => {
                   </span>
                 </td>
                 <td className="px-4 py-3 flex items-center gap-2 relative">
-                  <Link href={`/dashboards/vcards/demo/${card.id}`}>
-                    <FiEdit2 className="text-indigo-500 cursor-pointer hover:text-indigo-700" />
-                  </Link>
+                  <FiEdit2
+                    className="text-indigo-500 cursor-pointer hover:text-indigo-700"
+                    type="button"
+                    onClick={() => handleEditModal(card)}
+                  />
                   <div className="relative">
                     <FiMoreVertical
                       className="text-gray-500 cursor-pointer hover:text-gray-700"
@@ -438,7 +235,12 @@ const VcardsPage = () => {
           </tbody>
         </table>
       </div>
-    </div>
+      <NewVcardModal
+        isOpen={isOpen}
+        onClose={handleCloseModal}
+
+      />
+    </div >
   );
 };
 

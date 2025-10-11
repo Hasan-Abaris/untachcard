@@ -1,10 +1,9 @@
-
 import { fetchUseCard } from '@/app/reduxToolkit/slice';
 import { toastSuccessMessage, toastSuccessMessageError } from '@/components/common/messageShow/MessageShow';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ToastContainer } from 'react-toastify'
+import { ToastContainer } from 'react-toastify';
 import { Select, Spin } from "antd";
 
 const AddServiceProduct = ({ isOpen, onClose, onSubmit, editCard }) => {
@@ -15,22 +14,20 @@ const AddServiceProduct = ({ isOpen, onClose, onSubmit, editCard }) => {
     const { cardData, loading, error } = useSelector((state) => state.auth)
     // console.log(cardData);
 
+    const [loader, setLoader] = useState(false);
+    const [formData, setFormData] = useState({
+        title: "",
+        price: "",
+        image: "",
+        url: "",
+        description: "",
+        cardId: "",
+        image_source: "online"
+    });
 
     useEffect(() => {
         dispatch(fetchUseCard());
     }, [dispatch]);
-    const [loader, setLoader] = useState(false)
-    const [formData, setFormData] = useState(
-        {
-            title: "",
-            price: "",
-            image: "",
-            url: "",
-            description: "",
-            cardId: "",
-            image_source: "online"
-        }
-    )
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -38,25 +35,25 @@ const AddServiceProduct = ({ isOpen, onClose, onSubmit, editCard }) => {
     };
 
     const handleChangeImage = async (e) => {
-        setLoader(true)
-        const { name, files } = e.target
-        const imageData = new FormData()
-        imageData.append('image', files[0])
+        setLoader(true);
+        const { name, files } = e.target;
+        const imageData = new FormData();
+        imageData.append('image', files[0]);
 
         try {
-            const res = await axios.post(`https://onlineparttimejobs.in/api/cloudinaryImage/addImage`, imageData)
+            const res = await axios.post(`https://onlineparttimejobs.in/api/cloudinaryImage/addImage`, imageData);
             setTimeout(() => {
                 setFormData((prev) => ({
                     ...prev,
                     [name]: res.data?.url
-                }))
-                setLoader(false)
+                }));
+                setLoader(false);
             }, 1000);
         } catch (error) {
-            console.error('Image Upload Error:', error)
-            setLoader(false)
+            console.error('Image Upload Error:', error);
+            setLoader(false);
         }
-    }
+    };
 
     const handleSubmit = async () => {
         console.log(formData);
@@ -129,10 +126,12 @@ const AddServiceProduct = ({ isOpen, onClose, onSubmit, editCard }) => {
 
 
     useEffect(() => {
-        if (editCard?._id) {
-            getIdData(editCard?._id)
-        }
-    }, [editCard])
+        if (editCard?._id) getIdData(editCard._id);
+    }, [editCard]);
+
+    // ✅ Now you can conditionally render safely
+    if (!isOpen) return null;
+
     return (
         <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50 p-4">
             <div className="bg-white w-full max-w-6xl rounded-2xl shadow-xl overflow-y-auto max-h-[90vh] p-6 relative">
@@ -146,11 +145,10 @@ const AddServiceProduct = ({ isOpen, onClose, onSubmit, editCard }) => {
 
                 <h2 className="text-2xl font-semibold mb-6 border-b pb-3">
                     {editCard ? "Edit Product & Service" : "Add Product & Service"}
-
                 </h2>
 
                 <form className="grid grid-cols-2 gap-4">
-                    {/* Row 1 */}
+                    {/* Select Card */}
                     <div>
                         <label className="block text-sm font-medium">Select Card</label>
                         {loading ? (
@@ -176,6 +174,7 @@ const AddServiceProduct = ({ isOpen, onClose, onSubmit, editCard }) => {
                             />
                         )}
                     </div>
+
                     <div>
                         <label className="block text-sm font-medium">Title</label>
                         <input
@@ -187,18 +186,17 @@ const AddServiceProduct = ({ isOpen, onClose, onSubmit, editCard }) => {
                         />
                     </div>
 
-                    {/* Row 2 */}
                     <div>
                         <label className="block text-sm font-medium">Sub Title</label>
                         <input
                             type="text"
-
                             name="sub_title"
                             value={formData.sub_title || ""}
                             onChange={handleChange}
                             className="w-full border rounded-lg px-3 py-2"
                         />
                     </div>
+
                     <div>
                         <label className="block text-sm font-medium">Price</label>
                         <input
@@ -209,19 +207,16 @@ const AddServiceProduct = ({ isOpen, onClose, onSubmit, editCard }) => {
                             className="w-full border rounded-lg px-3 py-2"
                         />
                     </div>
+
                     <div className="col-span-2">
                         <label className="block text-sm font-medium">Description</label>
                         <textarea
                             name="description"
                             value={formData.description}
                             onChange={handleChange}
-
-
                             className="w-full border rounded-lg px-3 py-2 h-24"
                         />
                     </div>
-
-
 
                     <div>
                         <label className="block text-sm font-medium">URL</label>
@@ -234,9 +229,6 @@ const AddServiceProduct = ({ isOpen, onClose, onSubmit, editCard }) => {
                         />
                     </div>
 
-                    {/* Row 8 */}
-
-                    {/* Profile Upload */}
                     <div>
                         <label className="block text-sm font-medium">Image</label>
                         <input
@@ -254,28 +246,25 @@ const AddServiceProduct = ({ isOpen, onClose, onSubmit, editCard }) => {
                         )}
                     </div>
 
-
-
-
-
-                    {/* Switches Section */}
-
-
                     <div className="col-span-2 flex justify-end mt-6">
                         <button
                             type="button"
                             className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
                             onClick={handleSubmit}
+                            disabled={loader}
                         >
-                            {editCard ? "Update" : "Save"}
-
+                            {loader
+                                ? "Processing..."
+                                : editCard
+                                    ? "Update"
+                                    : "Save"}
                         </button>
                     </div>
                 </form>
             </div>
             <ToastContainer />
         </div>
-    )
-}
+    );
+};
 
-export default AddServiceProduct
+export default AddServiceProduct;

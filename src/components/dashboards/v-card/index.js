@@ -23,7 +23,7 @@ import Image from "next/image";
 const VcardsPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [editCard, setEditCard] = useState(null);
-  console.log(editCard);
+  // console.log(editCard);
 
 
   const [dropdownOpen, setDropdownOpen] = useState({});
@@ -91,9 +91,18 @@ const VcardsPage = () => {
 
 
   if (loading) return <p>Loading cards...</p>;
-  if (error) return <p>Error: {error}</p>;
-  if (!cardData) return <p>No card data available</p>;
 
+  if (error) {
+    // console.error("Card list error:", error);
+    return (
+      <div className="p-4 bg-red-50 text-red-700 rounded">
+        <p className="font-semibold">Error loading cards</p>
+        <p className="text-sm">{error.message || JSON.stringify(error)}</p>
+      </div>
+    );
+  }
+
+  if (!cardData) return <p>No card data available</p>;
   return (
     <div className="min-h-screen bg-gray-50 ">
       {/* Header */}

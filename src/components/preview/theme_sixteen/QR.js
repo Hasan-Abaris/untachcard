@@ -35,7 +35,7 @@ export default function Qr() {
           />
           <p className="text-gray-600 text-sm mt-2">
             Scan to Contact<br />
-            Point your phone's camera at the QR code to quickly add our contact information. You can also use the "Add to Contacts" button below for fast saving.
+            Point your phone camera at the QR code to quickly add our contact information. You can also use the Add to Contacts button below for fast saving.
           </p>
         </div>
       </div>

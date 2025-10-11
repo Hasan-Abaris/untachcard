@@ -8,6 +8,8 @@ import { ToastContainer } from 'react-toastify'
 import { Select, Spin } from "antd";
 
 const AddServiceProduct = ({ isOpen, onClose, onSubmit, editCard }) => {
+    console.log(editCard);
+
     if (!isOpen) return null;
     const dispatch = useDispatch()
     const { cardData, loading, error } = useSelector((state) => state.auth)
@@ -62,7 +64,7 @@ const AddServiceProduct = ({ isOpen, onClose, onSubmit, editCard }) => {
         if (editCard?._id) {
             try {
                 const token = window.localStorage.getItem("token");
-                const res = await axios.put(`https://onlineparttimejobs.in/api/card/user/update/${editCard?._id}`, formData, {
+                const res = await axios.put(`https://onlineparttimejobs.in/api/card-product/user/update/${editCard?._id}`, formData, {
                     headers: { Authorization: `Bearer ${token}` },
                 })
                 if (res?.data?.success) {
@@ -95,12 +97,12 @@ const AddServiceProduct = ({ isOpen, onClose, onSubmit, editCard }) => {
                     setLoader(false)
 
                     setTimeout(() => {
-                        dispatch(fetchUseCard());
+                        // dispatch(fetchUseCard());
                         onClose()
                     }, 1000)
                 } else {
                     setLoader(false)
-                    toastSuccessMessageError(res?.data?.message)
+                    toastSuccessMessageError(res?.data?.msg)
                 }
             } catch (error) {
                 setLoader(false)
@@ -114,11 +116,10 @@ const AddServiceProduct = ({ isOpen, onClose, onSubmit, editCard }) => {
     const getIdData = async (id) => {
         try {
             const token = window.localStorage.getItem("token");
-            const res = await axios.get(`https://onlineparttimejobs.in/api/card/${id}`, {
+            const res = await axios.get(`https://onlineparttimejobs.in/api/card-product/${id}`, {
                 headers: { Authorization: `Bearer ${token}` },
             })
-
-            console.log(res);
+            // console.log(res);
             setFormData(res?.data)
 
         } catch (error) {

@@ -110,6 +110,7 @@ export default function EditVcardPage() {
           <div className="bg-white rounded-lg shadow-md p-6">
             {/* {activeTab === "basic" && <BasicDetails />} */}
             {activeTab === "CardList" && <VcardsPage />}
+            {activeTab === "templates" && <Templates />}
             {activeTab === "listProductsServices" && <ListServiceProduct />}
             {activeTab === "PortfolioList" && <PortfolioList />}
             {activeTab === "galleryList" && <ListGallery />}
@@ -120,7 +121,7 @@ export default function EditVcardPage() {
 
 
 
-            {activeTab === "templates" && <Templates />}
+
             {activeTab === "dynamic" && <Dynamiccard />}
             {activeTab === "hours" && <Buisnesscard />}
             {activeTab === "qrcode" && <Customizecard />}

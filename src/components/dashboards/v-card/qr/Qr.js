@@ -55,6 +55,10 @@ const Qr = () => {
 
     return (
         <div className="min-h-screen bg-gray-50 p-8">
+            < div className=" mb-6">
+                <h1 className="text-2xl font-semibold text-gray-800">QR Code</h1>
+
+            </div>
             <div className="flex flex-col md:flex-row gap-10">
                 {/* LEFT SIDE - Settings */}
                 <div className="w-full md:w-1/2 space-y-6">

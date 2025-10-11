@@ -17,7 +17,7 @@ const AddGallery = ({ isOpen, onClose, onSubmit, editData }) => {
 
                 <h2 className="text-2xl font-semibold mb-6 border-b pb-3">
                     {/* {editData ? "Edit Card Master" : "Add Card Master"} */}
-                    Add Portfolio
+                    Add Gallery
                 </h2>
 
                 <form className="grid grid-cols-2 gap-4">

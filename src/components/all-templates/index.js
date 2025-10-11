@@ -74,7 +74,7 @@ export default function AllTemplatespage() {
     },
     {
       id: 12,
-      name: "Theme Twelve",
+      name: "Theme fourteen",
       image: "/assets/theme/theme12.png",
       preview: "/preview/theme_twelve/theme_twelve/demo",
     },
@@ -83,6 +83,18 @@ export default function AllTemplatespage() {
       name: "Theme Thirteen",
       image: "/assets/theme/theme12.png",
       preview: "/preview/theme_thirteen/theme_thirteen/demo",
+    },
+     {
+      id: 14,
+      name: "Theme Fourteen",
+      image: "/assets/theme/theme12.png",
+      preview: "/preview/theme_fourteen/theme_fourteen/demo",
+    },
+    {
+      id: 15,
+      name: "Theme Fifteen",
+      image: "/assets/theme/theme12.png",
+      preview: "/preview/theme_fifteen/theme_fifteen/demo",
     },
   ];
 

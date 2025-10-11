@@ -96,6 +96,12 @@ export default function AllTemplatespage() {
       image: "/assets/theme/theme12.png",
       preview: "/preview/theme_fifteen/theme_fifteen/demo",
     },
+      {
+      id: 16,
+      name: "Theme Sixteen",
+      image: "/assets/theme/theme12.png",
+      preview: "/preview/theme_sixteen/theme_sixteen/demo",
+    },
   ];
 
   return (

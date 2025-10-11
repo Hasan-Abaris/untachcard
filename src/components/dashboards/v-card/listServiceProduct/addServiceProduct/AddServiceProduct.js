@@ -1,9 +1,137 @@
 
-import React from 'react'
+import { fetchUseCard } from '@/app/reduxToolkit/slice';
+import { toastSuccessMessage, toastSuccessMessageError } from '@/components/common/messageShow/MessageShow';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { ToastContainer } from 'react-toastify'
+import { Select, Spin } from "antd";
 
-const AddServiceProduct = ({ isOpen, onClose, onSubmit, editData }) => {
+const AddServiceProduct = ({ isOpen, onClose, onSubmit, editCard }) => {
     if (!isOpen) return null;
+    const dispatch = useDispatch()
+    const { cardData, loading, error } = useSelector((state) => state.auth)
+    // console.log(cardData);
+
+
+    useEffect(() => {
+        dispatch(fetchUseCard());
+    }, [dispatch]);
+    const [loader, setLoader] = useState(false)
+    const [formData, setFormData] = useState(
+        {
+            title: "",
+            price: "",
+            image: "",
+            url: "",
+            description: "",
+            cardId: "",
+            image_source: "online"
+        }
+    )
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({ ...prev, [name]: value }));
+    };
+
+    const handleChangeImage = async (e) => {
+        setLoader(true)
+        const { name, files } = e.target
+        const imageData = new FormData()
+        imageData.append('image', files[0])
+
+        try {
+            const res = await axios.post(`https://onlineparttimejobs.in/api/cloudinaryImage/addImage`, imageData)
+            setTimeout(() => {
+                setFormData((prev) => ({
+                    ...prev,
+                    [name]: res.data?.url
+                }))
+                setLoader(false)
+            }, 1000);
+        } catch (error) {
+            console.error('Image Upload Error:', error)
+            setLoader(false)
+        }
+    }
+
+    const handleSubmit = async () => {
+        console.log(formData);
+        setLoader(true)
+        if (editCard?._id) {
+            try {
+                const token = window.localStorage.getItem("token");
+                const res = await axios.put(`https://onlineparttimejobs.in/api/card/user/update/${editCard?._id}`, formData, {
+                    headers: { Authorization: `Bearer ${token}` },
+                })
+                if (res?.data?.success) {
+                    toastSuccessMessage(res?.data?.msg)
+                    setLoader(false)
+
+                    setTimeout(() => {
+                        // dispatch(fetchUseCard());
+                        onClose()
+                    }, 1000)
+                } else {
+                    setLoader(false)
+                    toastSuccessMessageError(res?.data?.message)
+                }
+            } catch (error) {
+                setLoader(false)
+                toastSuccessMessageError(error?.message)
+
+            }
+        } else {
+            try {
+                const token = window.localStorage.getItem("token");
+                const res = await axios.post(`https://onlineparttimejobs.in/api/card-product/user/add`, formData, {
+                    headers: { Authorization: `Bearer ${token}` },
+                })
+                dispatch(fetchUseCard());
+
+                if (res?.data?.success) {
+                    toastSuccessMessage(res?.data?.msg)
+                    setLoader(false)
+
+                    setTimeout(() => {
+                        dispatch(fetchUseCard());
+                        onClose()
+                    }, 1000)
+                } else {
+                    setLoader(false)
+                    toastSuccessMessageError(res?.data?.message)
+                }
+            } catch (error) {
+                setLoader(false)
+                toastSuccessMessageError(error?.message)
+
+            }
+        }
+    }
+
+
+    const getIdData = async (id) => {
+        try {
+            const token = window.localStorage.getItem("token");
+            const res = await axios.get(`https://onlineparttimejobs.in/api/card/${id}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            })
+
+            console.log(res);
+            setFormData(res?.data)
+
+        } catch (error) {
+
+        }
+    }
+
+
+    useEffect(() => {
+        if (editCard?._id) {
+            getIdData(editCard?._id)
+        }
+    }, [editCard])
     return (
         <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50 p-4">
             <div className="bg-white w-full max-w-6xl rounded-2xl shadow-xl overflow-y-auto max-h-[90vh] p-6 relative">
@@ -16,27 +144,44 @@ const AddServiceProduct = ({ isOpen, onClose, onSubmit, editData }) => {
                 </button>
 
                 <h2 className="text-2xl font-semibold mb-6 border-b pb-3">
-                    {/* {editData ? "Edit Card Master" : "Add Card Master"} */}
-                    Add Product & Service
+                    {editCard ? "Edit Product & Service" : "Add Product & Service"}
+
                 </h2>
 
                 <form className="grid grid-cols-2 gap-4">
                     {/* Row 1 */}
                     <div>
                         <label className="block text-sm font-medium">Select Card</label>
-                        <input
-                            type="text"
-                            name="slug"
-
-                            className="w-full border rounded-lg px-3 py-2"
-                        />
+                        {loading ? (
+                            <Spin />
+                        ) : (
+                            <Select
+                                showSearch
+                                placeholder="Search or select card"
+                                className="w-full"
+                                value={formData.cardId || undefined}
+                                onChange={(value) =>
+                                    setFormData((prev) => ({ ...prev, cardId: value }))
+                                }
+                                filterOption={(input, option) =>
+                                    (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+                                }
+                                options={
+                                    cardData?.data?.map((card) => ({
+                                        label: card.title || "Untitled Card",
+                                        value: card._id,
+                                    })) || []
+                                }
+                            />
+                        )}
                     </div>
                     <div>
                         <label className="block text-sm font-medium">Title</label>
                         <input
                             type="text"
                             name="title"
-
+                            value={formData.title}
+                            onChange={handleChange}
                             className="w-full border rounded-lg px-3 py-2"
                         />
                     </div>
@@ -46,19 +191,20 @@ const AddServiceProduct = ({ isOpen, onClose, onSubmit, editData }) => {
                         <label className="block text-sm font-medium">Sub Title</label>
                         <input
                             type="text"
+
                             name="sub_title"
-                            // value={formData.sub_title}
-                            // onChange={handleChange}
+                            value={formData.sub_title || ""}
+                            onChange={handleChange}
                             className="w-full border rounded-lg px-3 py-2"
                         />
                     </div>
                     <div>
                         <label className="block text-sm font-medium">Price</label>
                         <input
-                            type="text"
-                            name="theme_name"
-                            // value={formData.theme_name}
-                            // onChange={handleChange}
+                            type="number"
+                            name="price"
+                            value={formData.price}
+                            onChange={handleChange}
                             className="w-full border rounded-lg px-3 py-2"
                         />
                     </div>
@@ -66,6 +212,9 @@ const AddServiceProduct = ({ isOpen, onClose, onSubmit, editData }) => {
                         <label className="block text-sm font-medium">Description</label>
                         <textarea
                             name="description"
+                            value={formData.description}
+                            onChange={handleChange}
+
 
                             className="w-full border rounded-lg px-3 py-2 h-24"
                         />
@@ -77,38 +226,31 @@ const AddServiceProduct = ({ isOpen, onClose, onSubmit, editData }) => {
                         <label className="block text-sm font-medium">URL</label>
                         <input
                             type="text"
-                            name="scans"
-
+                            name="url"
+                            value={formData.url}
+                            onChange={handleChange}
                             className="w-full border rounded-lg px-3 py-2"
                         />
                     </div>
 
                     {/* Row 8 */}
-                    <div>
-                        <label className="block text-sm font-medium">Order By ID</label>
-                        <input
-                            type="text"
-                            name="number"
-                            className="w-full border rounded-lg px-3 py-2"
-                        />
-                    </div>
 
                     {/* Profile Upload */}
                     <div>
                         <label className="block text-sm font-medium">Image</label>
                         <input
                             type="file"
-                            name="profile"
-                            // onChange={handleChangeImage}
+                            name="image"
+                            onChange={handleChangeImage}
                             className="w-full border rounded-lg px-3 py-2"
                         />
-                        {/* {formData.profile && (
+                        {formData.image && (
                             <img
-                                src={formData.profile}
-                                alt="Profile"
+                                src={formData.image}
+                                alt="Uploaded"
                                 className="mt-2 h-16 rounded-md object-cover"
                             />
-                        )} */}
+                        )}
                     </div>
 
 
@@ -122,10 +264,10 @@ const AddServiceProduct = ({ isOpen, onClose, onSubmit, editData }) => {
                         <button
                             type="button"
                             className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
-                        // onClick={handleSubmit}
+                            onClick={handleSubmit}
                         >
-                            {/* {editData ? "Update" : "Save"} */}
-                            Save
+                            {editCard ? "Update" : "Save"}
+
                         </button>
                     </div>
                 </form>

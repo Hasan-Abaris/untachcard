@@ -13,10 +13,18 @@ import {
 } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import NewVcardModal from "./create-vcard";
+import { Popconfirm } from "antd";
+import { MdDelete } from "react-icons/md";
+import { base_url } from "@/server";
+import axios from "axios";
+import { toastSuccessMessage, toastSuccessMessageError } from "@/components/common/messageShow/MessageShow";
+import Image from "next/image";
 
 const VcardsPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [editCard, setEditCard] = useState(null);
+  console.log(editCard);
+
 
   const [dropdownOpen, setDropdownOpen] = useState({});
 
@@ -43,9 +51,9 @@ const VcardsPage = () => {
 
 
   const handleEditModal = (card) => {
-    console.log(card);
+    // console.log(card);
 
-    setEditCard(card?._id);
+    setEditCard(card);
     setIsOpen(true);
   };
 
@@ -53,6 +61,32 @@ const VcardsPage = () => {
   const handleCloseModal = () => {
     setIsOpen(false);
     setEditCard(null);
+  };
+
+  const handleDelete = async (id) => {
+    console.log();
+
+    try {
+      // seyLoader(true);
+      const token = window.localStorage.getItem("token");
+      const res = await axios.delete(`${base_url}card/delete/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      console.log(res);
+
+
+      if (res?.status === 200) {
+        toastSuccessMessage("Delete Successfull");
+        dispatch(fetchUseCard());
+      } else {
+        toastSuccessMessageError(res?.data?.msg || "Unable to delete inquiry.");
+      }
+    } catch (error) {
+      toastSuccessMessageError("Delete failed! Server error.");
+    } finally {
+      // seyLoader(false);
+    }
   };
 
 
@@ -124,12 +158,10 @@ const VcardsPage = () => {
               {/* <th className="px-4 py-3">
                 <input type="checkbox" />
               </th> */}
-              <th className="px-4 py-3">VCARD NAME</th>
+              <th className="px-4 py-3">vCards</th>
               <th className="px-4 py-3">PREVIEW URL</th>
+              <th className="px-4 py-3">User</th>
               <th className="px-4 py-3">STATS</th>
-              <th className="px-4 py-3">SUBSCRIBERS</th>
-              <th className="px-4 py-3">CONTACT</th>
-              <th className="px-4 py-3">STATUS</th>
               <th className="px-4 py-3">CREATED AT</th>
               <th className="px-4 py-3">ACTION</th>
             </tr>
@@ -141,11 +173,23 @@ const VcardsPage = () => {
                   <input type="checkbox" />
                 </td> */}
                 <td className="px-4 py-3 flex items-center gap-2">
-                  <img
-                    src={card.img}
-                    alt="vCard"
-                    className="w-8 h-8 rounded object-cover"
-                  />
+                  {card.profile ? (
+                    <Image
+                      src={card.profile}
+                      alt={card.title || "vCard"}
+                      className="w-8 h-8 rounded object-cover"
+                      width={80}
+                      height={80}
+                    />
+                  ) : (
+                    <Image
+                      src="/default-avatar.png"
+                      alt="Default vCard"
+                      className="w-8 h-8 rounded object-cover"
+                      width={80}
+                      height={80}
+                    />
+                  )}
                   <div>
                     <p className="font-medium text-indigo-600">{card.title}</p>
                     {/* {card.subtitle && (
@@ -170,18 +214,21 @@ const VcardsPage = () => {
 
                 {/* ✅ Fixed the error here */}
                 <td className="px-4 py-3">
-                  <Link href="/dashboards/vcards/stats">
+                  {/* <Link href="/dashboards/vcards/stats">
                     <FiBarChart2 className="text-indigo-500 cursor-pointer bg-amber-100" />
-                  </Link>
+                  </Link> */}
+                  {card?.enquery_email}
                 </td>
 
                 <td className="px-4 py-3">
-                  <FiUsers className="text-indigo-500 cursor-pointer" />
+                  {/* <FiUsers className="text-indigo-500 cursor-pointer" /> */}
+                  Views:{card?.views} <br />
+                  Scans:{card?.scans} <br />
                 </td>
-                <td className="px-4 py-3">
+                {/* <td className="px-4 py-3">
                   <FiPhone className="text-indigo-500 cursor-pointer" />
-                </td>
-                <td className="px-4 py-3">
+                </td> */}
+                {/* <td className="px-4 py-3">
                   <label className="inline-flex items-center cursor-pointer">
                     <input
                       type="checkbox"
@@ -190,7 +237,7 @@ const VcardsPage = () => {
                     />
                     <div className="relative w-10 h-5 bg-gray-200 peer-checked:bg-indigo-500 rounded-full peer transition"></div>
                   </label>
-                </td>
+                </td> */}
                 <td className="px-4 py-3">
                   <span className="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-xs font-medium">
                     {card.created || card.createdAt}
@@ -203,11 +250,25 @@ const VcardsPage = () => {
                     onClick={() => handleEditModal(card)}
                   />
                   <div className="relative">
-                    <FiMoreVertical
+                    {/* <FiMoreVertical
                       className="text-gray-500 cursor-pointer hover:text-gray-700"
                       onClick={() => toggleDropdown(card.id)}
-                    />
-                    {dropdownOpen[card.id] && (
+                    /> */}
+
+                    <Popconfirm
+                      title="Delete Card"
+                      description="Are you sure you want to delete this Card?"
+                      okText="Yes"
+                      cancelText="No"
+                      onConfirm={() => handleDelete(card._id)}
+                    >
+                      <MdDelete
+                        size={22}
+                        color="red"
+                        className="cursor-pointer hover:scale-110 transition"
+                      />
+                    </Popconfirm>
+                    {/* {dropdownOpen[card.id] && (
                       <div className="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg z-10">
                         <ul className="py-1">
                           <li className="px-4 py-2 text-indigo-600 hover:bg-indigo-50 cursor-pointer">
@@ -227,7 +288,7 @@ const VcardsPage = () => {
                           </li>
                         </ul>
                       </div>
-                    )}
+                    )} */}
                   </div>
                 </td>
               </tr>
@@ -238,7 +299,7 @@ const VcardsPage = () => {
       <NewVcardModal
         isOpen={isOpen}
         onClose={handleCloseModal}
-
+        editCard={editCard}
       />
     </div >
   );

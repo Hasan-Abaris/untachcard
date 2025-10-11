@@ -1,11 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddServiceProduct from "./addServiceProduct/AddServiceProduct";
+import { fetchUserProductService } from "@/app/reduxToolkit/slice";
+import { useDispatch, useSelector } from "react-redux";
 
 
 const ListServiceProduct = () => {
+    const dispatch = useDispatch()
+    const { cardData, loading, error } = useSelector((state) => state.auth)
+    console.log(cardData);
+
+    useEffect(() => {
+        dispatch(fetchUserProductService());
+    }, [dispatch]);
 
     const [isOpen, setIsOpen] = useState(false);
     const [editCard, setEditCard] = useState(null);
+
+
 
 
     const handleCreateModal = () => {
@@ -30,8 +41,6 @@ const ListServiceProduct = () => {
             <div className="flex justify-between items-center mb-6">
                 <h1 className="text-2xl font-semibold text-gray-800">Product & Service List</h1>
                 <div className="flex gap-3">
-
-
                     {/* <Link href="/Dashboard/vcards/create"> */}
                     <button className="bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600 cursor-pointer" onClick={handleCreateModal}>
                         New Add
@@ -39,9 +48,6 @@ const ListServiceProduct = () => {
                     {/* </Link> */}
                 </div>
             </div>
-
-
-
             {/* Table */}
             <div className="bg-white rounded-lg shadow overflow-x-auto">
                 <table className="w-full text-left">

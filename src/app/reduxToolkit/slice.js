@@ -38,6 +38,23 @@ export const fetchUseCard = createAsyncThunk(
     }
 );
 
+export const fetchUserProductService = createAsyncThunk(
+    "auth/fetchUserProductService",
+    async (_, { getState, rejectWithValue }) => {
+        console.log(getState);
+
+        try {
+            const token = window.localStorage.getItem("token")
+            const res = await axios.get(`${base_url}card-product/user`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            return res.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data || "Failed to fetch data");
+        }
+    }
+);
+
 // --- SLICE ---
 const authSlice = createSlice({
     name: "auth",
@@ -84,9 +101,27 @@ const authSlice = createSlice({
             .addCase(fetchUseCard.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
+            })
+
+            // ==========================
+            // PRODUCT/SERVICE HANDLERS
+            // ==========================
+            .addCase(fetchUserProductService.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(fetchUserProductService.fulfilled, (state, action) => {
+                state.loading = false;
+                state.productServiceData = action.payload;
+            })
+            .addCase(fetchUserProductService.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
             });
     },
 });
+
+
 
 export const { logout } = authSlice.actions;
 export default authSlice.reducer;

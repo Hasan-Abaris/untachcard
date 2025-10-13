@@ -1,3 +1,4 @@
+"use client"
 import { fetchUseCard } from '@/app/reduxToolkit/slice';
 import { toastSuccessMessage, toastSuccessMessageError } from '@/components/common/messageShow/MessageShow';
 import axios from 'axios';
@@ -87,7 +88,7 @@ const AddServiceProduct = ({ isOpen, onClose, onSubmit, editCard }) => {
                 const res = await axios.post(`https://onlineparttimejobs.in/api/card-product/user/add`, formData, {
                     headers: { Authorization: `Bearer ${token}` },
                 })
-                dispatch(fetchUseCard());
+                // dispatch(fetchUseCard());
 
                 if (res?.data?.success) {
                     toastSuccessMessage(res?.data?.msg)
@@ -130,7 +131,6 @@ const AddServiceProduct = ({ isOpen, onClose, onSubmit, editCard }) => {
     }, [editCard]);
 
     // ✅ Now you can conditionally render safely
-    if (!isOpen) return null;
 
     return (
         <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50 p-4">
@@ -186,7 +186,7 @@ const AddServiceProduct = ({ isOpen, onClose, onSubmit, editCard }) => {
                         />
                     </div>
 
-                    <div>
+                    {/* <div>
                         <label className="block text-sm font-medium">Sub Title</label>
                         <input
                             type="text"
@@ -195,7 +195,7 @@ const AddServiceProduct = ({ isOpen, onClose, onSubmit, editCard }) => {
                             onChange={handleChange}
                             className="w-full border rounded-lg px-3 py-2"
                         />
-                    </div>
+                    </div> */}
 
                     <div>
                         <label className="block text-sm font-medium">Price</label>
@@ -262,7 +262,7 @@ const AddServiceProduct = ({ isOpen, onClose, onSubmit, editCard }) => {
                     </div>
                 </form>
             </div>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
         </div>
     );
 };

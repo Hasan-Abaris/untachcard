@@ -100,7 +100,7 @@ const EnquiryForm = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
                     type="button"
                     disabled={!initialValue?.name || !initialValue?.email || !initialValue?.query || !initialValue?.mobile}
                     onClick={submitData}
-                    style={{ background: fontColor, color: cardBg, fontFamily: cardFont }}
+                    // style={{ background: fontColor, color: cardBg, fontFamily: cardFont }}
                     className="px-6 py-2 rounded hover:opacity-90"
                 >
                     Send

@@ -1,11 +1,11 @@
-
+"use client"
 import { fetchUseCard } from '@/app/reduxToolkit/slice';
 import { toastSuccessMessage, toastSuccessMessageError } from '@/components/common/messageShow/MessageShow';
 import { Select, Spin } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { ToastContainer } from 'react-toastify';
+
 
 const PortfolioAdd = ({ isOpen, onClose, onSubmit, editCard }) => {
 
@@ -274,7 +274,7 @@ const PortfolioAdd = ({ isOpen, onClose, onSubmit, editCard }) => {
                     </div>
                 </form>
             </div>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
         </div>
     )
 }

@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { FaPhone, FaEnvelope, FaWhatsapp, FaMapMarkerAlt, FaGlobe, FaFacebookF, FaInstagram } from "react-icons/fa";
 
 const ProfileCard = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
-    const social = data?.social_options ? JSON.parse(data.social_options) : {};
+    // const social = data?.social_options ? JSON.parse(data.social_options) : {};
     const getField = (type) =>
         data?.fields.find((item) => item.type.toLowerCase() === type.toLowerCase());
     const mobile = getField("mobile");
@@ -30,8 +30,8 @@ const ProfileCard = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
                 <div
                     className="absolute left-1 top-1 px-3 py-1 text-xs rounded-lg"
                     style={{
-                        background: fontColor,
-                        color: cardBg === "transparent" ? "#000" : cardBg,
+                        background: cardBg,
+                        color: fontColor,
                         fontWeight: "bold",
                     }}
                 >
@@ -39,7 +39,11 @@ const ProfileCard = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
                 </div>
 
                 <Image
-                    src={`/assets/assets/uploads/card-banner/${data?.banner}`}
+                    src={
+                        data?.banner?.startsWith("http")
+                            ? data.banner
+                            : `/assets/assets/uploads/card-banner/${data?.banner || "default-banner.jpg"}`
+                    }
                     alt="cover"
                     className="w-full h-40 object-cover"
                     width={100}
@@ -48,7 +52,11 @@ const ProfileCard = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
 
                 <div className="absolute -bottom-12 left-6">
                     <Image
-                        src={`/assets/assets/uploads/card-profile/${data?.profile}`}
+                        src={
+                            data?.profile?.startsWith("http")
+                                ? data.profile
+                                : `/assets/assets/uploads/card-profile/${data?.profile || "default-profile.jpg"}`
+                        }
                         alt="profile"
                         className="w-24 h-24 rounded-full border-4"
                         width={100}
@@ -165,8 +173,8 @@ const ProfileCard = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
                     <button
                         className="px-4 py-2 rounded-lg transition"
                         style={{
-                            backgroundColor: fontColor,
-                            color: cardBg,
+                            backgroundColor: cardBg,
+                            color: fontColor,
                             fontFamily: cardFont,
                         }}
                     >
@@ -176,8 +184,8 @@ const ProfileCard = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
                         type="button"
                         className="px-4 py-2 rounded-lg transition"
                         style={{
-                            backgroundColor: fontColor,
-                            color: cardBg,
+                            backgroundColor: cardBg,
+                            color: fontColor,
                             fontFamily: cardFont,
                         }}
                         onClick={() => shareModal(data)}

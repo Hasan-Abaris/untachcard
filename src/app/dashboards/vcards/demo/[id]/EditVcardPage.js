@@ -31,12 +31,14 @@ import ListGallery from "@/components/dashboards/v-card/listGallery/ListGallery"
 import ListTestimonial from "@/components/dashboards/v-card/listTestimonial/ListTestimonial";
 import CustomSectionList from "@/components/dashboards/v-card/customSectionList/CustomSectionList";
 import Qr from "@/components/dashboards/v-card/qr/Qr";
+import ContactDetails from "@/components/dashboards/v-card/contactDetails/ContactDetails";
 
 const menuItems = [
   // { key: "basic", label: "Basic Details" },
   { key: "CardList", label: "Card List" },
   // { key: "templates", label: "Card Templates" },
   { key: "templates", label: "Card Templates" },
+  { key: "contect-details", label: "Contact Details" },
   { key: "listProductsServices", label: "List Products & Services" },
   { key: "PortfolioList", label: "Portfolio List" },
   { key: "galleryList", label: "Gallery List" },
@@ -111,6 +113,7 @@ export default function EditVcardPage() {
             {/* {activeTab === "basic" && <BasicDetails />} */}
             {activeTab === "CardList" && <VcardsPage />}
             {activeTab === "templates" && <Templates />}
+            {activeTab === "contect-details" && <ContactDetails />}
             {activeTab === "listProductsServices" && <ListServiceProduct />}
             {activeTab === "PortfolioList" && <PortfolioList />}
             {activeTab === "galleryList" && <ListGallery />}

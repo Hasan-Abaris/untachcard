@@ -1,4 +1,4 @@
-
+"use client"
 import React, { useEffect, useState } from 'react'
 import PortfolioAdd from './portfolioAdd/PortfolioAdd';
 import { Popconfirm, Select, Spin } from 'antd';
@@ -7,6 +7,8 @@ import { fetchUserProductService } from '@/app/reduxToolkit/slice';
 import { base_url } from '@/server';
 import axios from 'axios';
 import { MdDelete } from 'react-icons/md';
+import { ToastContainer } from 'react-toastify';
+import { toastSuccessMessage, toastSuccessMessageError } from '@/components/common/messageShow/MessageShow';
 
 const PortfolioList = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -76,19 +78,21 @@ const PortfolioList = () => {
         if (!selectedCard) return;
         try {
             const token = window.localStorage.getItem("token");
-            const res = await axios.delete(`${base_url}card-product/delete/${id}`, {
+            const res = await axios.delete(`${base_url}card-portfolio/delete/${id}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
 
-            if (res?.status === 200) {
-                toastSuccessMessage("Delete Successful");
-                const updatedRes = await axios.get(
-                    `https://onlineparttimejobs.in/api/card-product/bycardId/${selectedCard}`,
-                    {
-                        headers: { Authorization: `Bearer ${token}` },
-                    }
-                );
-                setProductList(updatedRes?.data?.data || []);
+            if (res?.data?.success) {
+                toastSuccessMessage(res?.data?.msg);
+                setTimeout(async () => {
+                    const updatedRes = await axios.get(
+                        `https://onlineparttimejobs.in/api/card-portfolio/bycardId/${selectedCard}`,
+                        {
+                            headers: { Authorization: `Bearer ${token}` },
+                        }
+                    );
+                    setProductList(updatedRes?.data?.data || []);
+                }, 1000)
             } else {
                 toastSuccessMessageError(res?.data?.msg || "Unable to delete product.");
             }
@@ -179,8 +183,8 @@ const PortfolioList = () => {
                                         </button>
 
                                         <Popconfirm
-                                            title="Delete Product & Service"
-                                            description="Are you sure you want to delete this Product & Service?"
+                                            title="Delete Portfolio"
+                                            description="Are you sure you want to delete this Portfolio"
                                             okText="Yes"
                                             cancelText="No"
                                             onConfirm={() => handleDelete(item._id)}
@@ -209,6 +213,8 @@ const PortfolioList = () => {
                 onClose={handleCloseModal}
                 editCard={editCard}
             />
+
+            <ToastContainer />
         </div >
     )
 }

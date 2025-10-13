@@ -9,14 +9,14 @@ import { Popconfirm, Select, Spin, message } from "antd";
 import axios from "axios";
 import { MdDelete } from "react-icons/md";
 import { base_url } from "@/server";
+import { toastSuccessMessage, toastSuccessMessageError } from "@/components/common/messageShow/MessageShow";
+import { ToastContainer } from "react-toastify";
 const ListServiceProduct = () => {
-
     const [isOpen, setIsOpen] = useState(false);
     const [editCard, setEditCard] = useState(null);
     const [selectedCard, setSelectedCard] = useState(null);
     const [productList, setProductList] = useState([]);
     const [loadingTable, setLoadingTable] = useState(false);
-
     const dispatch = useDispatch()
     const { cardData, loading, error } = useSelector((state) => state.auth)
     console.log(cardData);
@@ -81,16 +81,18 @@ const ListServiceProduct = () => {
             const res = await axios.delete(`${base_url}card-product/delete/${id}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
-
-            if (res?.status === 200) {
-                toastSuccessMessage("Delete Successful");
-                const updatedRes = await axios.get(
-                    `https://onlineparttimejobs.in/api/card-product/bycardId/${selectedCard}`,
-                    {
-                        headers: { Authorization: `Bearer ${token}` },
-                    }
-                );
-                setProductList(updatedRes?.data?.data || []);
+            // console.log(res?.data?.success);
+            if (res?.data?.success) {
+                toastSuccessMessage(res?.data?.msg);
+                setTimeout(async () => {
+                    const updatedRes = await axios.get(
+                        `https://onlineparttimejobs.in/api/card-product/bycardId/${selectedCard}`,
+                        {
+                            headers: { Authorization: `Bearer ${token}` },
+                        }
+                    );
+                    setProductList(updatedRes?.data?.data || []);
+                }, 1000)
             } else {
                 toastSuccessMessageError(res?.data?.msg || "Unable to delete product.");
             }
@@ -205,11 +207,13 @@ const ListServiceProduct = () => {
                     </tbody>
                 </table>
             </div>
+
             <AddServiceProduct
                 isOpen={isOpen}
                 onClose={handleCloseModal}
                 editCard={editCard}
             />
+            <ToastContainer />
         </div >
 
     )

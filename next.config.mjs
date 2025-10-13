@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    unoptimized: true,
-    domains: ["onlineparttimejobs.in"], 
+    unoptimized: false,
+    domains: ["onlineparttimejobs.in"],
 
   },
 };

@@ -8,12 +8,8 @@ import { ToastContainer } from 'react-toastify';
 import { Select, Spin } from "antd";
 
 const AddServiceProduct = ({ isOpen, onClose, onSubmit, editCard }) => {
-    console.log(editCard);
-
-    if (!isOpen) return null;
-    const dispatch = useDispatch()
-    const { cardData, loading, error } = useSelector((state) => state.auth)
-    // console.log(cardData);
+    const dispatch = useDispatch();
+    const { cardData, loading } = useSelector((state) => state.auth);
 
     const [loader, setLoader] = useState(false);
     const [formData, setFormData] = useState({
@@ -26,9 +22,32 @@ const AddServiceProduct = ({ isOpen, onClose, onSubmit, editCard }) => {
         image_source: "online"
     });
 
+    // Fetch card data once
     useEffect(() => {
         dispatch(fetchUseCard());
     }, [dispatch]);
+
+    // Fetch data for editing card
+    useEffect(() => {
+        const getIdData = async (id) => {
+            try {
+                const token = window.localStorage.getItem("token");
+                const res = await axios.get(`https://onlineparttimejobs.in/api/card-product/${id}`, {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+                setFormData(res?.data);
+            } catch (error) {
+                console.error("Error fetching card data:", error);
+            }
+        };
+
+        if (editCard?._id) {
+            getIdData(editCard._id);
+        }
+    }, [editCard]);
+
+    // ✅ Hooks are now all above conditional return
+    if (!isOpen) return null;
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -44,10 +63,7 @@ const AddServiceProduct = ({ isOpen, onClose, onSubmit, editCard }) => {
         try {
             const res = await axios.post(`https://onlineparttimejobs.in/api/cloudinaryImage/addImage`, imageData);
             setTimeout(() => {
-                setFormData((prev) => ({
-                    ...prev,
-                    [name]: res.data?.url
-                }));
+                setFormData((prev) => ({ ...prev, [name]: res.data?.url }));
                 setLoader(false);
             }, 1000);
         } catch (error) {
@@ -121,16 +137,10 @@ const AddServiceProduct = ({ isOpen, onClose, onSubmit, editCard }) => {
             setFormData(res?.data)
 
         } catch (error) {
-
+            toastSuccessMessageError(error?.message);
+            setLoader(false);
         }
-    }
-
-
-    useEffect(() => {
-        if (editCard?._id) getIdData(editCard._id);
-    }, [editCard]);
-
-    // ✅ Now you can conditionally render safely
+    };
 
     return (
         <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50 p-4">

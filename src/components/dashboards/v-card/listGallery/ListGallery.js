@@ -8,6 +8,8 @@ import { Popconfirm, Select, Spin, message } from "antd";
 import axios from "axios";
 import { MdDelete } from "react-icons/md";
 import { base_url } from "@/server";
+import { toastSuccessMessage, toastSuccessMessageError } from '@/components/common/messageShow/MessageShow';
+import { ToastContainer } from 'react-toastify';
 
 const ListGallery = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -81,15 +83,17 @@ const ListGallery = () => {
                 headers: { Authorization: `Bearer ${token}` },
             });
 
-            if (res?.status === 200) {
-                toastSuccessMessage("Delete Successful");
-                const updatedRes = await axios.get(
-                    `https://onlineparttimejobs.in/api/card-gallery/bycardId/${selectedCard}`,
-                    {
-                        headers: { Authorization: `Bearer ${token}` },
-                    }
-                );
-                setProductList(updatedRes?.data?.data || []);
+            if (res?.data?.success) {
+                toastSuccessMessage(res?.data?.msg);
+                setTimeout(async () => {
+                    const updatedRes = await axios.get(
+                        `https://onlineparttimejobs.in/api/card-gallery/bycardId/${selectedCard}`,
+                        {
+                            headers: { Authorization: `Bearer ${token}` },
+                        }
+                    );
+                    setProductList(updatedRes?.data?.data || []);
+                }, 1000)
             } else {
                 toastSuccessMessageError(res?.data?.msg || "Unable to delete product.");
             }
@@ -208,6 +212,7 @@ const ListGallery = () => {
                 onClose={handleCloseModal}
                 editCard={editCard}
             />
+            <ToastContainer />
         </div >
     )
 }

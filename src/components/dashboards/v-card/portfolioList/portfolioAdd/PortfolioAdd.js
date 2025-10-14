@@ -1,10 +1,11 @@
+"use client"
 import { fetchUseCard } from '@/app/reduxToolkit/slice';
 import { toastSuccessMessage, toastSuccessMessageError } from '@/components/common/messageShow/MessageShow';
 import { Select, Spin } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ToastContainer } from 'react-toastify';
+
 
 const PortfolioAdd = ({ isOpen, onClose, onSubmit, editCard }) => {
   // ✅ Move all hooks ABOVE any conditionals
@@ -232,13 +233,14 @@ const PortfolioAdd = ({ isOpen, onClose, onSubmit, editCard }) => {
               onClick={handleSubmit}
             >
               {editCard ? "Update" : "Save"}
+
             </button>
           </div>
         </form>
       </div>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </div>
-  );
-};
+  )
+}
 
 export default PortfolioAdd;

@@ -1,3 +1,4 @@
+"use client"
 import { fetchUseCard } from '@/app/reduxToolkit/slice';
 import { toastSuccessMessage, toastSuccessMessageError } from '@/components/common/messageShow/MessageShow';
 import axios from 'axios';
@@ -72,28 +73,69 @@ const AddServiceProduct = ({ isOpen, onClose, onSubmit, editCard }) => {
     };
 
     const handleSubmit = async () => {
-        setLoader(true);
-        const token = window.localStorage.getItem("token");
+        console.log(formData);
+        setLoader(true)
+        if (editCard?._id) {
+            try {
+                const token = window.localStorage.getItem("token");
+                const res = await axios.put(`https://onlineparttimejobs.in/api/card-product/user/update/${editCard?._id}`, formData, {
+                    headers: { Authorization: `Bearer ${token}` },
+                })
+                if (res?.data?.success) {
+                    toastSuccessMessage(res?.data?.msg)
+                    setLoader(false)
 
-        try {
-            const url = editCard?._id
-                ? `https://onlineparttimejobs.in/api/card-product/user/update/${editCard._id}`
-                : `https://onlineparttimejobs.in/api/card-product/user/add`;
+                    setTimeout(() => {
+                        // dispatch(fetchUseCard());
+                        onClose()
+                    }, 1000)
+                } else {
+                    setLoader(false)
+                    toastSuccessMessageError(res?.data?.message)
+                }
+            } catch (error) {
+                setLoader(false)
+                toastSuccessMessageError(error?.message)
 
-            const method = editCard?._id ? axios.put : axios.post;
-            const res = await method(url, formData, {
-                headers: { Authorization: `Bearer ${token}` },
-            });
-
-            if (res?.data?.success) {
-                toastSuccessMessage(res?.data?.msg);
-                dispatch(fetchUseCard());
-                setLoader(false);
-                setTimeout(onClose, 1000);
-            } else {
-                toastSuccessMessageError(res?.data?.msg || res?.data?.message);
-                setLoader(false);
             }
+        } else {
+            try {
+                const token = window.localStorage.getItem("token");
+                const res = await axios.post(`https://onlineparttimejobs.in/api/card-product/user/add`, formData, {
+                    headers: { Authorization: `Bearer ${token}` },
+                })
+                // dispatch(fetchUseCard());
+
+                if (res?.data?.success) {
+                    toastSuccessMessage(res?.data?.msg)
+                    setLoader(false)
+
+                    setTimeout(() => {
+                        // dispatch(fetchUseCard());
+                        onClose()
+                    }, 1000)
+                } else {
+                    setLoader(false)
+                    toastSuccessMessageError(res?.data?.msg)
+                }
+            } catch (error) {
+                setLoader(false)
+                toastSuccessMessageError(error?.message)
+
+            }
+        }
+    }
+
+
+    const getIdData = async (id) => {
+        try {
+            const token = window.localStorage.getItem("token");
+            const res = await axios.get(`https://onlineparttimejobs.in/api/card-product/${id}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            })
+            // console.log(res);
+            setFormData(res?.data)
+
         } catch (error) {
             toastSuccessMessageError(error?.message);
             setLoader(false);
@@ -154,7 +196,7 @@ const AddServiceProduct = ({ isOpen, onClose, onSubmit, editCard }) => {
                         />
                     </div>
 
-                    <div>
+                    {/* <div>
                         <label className="block text-sm font-medium">Sub Title</label>
                         <input
                             type="text"
@@ -163,7 +205,7 @@ const AddServiceProduct = ({ isOpen, onClose, onSubmit, editCard }) => {
                             onChange={handleChange}
                             className="w-full border rounded-lg px-3 py-2"
                         />
-                    </div>
+                    </div> */}
 
                     <div>
                         <label className="block text-sm font-medium">Price</label>
@@ -230,7 +272,7 @@ const AddServiceProduct = ({ isOpen, onClose, onSubmit, editCard }) => {
                     </div>
                 </form>
             </div>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
         </div>
     );
 };

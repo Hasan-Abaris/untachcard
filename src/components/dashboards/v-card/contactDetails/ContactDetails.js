@@ -1,23 +1,16 @@
-"use client";
 
-import { ToastContainer } from "react-toastify";
+import React, { useEffect, useState } from 'react'
+import ContactDetailsAdd from './contactDetailsAdd/ContactDetailsAdd'
+import { ToastContainer } from 'react-toastify'
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUserProductService } from '@/app/reduxToolkit/slice';
+import axios from 'axios';
+import { base_url } from '@/server';
+import { toastSuccessMessage, toastSuccessMessageError } from '@/components/common/messageShow/MessageShow';
+import { Popconfirm, Select, Spin } from 'antd';
+import { MdDelete } from 'react-icons/md';
 
-import { Popconfirm, Select, Spin } from "antd";
-import { MdDelete } from "react-icons/md";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import { toastSuccessMessage, toastSuccessMessageError } from "@/components/common/messageShow/MessageShow";
-import { base_url } from "@/server";
-import { fetchUserProductService } from "@/app/reduxToolkit/slice";
-import dynamic from "next/dynamic";
-
-const QrAdd = dynamic(() => import("./qrAd/QrAdd"), {
-    ssr: false,
-    loading: () => null,
-});
-
-const Qr = () => {
+const ContactDetails = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [editCard, setEditCard] = useState(null);
     const [selectedCard, setSelectedCard] = useState(null);
@@ -25,7 +18,7 @@ const Qr = () => {
     const [loadingTable, setLoadingTable] = useState(false);
     const dispatch = useDispatch()
     const { cardData, loading, error } = useSelector((state) => state.auth)
-    // console.log(cardData);
+    console.log(cardData);
 
 
     const cardOptions =
@@ -46,7 +39,7 @@ const Qr = () => {
         try {
             const token = window.localStorage.getItem("token");
             const res = await axios.get(
-                `https://onlineparttimejobs.in/api/card-qr/bycardId/${cardId}`,
+                `https://onlineparttimejobs.in/api/card-fields/bycardId/${cardId}`,
                 {
                     headers: { Authorization: `Bearer ${token}` },
                 }
@@ -84,7 +77,7 @@ const Qr = () => {
         if (!selectedCard) return;
         try {
             const token = window.localStorage.getItem("token");
-            const res = await axios.delete(`${base_url}card-qr/delete/${id}`, {
+            const res = await axios.delete(`${base_url}card-fields/delete/${id}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             // console.log(res?.data?.success);
@@ -92,7 +85,7 @@ const Qr = () => {
                 toastSuccessMessage(res?.data?.msg);
                 setTimeout(async () => {
                     const updatedRes = await axios.get(
-                        `https://onlineparttimejobs.in/api/card-qr/bycardId/${selectedCard}`,
+                        `https://onlineparttimejobs.in/api/card-fields/bycardId/${selectedCard}`,
                         {
                             headers: { Authorization: `Bearer ${token}` },
                         }
@@ -107,12 +100,11 @@ const Qr = () => {
             toastSuccessMessageError("Delete failed! Server error.");
         }
     };
-
     return (
         <div className="min-h-screen bg-gray-50 ">
             {/* Header */}
             <div className="flex justify-between items-center mb-6">
-                <h1 className="text-2xl font-semibold text-gray-800">QR Code List</h1>
+                <h1 className="text-2xl font-semibold text-gray-800">Contact Details</h1>
                 <div className="flex gap-3">
                     {/* <Link href="/Dashboard/vcards/create"> */}
                     <button className="bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600 cursor-pointer" onClick={handleCreateModal}>
@@ -146,14 +138,10 @@ const Qr = () => {
                     <thead className="bg-gray-100 text-gray-600 text-sm">
                         <tr>
                             <th className="px-4 py-3">#</th>
-                            <th className="px-4 py-3">foreground_color</th>
-                            <th className="px-4 py-3">background_color</th>
-                            <th className="px-4 py-3">corner_radius</th>
-                            <th className="px-4 py-3">qr_type</th>
-                            <th className="px-4 py-3">size</th>
-                            <th className="px-4 py-3">text</th>
-                            <th className="px-4 py-3">text_color</th>
-                            <th className="px-4 py-3">image</th>
+                            <th className="px-4 py-3">Field Type</th>
+                            <th className="px-4 py-3">Icon</th>
+                            <th className="px-4 py-3">Title</th>
+                            <th className="px-4 py-3">URL</th>
                             <th className="px-4 py-3">Action</th>
                         </tr>
                     </thead>
@@ -168,26 +156,11 @@ const Qr = () => {
                             productList.map((item, index) => (
                                 <tr key={item._id} className="border-t">
                                     <td className="px-4 py-3">{index + 1}</td>
-                                    <td className="px-4 py-3">{item.foreground_color}</td>
-                                    <td className="px-4 py-3">{item.background_color}</td>
-                                    <td className="px-4 py-3">{item.corner_radius}</td>
-                                    <td className="px-4 py-3">{item.qr_type}</td>
-                                    <td className="px-4 py-3">{item.size}</td>
-                                    <td className="px-4 py-3">{item.text}</td>
-                                    <td className="px-4 py-3">{item.text_color}</td>
+                                    <td className="px-4 py-3">{item.type}</td>
+                                    <td className="px-4 py-3">{item.icon}</td>
 
-                                    <td className="px-4 py-3">
-                                        {item.image ? (
-                                            <img
-                                                src={item.image}
-                                                alt="Product"
-                                                className="w-10 h-10 rounded object-cover"
-                                            />
-                                        ) : (
-                                            "-"
-                                        )}
-                                    </td>
-
+                                    <td className="px-4 py-3">{item.title}</td>
+                                    <td className="px-4 py-3">{item.url}</td>
                                     <td className="px-4 py-3">
                                         <button
                                             onClick={() => handleEditModal(item)}
@@ -197,8 +170,8 @@ const Qr = () => {
                                         </button>
 
                                         <Popconfirm
-                                            title="Delete QR Code "
-                                            description="Are you sure you want to delete this QR Code ?"
+                                            title="Delete Contact Details"
+                                            description="Are you sure you want to delete this Contact Details?"
                                             okText="Yes"
                                             cancelText="No"
                                             onConfirm={() => handleDelete(item._id)}
@@ -222,15 +195,15 @@ const Qr = () => {
                     </tbody>
                 </table>
             </div>
-            {isOpen && (
-                <QrAdd
-                    isOpen={isOpen}
-                    onClose={handleCloseModal}
-                    editCard={editCard}
-                />)}
+
+            <ContactDetailsAdd
+                isOpen={isOpen}
+                onClose={handleCloseModal}
+                editCard={editCard}
+            />
             <ToastContainer />
         </div >
-    );
-};
+    )
+}
 
-export default Qr;
+export default ContactDetails

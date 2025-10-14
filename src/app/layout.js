@@ -32,16 +32,12 @@ export default function RootLayout({ children }) {
       >
         {/* <Header /> */}
         <Providers>
-
           <main >
             <Header2 />
             {children}
             <Footer2 />
           </main>
-
         </Providers>
-
-
         {/* <Footer /> */}
       </body>
     </html>

@@ -77,7 +77,7 @@ const ThemeFourpage = ({ slug }) => {
   return (
     <div className="min-h-screen bg-white text-black px-4 md:px-8 lg:px-16">
       {/* Profile Section */}
-      <div className="my-8">
+      <div className="">
         <ProfileCard data={dataDetails} />
       </div>
 

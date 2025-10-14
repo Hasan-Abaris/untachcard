@@ -8,7 +8,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 const ProductServices = ({ data, cardStyles }) => {
-  // cardStyles can contain dynamic styling from API like card_bg, card_font, card_font_color
+
   console.log("ProductServices data:", data);
   console.log("ProductServices dynamic styles:", cardStyles);
 

@@ -1,4 +1,5 @@
 "use client";
+"use client";
 
 import { fetchUseCard } from "@/app/reduxToolkit/slice";
 import { Select, Spin } from "antd";
@@ -9,15 +10,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { toastSuccessMessage, toastSuccessMessageError } from "@/components/common/messageShow/MessageShow";
 
 const QrAdd = ({ isOpen, onClose, onSubmit, editCard }) => {
-    if (!isOpen) return null;
-
+    // ✅ Hooks must always be called at the top level
     const dispatch = useDispatch();
     const { cardData, loading } = useSelector((state) => state.auth);
 
-    const [formData, setFormData] = useState({
-        cardId: "",
-    });
-
+    const [formData, setFormData] = useState({ cardId: "" });
     const [qrType, setQrType] = useState("normal");
     const [text, setText] = useState("");
     const [textColor, setTextColor] = useState("#000000");
@@ -31,26 +28,18 @@ const QrAdd = ({ isOpen, onClose, onSubmit, editCard }) => {
     const qrRef = useRef(null);
     const qrCode = useRef(null);
 
-    // Initialize QR on mount
+
+
     useEffect(() => {
         qrCode.current = new QRCodeStyling({
             width: size,
             height: size,
             data: " ",
             image: "",
-            dotsOptions: {
-                color: fgColor,
-                type: "rounded",
-            },
-            backgroundOptions: {
-                color: bgColor,
-            },
-            cornersSquareOptions: {
-                type: "extra-rounded",
-            },
-            qrOptions: {
-                errorCorrectionLevel: "H",
-            },
+            dotsOptions: { color: fgColor, type: "rounded" },
+            backgroundOptions: { color: bgColor },
+            cornersSquareOptions: { type: "extra-rounded" },
+            qrOptions: { errorCorrectionLevel: "H" },
             imageOptions: {
                 crossOrigin: "anonymous",
                 margin: 10,
@@ -61,29 +50,20 @@ const QrAdd = ({ isOpen, onClose, onSubmit, editCard }) => {
         qrCode.current.append(qrRef.current);
     }, []);
 
-    // Update QR live when values change
     useEffect(() => {
         if (!qrCode.current) return;
-
         const qrData =
-            qrType === "text"
-                ? text || " "
-                : qrType === "image"
-                    ? "Image QR"
-                    : "Normal QR";
+            qrType === "text" ? text || " " :
+            qrType === "image" ? "Image QR" :
+            "Normal QR";
 
         qrCode.current.update({
             width: size,
             height: size,
             data: qrData,
             image: qrType === "image" ? image : "",
-            dotsOptions: {
-                color: fgColor,
-                type: "rounded",
-            },
-            backgroundOptions: {
-                color: bgColor,
-            },
+            dotsOptions: { color: fgColor, type: "rounded" },
+            backgroundOptions: { color: bgColor },
             imageOptions: {
                 crossOrigin: "anonymous",
                 margin: 10,
@@ -92,35 +72,29 @@ const QrAdd = ({ isOpen, onClose, onSubmit, editCard }) => {
         });
     }, [text, fgColor, bgColor, size, qrType, image]);
 
-    // Upload image to Cloudinary
     const handleChangeImage = async (e) => {
         setLoader(true);
-        const { files } = e.target;
         const imageData = new FormData();
-        imageData.append("image", files[0]);
-
+        imageData.append("image", e.target.files[0]);
         try {
             const res = await axios.post(
-                `https://onlineparttimejobs.in/api/cloudinaryImage/addImage`,
+                "https://onlineparttimejobs.in/api/cloudinaryImage/addImage",
                 imageData
             );
             setImage(res.data?.url);
-            setLoader(false);
         } catch (error) {
             console.error("Image Upload Error:", error);
+        } finally {
             setLoader(false);
         }
     };
 
-    // Download QR
     const downloadQR = () => {
         qrCode.current.download({ name: "MyQRCode", extension: "png" });
     };
 
-    // Submit Data
     const handleSubmit = async () => {
         setLoader(true);
-
         const clone = {
             cardId: formData.cardId,
             foreground_color: fgColor,
@@ -134,47 +108,26 @@ const QrAdd = ({ isOpen, onClose, onSubmit, editCard }) => {
             image_source: "online",
         };
 
-        console.log("FINAL CLONE:", clone);
-
         try {
             const token = window.localStorage.getItem("token");
+            const url = editCard?._id
+                ? `https://onlineparttimejobs.in/api/card-qr/user/update/${editCard._id}`
+                : `https://onlineparttimejobs.in/api/card-qr/user/add`;
 
-            if (editCard?._id) {
-                // UPDATE existing
-                const res = await axios.put(
-                    `https://onlineparttimejobs.in/api/card-qr/user/update/${editCard?._id}`,
-                    clone,
-                    { headers: { Authorization: `Bearer ${token}` } }
-                );
+            const method = editCard?._id ? axios.put : axios.post;
+            const res = await method(url, clone, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
 
-                if (res?.data?.success) {
-                    toastSuccessMessage(res?.data?.msg);
-                    setLoader(false);
-                    onClose();
-                } else {
-                    toastSuccessMessageError(res?.data?.msg);
-                    setLoader(false);
-                }
+            if (res?.data?.success) {
+                toastSuccessMessage(res?.data?.msg);
+                onClose();
             } else {
-                // ADD new
-                const res = await axios.post(
-                    `https://onlineparttimejobs.in/api/card-qr/user/add`,
-                    clone,
-                    { headers: { Authorization: `Bearer ${token}` } }
-                );
-
-                if (res?.data?.success) {
-                    toastSuccessMessage(res?.data?.msg);
-                    setLoader(false);
-                    onClose();
-                } else {
-                    toastSuccessMessageError(res?.data?.msg);
-                    setLoader(false);
-                }
+                toastSuccessMessageError(res?.data?.msg);
             }
         } catch (error) {
-            console.error(error);
             toastSuccessMessageError(error?.message);
+        } finally {
             setLoader(false);
         }
     };
@@ -182,27 +135,22 @@ const QrAdd = ({ isOpen, onClose, onSubmit, editCard }) => {
     const getIdData = async (id) => {
         try {
             const token = window.localStorage.getItem("token");
-            const res = await axios.get(`https://onlineparttimejobs.in/api/card-qr/${id}`, {
-                headers: { Authorization: `Bearer ${token}` },
-            })
-            console.log(res?.data);
-
-            setFormData(res?.data)
-            const data = res?.data
-            setQrType(data?.qr_type)
-            setText(data?.text)
-            setTextColor(data?.text_color)
-            setFgColor(data?.foreground_color)
-            setBgColor(data?.background_color)
-            setCornerRadius(data?.corner_radius)
-            setSize(data?.size)
-            setImage(data?.image)
-
-        } catch (error) {
-
-        }
-    }
-
+            const res = await axios.get(
+                `https://onlineparttimejobs.in/api/card-qr/${id}`,
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+            const data = res?.data;
+            setFormData(data);
+            setQrType(data?.qr_type);
+            setText(data?.text);
+            setTextColor(data?.text_color);
+            setFgColor(data?.foreground_color);
+            setBgColor(data?.background_color);
+            setCornerRadius(data?.corner_radius);
+            setSize(data?.size);
+            setImage(data?.image);
+        } catch {}
+    };
 
     useEffect(() => {
         if (editCard?._id) getIdData(editCard._id);
@@ -211,6 +159,8 @@ const QrAdd = ({ isOpen, onClose, onSubmit, editCard }) => {
     useEffect(() => {
         dispatch(fetchUseCard());
     }, [dispatch]);
+        // ✅ Return after hooks (not before)
+    if (!isOpen) return null;
 
     return (
         <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50 p-4">

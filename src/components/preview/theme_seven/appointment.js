@@ -81,33 +81,7 @@ export default function AppointmentPage({ data, themeBg, cardBg, fontColor, card
         </p>
 
         {/* Profile Section */}
-        <div className="bg-gray-200 bg-opacity-10 p-5 rounded-xl text-center mb-6">
-          {data?.image_source === "local" ? (
-            <Image
-              src={`/assets/assets/uploads/card-profile/${data?.profile}`}
-              alt="Profile"
-              width={100}
-              height={100}
-              className="rounded-full border-2 mx-auto"
-              style={{ borderColor: fontColor }}
-            />
-          ) : (
-            <Image
-              src={data?.profile || "/default-profile.png"}
-              alt="Profile"
-              width={100}
-              height={100}
-              className="rounded-full border-2 mx-auto"
-              style={{ borderColor: fontColor }}
-            />
-          )}
-          <h1
-            className="text-xl font-semibold mt-3 mb-1"
-            style={{ color: fontColor }}
-          >
-            {data?.tital}
-          </h1>
-        </div>
+
 
         {/* Appointment Form */}
         <form className="space-y-4">
@@ -179,8 +153,8 @@ export default function AppointmentPage({ data, themeBg, cardBg, fontColor, card
             type="button"
             className="w-full px-4 py-3 rounded-md font-semibold uppercase transition"
             style={{
-              backgroundColor: fontColor,
-              color: cardBg,
+              backgroundColor: cardBg,
+              color: fontColor,
               fontFamily: cardFont,
             }}
             onClick={submitData}

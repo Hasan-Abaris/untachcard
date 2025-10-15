@@ -13,10 +13,11 @@ const Testimonials = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
         <div
             className="rounded-xl shadow-lg p-6 max-w-lg mx-auto text-center"
             style={{
-                background:
-                    data?.card_bg_type === "Image" && data?.card_bg
-                        ? `url(${data.card_bg}) center/cover no-repeat`
-                        : cardBg,
+                backgroundImage: "url('/assets/banner/theme-nine.jpg')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                // background: cardBg,
                 color: fontColor,
                 fontFamily: cardFont,
             }}

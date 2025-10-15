@@ -11,7 +11,11 @@ const CustomSection = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
                     key={item?._id}
                     className="rounded-2xl shadow-lg p-6 max-w-md mx-auto backdrop-blur-lg mb-4"
                     style={{
-                        background: cardBg,
+                        backgroundImage: "url('/assets/banner/theme-eleven.jpg')",
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                        backgroundRepeat: "no-repeat",
+                        // background: cardBg,
                         color: fontColor,
                         fontFamily: cardFont,
                     }}

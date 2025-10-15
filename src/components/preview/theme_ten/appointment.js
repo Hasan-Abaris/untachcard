@@ -72,9 +72,13 @@ export default function AppointmentPage({ data, themeBg, cardBg, fontColor, card
         <div
           className="w-full max-w-lg rounded-xl shadow-xl p-6 relative"
           style={{
-            background: cardBg || "rgba(255,255,255,0.85)",
-            color: fontColor || "#000",
-            fontFamily: cardFont || "inherit",
+            backgroundImage: "url('/assets/banner/theme-ten.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            // background: cardBg,
+            color: fontColor,
+            fontFamily: cardFont,
           }}
         >
           {/* Header */}
@@ -92,30 +96,7 @@ export default function AppointmentPage({ data, themeBg, cardBg, fontColor, card
           </p>
 
           {/* Profile Card */}
-          <div
-            className="p-4 rounded-lg text-center mb-4 shadow-inner"
-            style={{
-              background: themeBg ? `${themeBg}33` : "#f9fafb",
-            }}
-          >
-            <Image
-              src={
-                data?.image_source === "local"
-                  ? `/assets/assets/uploads/card-profile/${data?.profile}`
-                  : data?.profile || "/assets/default-avatar.png"
-              }
-              alt="Profile"
-              width={90}
-              height={90}
-              className="rounded-full border mx-auto"
-            />
-            <h1
-              className="text-xl font-bold mt-2 mb-3"
-              style={{ color: fontColor || "#000", fontFamily: cardFont }}
-            >
-              {data?.title || data?.tital}
-            </h1>
-          </div>
+
 
           {/* Appointment Form */}
           <form className="space-y-3">

@@ -7,7 +7,7 @@ export default function ShareVCardModal({ isOpen, onClose, data, qrUrl, theme })
     const [copied, setCopied] = useState(false);
     const [qrCodeUrl, setQrCodeUrl] = useState("");
 
-    const shareUrl = `https://i-tap-cards-9vx4.vercel.app/preview/${theme}/${data?.slug}`
+    const shareUrl = `https://i-tap-cards-9vx4.vercel.app/preview/${theme}/${theme}/${data?.slug}`
     const handleCopy = () => {
         navigator.clipboard.writeText(shareUrl);
         setCopied(true);

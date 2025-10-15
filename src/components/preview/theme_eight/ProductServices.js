@@ -36,7 +36,7 @@ const ProductServices = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
                                     src={
                                         item.image.startsWith("http")
                                             ? item.image
-                                            : `https://res.cloudinary.com/uploads/${item.image}`
+                                            : `/assets/assets/uploads/product-image/${item.image}`
                                     }
                                     alt={item.title || "Product"}
                                     width={600}

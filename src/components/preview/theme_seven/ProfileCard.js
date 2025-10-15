@@ -11,9 +11,10 @@ import {
     FaPhone,
     FaWhatsapp,
 } from "react-icons/fa";
+import * as FaIcons from "react-icons/fa";
 
 const ProfileCard = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
-    const social = data?.social_options ? JSON.parse(data.social_options) : {};
+
     const getField = (type) =>
         data?.fields.find((item) => item.type.toLowerCase() === type.toLowerCase());
     const mobile = getField("mobile");
@@ -43,6 +44,17 @@ const ProfileCard = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
         setOpen(true);
     };
 
+    const renderIcon = (iconName) => {
+        if (!iconName) return <FaIcons.FaLink style={{ color: fontColor }} />;
+        if (FaIcons[iconName]) {
+            const IconComponent = FaIcons[iconName];
+            return <IconComponent style={{ color: fontColor }} className="text-2xl" />;
+        }
+        if (iconName.startsWith("fa")) {
+            return <i className={`${iconName} text-2xl`} style={{ color: fontColor }} />;
+        }
+        return <FaIcons.FaLink style={{ color: fontColor }} className="text-2xl" />;
+    };
     return (
 
         <div
@@ -66,20 +78,33 @@ const ProfileCard = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
                 <div
                     className="absolute left-1 top-1 px-3 py-1 text-xs rounded-lg"
                     style={{
-                        background: fontColor,
-                        color: cardBg === "transparent" ? "#000" : cardBg,
-                        fontWeight: "bold",
+                        background: "gray"
+                        // color: cardBg === "transparent" ? "#000" : cardBg,
+                        // fontWeight: "bold",  
                     }}
                 >
-                    Views: {data?.views}
+                    {data?.show_card_view_count_on_a_card === 1 && (
+                        <span>Views: {data?.views}</span>
+                    )}
                 </div>
+                <Image
+                    src={
+                        data?.banner?.startsWith("http")
+                            ? data.banner
+                            : `/assets/assets/uploads/card-banner/${data?.banner || "default-banner.jpg"}`
+                    }
+                    alt="cover"
+                    className="w-full h-40 object-cover"
+                    width={100}
+                    height={100}
+                />
 
                 <div className="absolute inset-x-0 -bottom-12 flex justify-center">
                     <Image
                         src={
-                            data?.image_source === "local"
-                                ? `/assets/assets/uploads/card-profile/${data?.profile}`
-                                : data?.profile
+                            data?.profile?.startsWith("http")
+                                ? data.profile
+                                : `/assets/assets/uploads/card-profile/${data?.profile || "default-profile.jpg"}`
                         }
                         alt="Profile"
                         width={100}
@@ -98,125 +123,91 @@ const ProfileCard = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
 
                 {/* 🔹 Contact Fields */}
                 <div className="mt-6 space-y-4 text-left">
-                    {mobile && (
-                        <div className="flex items-center gap-3">
-                            <FaPhone style={{ color: fontColor }} className="text-xl" />
-                            <span>{mobile.title}</span>
-                        </div>
-                    )}
-
-                    {email && (
-                        <div className="flex items-center gap-3">
-                            <FaEnvelope style={{ color: fontColor }} className="text-xl" />
+                    {data?.fields?.map((item, index) => (
+                        <div key={index} className="flex items-center gap-3">
+                            {renderIcon(item.icon)}
                             <a
-                                href={`mailto:${email.url}`}
+                                href={item.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="hover:underline"
+                                style={{ color: fontColor }}
                             >
-                                {email.title}
+                                {item.title}
                             </a>
                         </div>
-                    )}
-
-                    {mobile && (
-                        <div className="flex items-center gap-3">
-                            <FaWhatsapp style={{ color: fontColor }} className="text-xl" />
-                            <a
-                                href={`https://wa.me/${mobile.url.replace(/\D/g, "")}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="hover:underline"
-                            >
-                                WhatsApp Now
-                            </a>
-                        </div>
-                    )}
-
-                    {address && (
-                        <div className="flex items-center gap-3">
-                            <FaMapMarkerAlt style={{ color: fontColor }} className="text-xl" />
-                            <a
-                                href={address.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="hover:underline"
-                            >
-                                {address.title}
-                            </a>
-                        </div>
-                    )}
-
-                    {website && (
-                        <div className="flex items-center gap-3">
-                            <FaGlobe style={{ color: fontColor }} className="text-xl" />
-                            <a
-                                href={website.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="hover:underline"
-                            >
-                                {website.url}
-                            </a>
-                        </div>
-                    )}
-
-                    {facebook && (
-                        <div className="flex items-center gap-3">
-                            <FaFacebookF style={{ color: fontColor }} className="text-xl" />
-                            <a
-                                href={facebook.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="hover:underline"
-                            >
-                                Facebook
-                            </a>
-                        </div>
-                    )}
-
-                    {instagram && (
-                        <div className="flex items-center gap-3">
-                            <FaInstagram style={{ color: fontColor }} className="text-xl" />
-                            <a
-                                href={instagram.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="hover:underline"
-                            >
-                                Instagram
-                            </a>
-                        </div>
-                    )}
+                    ))}
                 </div>
 
                 {/* 🔹 Buttons */}
                 <div className="mt-6 flex justify-center gap-4">
-                    {data?.show_add_to_phone_book === "1" && (
-                        <button
-                            className="px-4 py-2 border rounded-md"
-                            style={{
-                                borderColor: fontColor,
-                                color: fontColor,
-                            }}
-                        >
-                            Add to Phone Book
-                        </button>
-                    )}
+                    {Number(data?.show_add_to_phone_book) === 1 &&
 
-                    {data?.show_share === "1" && (
                         <button
-                            type="button"
-                            className="px-4 py-2 border rounded-md"
-                            onClick={() => shareModal(data)}
+                            onClick={() => {
+                                const fullName = data?.title || "My vCard";
+                                const phone = mobile?.url || "";
+                                const mail = email?.url || "";
+
+                                // ✅ Correct VCF structure
+                                const vcard = `
+BEGIN:VCARD
+VERSION:3.0
+FN:${fullName}
+N:${fullName}
+TEL;TYPE=CELL,VOICE:${phone}
+EMAIL;TYPE=INTERNET:${mail}
+END:VCARD
+`.trim();
+
+                                const blob = new Blob([vcard], { type: "text/vcard;charset=utf-8" });
+                                const url = URL.createObjectURL(blob);
+
+                                const a = document.createElement("a");
+                                a.href = url;
+                                a.download = `${fullName.replace(/\s+/g, "_")}.vcf`;
+                                document.body.appendChild(a);
+                                a.click();
+                                document.body.removeChild(a);
+
+                                // Cleanup
+                                setTimeout(() => URL.revokeObjectURL(url), 2000);
+                            }}
+                            className="px-4 py-2 rounded-lg transition cursor-pointer"
                             style={{
-                                borderColor: fontColor,
+                                border: '1px solid black',
                                 color: fontColor,
+                                fontFamily: cardFont,
                             }}
                         >
-                            Share
+                            📇 Add to Phone Book
                         </button>
-                    )}
+                        // <button
+                        //     className="px-4 py-2 rounded-lg transition cursor-pointer"
+                        //     style={{
+                        //         // backgroundColor: cardBg,
+                        //         border: '1px solid black',
+                        //         color: fontColor,
+                        //         fontFamily: cardFont,
+                        //     }}
+                        // >
+                        //     Add to Phone Book
+                        // </button>
+
+                    }
+                    {Number(data?.show_share) === 1 && <button
+                        type="button"
+                        className="px-4 py-2 rounded-lg transition cursor-pointer"
+                        style={{
+                            // backgroundColor: cardBg,
+                            border: '1px solid black',
+                            color: fontColor,
+                            fontFamily: cardFont,
+                        }}
+                        onClick={() => shareModal(data)}
+                    >
+                        Share
+                    </button>}
                 </div>
             </div>
 

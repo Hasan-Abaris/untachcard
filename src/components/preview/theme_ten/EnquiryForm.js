@@ -50,7 +50,11 @@ const EnquiryForm = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
         <div
             className="rounded-xl shadow-lg p-6 max-w-lg mx-auto"
             style={{
-                background: cardBg,
+                backgroundImage: "url('/assets/banner/theme-ten.jpg')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                // background: cardBg,
                 color: fontColor,
                 fontFamily: cardFont,
             }}
@@ -72,12 +76,12 @@ const EnquiryForm = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
                     value={initialValue.name}
                     onChange={handleChange}
                     className="w-full border rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-blue-400"
-                    style={{
-                        color: fontColor,
-                        fontFamily: cardFont,
-                        background: "transparent",
-                        borderColor: fontColor ? `${fontColor}33` : "#ccc",
-                    }}
+                // style={{
+                //     color: fontColor,
+                //     fontFamily: cardFont,
+                //     background: "transparent",
+                //     borderColor: fontColor ? `${fontColor}33` : "#ccc",
+                // }}
                 />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -88,12 +92,12 @@ const EnquiryForm = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
                         value={initialValue.email}
                         onChange={handleChange}
                         className="w-full border rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-blue-400"
-                        style={{
-                            color: fontColor,
-                            fontFamily: cardFont,
-                            background: "transparent",
-                            borderColor: fontColor ? `${fontColor}33` : "#ccc",
-                        }}
+                    // style={{
+                    //     color: fontColor,
+                    //     fontFamily: cardFont,
+                    //     background: "transparent",
+                    //     borderColor: fontColor ? `${fontColor}33` : "#ccc",
+                    // }}
                     />
                     <input
                         type="number"
@@ -102,12 +106,12 @@ const EnquiryForm = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
                         value={initialValue.mobile}
                         onChange={handleChange}
                         className="w-full border rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-blue-400"
-                        style={{
-                            color: fontColor,
-                            fontFamily: cardFont,
-                            background: "transparent",
-                            borderColor: fontColor ? `${fontColor}33` : "#ccc",
-                        }}
+                    // style={{
+                    //     color: fontColor,
+                    //     fontFamily: cardFont,
+                    //     background: "transparent",
+                    //     borderColor: fontColor ? `${fontColor}33` : "#ccc",
+                    // }}
                     />
                 </div>
 
@@ -118,12 +122,12 @@ const EnquiryForm = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
                     value={initialValue.query}
                     onChange={handleChange}
                     className="w-full border rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-blue-400"
-                    style={{
-                        color: fontColor,
-                        fontFamily: cardFont,
-                        background: "transparent",
-                        borderColor: fontColor ? `${fontColor}33` : "#ccc",
-                    }}
+                // style={{
+                //     color: fontColor,
+                //     fontFamily: cardFont,
+                //     background: "transparent",
+                //     borderColor: fontColor ? `${fontColor}33` : "#ccc",
+                // }}
                 ></textarea>
 
                 <button
@@ -131,11 +135,11 @@ const EnquiryForm = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
                     onClick={submitData}
                     disabled={!initialValue.name || !initialValue.email || !initialValue.query || !initialValue.mobile}
                     className="w-full mt-2 rounded-lg px-6 py-2 font-semibold transition"
-                    style={{
-                        background: fontColor || "#007bff",
-                        color: fontColor || "#fff",
-                        opacity: (!initialValue.name || !initialValue.email || !initialValue.query || !initialValue.mobile) ? 0.6 : 1,
-                    }}
+                // style={{
+                //     background: fontColor || "#007bff",
+                //     color: fontColor || "#fff",
+                //     opacity: (!initialValue.name || !initialValue.email || !initialValue.query || !initialValue.mobile) ? 0.6 : 1,
+                // }}
                 >
                     Send
                 </button>

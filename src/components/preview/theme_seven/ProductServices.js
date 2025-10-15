@@ -46,14 +46,14 @@ const ProductServices = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
                             <div className="relative">
                                 <Image
                                     src={
-                                        item.image?.startsWith("http")
+                                        item.image.startsWith("http")
                                             ? item.image
-                                            : `https://res.cloudinary.com/uploads/${item.image}`
+                                            : `/assets/assets/uploads/product-image/${item.image}`
                                     }
-                                    alt={item.title}
+                                    alt={item.title || "Product"}
                                     width={600}
                                     height={300}
-                                    className="rounded-lg object-cover w-full h-auto"
+                                    className="rounded-lg object-cover"
                                 />
 
                                 {item.tag && (

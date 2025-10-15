@@ -75,7 +75,7 @@ export default function AppointmentPage({ data, themeBg, cardBg, fontColor, card
           </p>
 
           {/* Profile */}
-          <div className="bg-gradient-to-b from-white to-gray-200 p-4 rounded-lg text-center mb-4">
+          {/* <div className="bg-gradient-to-b from-white to-gray-200 p-4 rounded-lg text-center mb-4">
             {data?.image_source === "local" ? (
               <Image
                 src={`/assets/assets/uploads/card-profile/${data?.profile}`}
@@ -96,7 +96,7 @@ export default function AppointmentPage({ data, themeBg, cardBg, fontColor, card
             <h1 className="text-xl font-bold mt-2 mb-3" style={{ color: fontColor, fontFamily: cardFont }}>
               {data?.tital}
             </h1>
-          </div>
+          </div> */}
 
           {/* Appointment Form */}
           <form className="space-y-3">
@@ -148,7 +148,12 @@ export default function AppointmentPage({ data, themeBg, cardBg, fontColor, card
 
             <button
               type="button"
-              className="w-full bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-3 rounded-md uppercase"
+              className="w-full px-4 py-3 rounded-md font-semibold uppercase transition"
+              style={{
+                backgroundColor: cardBg,
+                color: fontColor,
+                fontFamily: cardFont,
+              }}
               onClick={submitData}
               disabled={
                 !initialValue?.name ||

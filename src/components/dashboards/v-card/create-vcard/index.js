@@ -9,20 +9,22 @@ import { useDispatch } from "react-redux";
 import { ToastContainer } from "react-toastify";
 
 const NewVcardModal = ({ isOpen, onClose, onSubmit, editCard }) => {
-  // console.log(editCard);
+  console.log(editCard?._id);
 
   const dispatch = useDispatch()
   const [loader, setLoader] = useState(false)
+  const [dataTheme, setDataTheme] = useState([])
   const [formData, setFormData] = useState(
     {
       slug: "",
       title: "",
       sub_title: "",
+      theme_id: "",
       theme_name: "",
       card_theme_bg_type: "",
       card_theme_bg: "",
       social_options: "",
-      hide_branding: "",
+      hide_branding: 0,
       views: "",
       card_bg_type: "",
       card_bg: "",
@@ -84,13 +86,64 @@ const NewVcardModal = ({ isOpen, onClose, onSubmit, editCard }) => {
     }
   }
 
+  const themeData = async () => {
+    try {
+      const token = window.localStorage.getItem("token");
+      const res = await axios.get(`https://onlineparttimejobs.in/api/card-theme/public`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      setDataTheme(res?.data?.data);
+
+    } catch (error) {
+
+    }
+  }
+
+  const handleThemeSelect = async (e) => {
+    const { value } = e.target; // theme _id
+    // setFormData((prev) => ({ ...prev, theme_name: value }));
+    if (!value) return;
+
+    setLoader(true);
+    try {
+      const token = window.localStorage.getItem("token");
+      const res = await axios.get(`https://onlineparttimejobs.in/api/card-theme/${value}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      const themeData = res?.data?.data;
+      // console.log(themeData);
+
+      if (themeData) {
+        setFormData((prev) => ({
+          ...prev,
+          // ...themeData,
+          theme_id: value,
+          theme_name: themeData?.theme_name,
+          card_bg_type: themeData?.card_bg_type,
+          card_font: themeData?.card_font,
+          card_font_color: themeData?.card_font_color,
+          card_theme_bg_type: themeData?.card_theme_bg_type
+        }));
+      }
+    } catch (error) {
+      console.error("Theme data fetch error:", error);
+    } finally {
+      setLoader(false);
+    }
+  };
+
   const handleSubmit = async () => {
     console.log(formData);
     setLoader(true)
+    const payload = {
+      ...formData,
+      theme_id: formData.theme_id,
+    };
     if (editCard?._id) {
       try {
         const token = window.localStorage.getItem("token");
-        const res = await axios.put(`https://onlineparttimejobs.in/api/card/user/update/${editCard?._id}`, formData, {
+        const res = await axios.put(`https://onlineparttimejobs.in/api/card/user/update/${editCard?._id}`, payload, {
           headers: { Authorization: `Bearer ${token}` },
         })
         if (res?.data?.success) {
@@ -113,7 +166,7 @@ const NewVcardModal = ({ isOpen, onClose, onSubmit, editCard }) => {
     } else {
       try {
         const token = window.localStorage.getItem("token");
-        const res = await axios.post(`https://onlineparttimejobs.in/api/card/user/add`, formData, {
+        const res = await axios.post(`https://onlineparttimejobs.in/api/card/user/add`, payload, {
           headers: { Authorization: `Bearer ${token}` },
         })
         dispatch(fetchUseCard());
@@ -147,7 +200,13 @@ const NewVcardModal = ({ isOpen, onClose, onSubmit, editCard }) => {
       })
 
       console.log(res);
-      setFormData(res?.data)
+      const data = res?.data;
+      setFormData((prev) => ({
+        ...prev,
+        ...data,
+        theme_id: data?.theme_id || "",
+        theme_name: data?.theme_name || "",
+      }));
 
     } catch (error) {
 
@@ -160,6 +219,10 @@ const NewVcardModal = ({ isOpen, onClose, onSubmit, editCard }) => {
       getIdData(editCard?._id)
     }
   }, [editCard])
+
+  useEffect(() => {
+    themeData()
+  }, [])
 
 
   if (!isOpen) return null;
@@ -217,13 +280,26 @@ const NewVcardModal = ({ isOpen, onClose, onSubmit, editCard }) => {
             </div>
             <div>
               <label className="block text-sm font-medium">Theme Name</label>
-              <input
+              {/* <input
                 type="text"
                 name="theme_name"
                 value={formData.theme_name}
                 onChange={handleChange}
                 className="w-full border rounded-lg px-3 py-2"
-              />
+              /> */}
+              <select
+                className="w-full border rounded-lg px-3 py-2"
+                name="theme_id"
+                value={formData.theme_id}
+                onChange={handleThemeSelect}
+              >
+                <option value="">Select Theme Name</option>
+                {dataTheme && dataTheme?.map((opt) => (
+                  <option key={opt?._id} value={opt?._id}>
+                    {opt?.theme_name}
+                  </option>
+                ))}
+              </select>
             </div>
 
             {/* Row 3 */}
@@ -261,13 +337,23 @@ const NewVcardModal = ({ isOpen, onClose, onSubmit, editCard }) => {
             </div> */}
             <div>
               <label className="block text-sm font-medium">Hide Branding</label>
-              <input
+              {/* <input
                 type="number"
                 name="hide_branding"
                 value={formData.hide_branding}
                 onChange={handleChange}
                 className="w-full border rounded-lg px-3 py-2"
-              />
+              /> */}
+              <select
+                className="w-full border rounded-lg px-3 py-2"
+                name="hide_branding"
+                value={formData.hide_branding}
+                onChange={handleChange}
+              >
+                <option value="">Select Hide Branding</option>
+                <option value={0}>Yes</option>
+                <option value={1}>No</option>
+              </select>
             </div>
 
             {/* Row 5 */}

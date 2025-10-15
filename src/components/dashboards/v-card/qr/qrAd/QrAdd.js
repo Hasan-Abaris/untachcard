@@ -174,7 +174,7 @@ const QrAdd = ({ isOpen, onClose, onSubmit, editCard }) => {
                 </button>
 
                 <h2 className="text-2xl font-semibold mb-6 border-b pb-3">
-                    QR Code Generator
+                    QR Code Generators
                 </h2>
 
                 <div className="flex flex-col md:flex-row gap-10">

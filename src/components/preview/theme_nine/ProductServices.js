@@ -11,7 +11,11 @@ const ProductServices = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
         <div
             className="rounded-xl shadow-lg p-6 max-w-lg mx-auto text-center"
             style={{
-                background: cardBg,
+                backgroundImage: "url('/assets/banner/theme-nine.jpg')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                // background: cardBg,
                 color: fontColor,
                 fontFamily: cardFont,
             }}

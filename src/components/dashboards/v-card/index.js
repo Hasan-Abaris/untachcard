@@ -182,9 +182,9 @@ const VcardsPage = () => {
                   <input type="checkbox" />
                 </td> */}
                 <td className="px-4 py-3 flex items-center gap-2">
-                  {card.profile ? (
+                  {card?.profile ? (
                     <Image
-                      src={card.profile}
+                      src={card?.profile}
                       alt={card.title || "vCard"}
                       className="w-8 h-8 rounded object-cover"
                       width={80}
@@ -217,7 +217,11 @@ const VcardsPage = () => {
                     >
                       {`https://i-tap-cards-9vx4.vercel.app/cardDetails/${card?.slug}`}
                     </a>
-                    <FiCopy className="cursor-pointer hover:text-indigo-700" />
+                    <FiCopy className="cursor-pointer hover:text-indigo-700" onClick={() => {
+                      const link = `https://i-tap-cards-9vx4.vercel.app/preview/${card?.theme_name}/${card?.theme_name}/${card?.slug}`;
+                      navigator.clipboard.writeText(link);
+                      alert("✅ Link copied to clipboard!");
+                    }} />
                   </div>
                 </td>
 

@@ -63,7 +63,11 @@ export default function AppointmentPage({ data, themeBg, cardBg, fontColor, card
       {loader && <Loader />}
       <div className="min-h-screen flex items-center justify-center p-4">
         <div className="rounded-2xl shadow-xl w-full max-w-lg p-6 backdrop-blur-lg" style={{
-          background: cardBg,
+          backgroundImage: "url('/assets/banner/theme-eleven.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          // background: cardBg,
           color: fontColor,
           fontFamily: cardFont,
         }}>
@@ -73,26 +77,7 @@ export default function AppointmentPage({ data, themeBg, cardBg, fontColor, card
             Fill out the form below to book your appointment.
           </p>
 
-          <div className="bg-white/30 rounded-lg p-4 text-center mb-4">
-            {data?.image_source === "local" ? (
-              <Image
-                src={`/assets/assets/uploads/card-profile/${data?.profile}`}
-                alt="Profile"
-                width={90}
-                height={90}
-                className="rounded-full border border-black mx-auto"
-              />
-            ) : (
-              <Image
-                src={data?.profile || ""}
-                alt="Profile"
-                width={90}
-                height={90}
-                className="rounded-full border border-black mx-auto"
-              />
-            )}
-            <h1 className="text-xl font-bold mt-2 mb-3 text-black">{data?.tital}</h1>
-          </div>
+
 
           {/* Form */}
           <form className="space-y-3">

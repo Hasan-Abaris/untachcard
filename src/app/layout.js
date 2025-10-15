@@ -1,3 +1,4 @@
+
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/common/header/Header";
@@ -5,6 +6,7 @@ import Footer from "@/components/common/footer/Footer";
 import Header2 from "@/components/common/header2/Header2";
 import Footer2 from "@/components/common/footer2/Footer2";
 import { Providers } from "./reduxToolkit/provider";
+import ClientLayout from "./ClientLayout";
 import Head from "next/head";
 
 const geistSans = Geist({
@@ -45,16 +47,17 @@ export default function RootLayout({ children }) {
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
-      
+
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {/* <Header /> */}
         <Providers>
-          <main>
-            <Header2 />
+          <main >
+            {/* <Header2 />
             {children}
-            <Footer2 />
+            <Footer2 /> */}
+            <ClientLayout>{children}</ClientLayout>
           </main>
         </Providers>
         {/* <Footer /> */}

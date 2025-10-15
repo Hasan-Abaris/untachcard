@@ -11,7 +11,11 @@ export const ProductServices = ({ data, themeBg, cardBg, fontColor, cardFont }) 
         <div
             className="rounded-2xl shadow-lg p-6 max-w-md mx-auto backdrop-blur-lg"
             style={{
-                background: cardBg,
+                backgroundImage: "url('/assets/banner/theme-eleven.jpg')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                // background: cardBg,
                 color: fontColor,
                 fontFamily: cardFont,
             }}

@@ -39,10 +39,7 @@ const Testimonials = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
                     <SwiperSlide key={item._id}>
                         <div
                             className="text-center p-4 rounded-xl h-full flex flex-col items-center transition-transform hover:scale-[1.02]"
-                            style={{
-                                background: `${cardBg || "#111"}80`,
-                                border: `1px solid ${fontColor || "#fff"}33`,
-                            }}
+                            style={{ background: cardBg, color: fontColor, fontFamily: cardFont }}
                         >
                             <img
                                 src={

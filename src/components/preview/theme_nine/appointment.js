@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import Image from "next/image";
 import { Calendar } from "lucide-react";
@@ -65,10 +64,11 @@ export default function AppointmentPage({ data, themeBg, cardBg, fontColor, card
         <div
           className="w-full max-w-lg rounded-xl shadow-xl p-6 relative"
           style={{
-            background:
-              data?.card_bg_type === "Image" && data?.card_bg
-                ? `url(${data.card_bg}) center/cover no-repeat`
-                : cardBg,
+            backgroundImage: "url('/assets/banner/theme-nine.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            // background: cardBg,
             color: fontColor,
             fontFamily: cardFont,
           }}
@@ -80,27 +80,7 @@ export default function AppointmentPage({ data, themeBg, cardBg, fontColor, card
           </p>
 
           {/* Profile */}
-          <div
-            className="p-4 rounded-lg text-center mb-4"
-            style={{
-              background: themeBg,
-            }}
-          >
-            <Image
-              src={
-                data?.image_source === "local"
-                  ? `/assets/assets/uploads/card-profile/${data?.profile}`
-                  : data?.profile || "/assets/banner/theme-nine.jpg"
-              }
-              alt="Profile"
-              width={90}
-              height={90}
-              className="rounded-full border border-black mx-auto"
-            />
-            <h1 className="text-xl font-bold mt-2 mb-3" style={{ color: fontColor }}>
-              {data?.tital}
-            </h1>
-          </div>
+
 
           {/* Appointment Form */}
           <form className="space-y-3">

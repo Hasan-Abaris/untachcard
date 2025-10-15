@@ -62,7 +62,7 @@ const EnquiryForm = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
                     name="name"
                     value={initialValue?.name}
                     onChange={handleChange}
-                    style={{ background: cardBg, color: fontColor, fontFamily: cardFont }}
+
                     className="w-full px-4 py-2 rounded border focus:outline-none"
                 />
                 <div className="grid grid-cols-2 gap-4">
@@ -73,7 +73,7 @@ const EnquiryForm = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
                         name="email"
                         value={initialValue?.email}
                         onChange={handleChange}
-                        style={{ background: cardBg, color: fontColor, fontFamily: cardFont }}
+
                         className="px-4 py-2 rounded border focus:outline-none"
                     />
                     <input
@@ -83,7 +83,7 @@ const EnquiryForm = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
                         name="mobile"
                         value={initialValue?.mobile}
                         onChange={handleChange}
-                        style={{ background: cardBg, color: fontColor, fontFamily: cardFont }}
+
                         className="px-4 py-2 rounded border focus:outline-none"
                     />
                 </div>
@@ -93,7 +93,7 @@ const EnquiryForm = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
                     name="query"
                     value={initialValue?.query}
                     onChange={handleChange}
-                    style={{ background: cardBg, color: fontColor, fontFamily: cardFont }}
+
                     className="w-full px-4 py-2 rounded border focus:outline-none"
                 ></textarea>
                 <button

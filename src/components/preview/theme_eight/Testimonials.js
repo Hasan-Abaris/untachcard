@@ -14,7 +14,7 @@ const Testimonials = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
             style={{ background: themeBg, color: fontColor, fontFamily: cardFont }}
         >
             <h2 className="text-center font-semibold text-lg mb-4" style={{ color: fontColor }}>
-                {data?.section_title || "Testimonials"}
+                {data?.title || "Testimonials"}
             </h2>
 
             <Swiper

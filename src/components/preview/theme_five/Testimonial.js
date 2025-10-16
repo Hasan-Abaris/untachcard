@@ -33,9 +33,9 @@ const Testimonial = ({ data }) => {
 
   return (
     <div className="my-8 flex justify-center">
-      <div className="w-full max-w-4xl p-6 bg-gray-100 rounded-lg shadow-lg">
+      <div className="w-full max-w-2xl p-6 bg-black rounded-lg shadow-lg">
         {/* Section Title */}
-        <h3 className="text-2xl font-bold text-center mb-6">Testimonials</h3>
+        <h3 className="text-2xl font-bold text-center mb-6 text-white">Testimonials</h3>
 
         {/* Slider */}
         <div className="relative overflow-hidden">

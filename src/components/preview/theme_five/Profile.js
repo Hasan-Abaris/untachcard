@@ -1,39 +1,54 @@
+"use client";
+
 import Image from "next/image";
-import {
-  FaEnvelope,
-  FaMapMarkerAlt,
-  FaPhone,
-  FaWhatsapp,
-  FaFacebook,
-} from "react-icons/fa";
+import { useState } from "react";
+import * as FaIcons from "react-icons/fa";
+import { Eye } from "lucide-react";
+import ShareVCardModal from "@/components/common/shareVCardModal/ShareVCardModal";
 
 const ProfileCard = ({ data }) => {
-  const social = data?.social_options ? JSON.parse(data.social_options) : {};
+  const [open, setOpen] = useState(false);
+  const [modalData, setModalData] = useState(null);
 
-  // Construct image path safely
-  const profileSrc = data?.profile
-    ? `/assets/assets/uploads/card-profile/${data.profile}`
-    : "/assets/default-avatar.png";
+  // Get field by type
+  const getField = (type) =>
+    data?.fields.find((item) => item.type.toLowerCase() === type.toLowerCase());
 
-  // WhatsApp link
-  const whatsappNumber = social?.mandatory?.mobile
-    ? `https://wa.me/${social.mandatory.mobile}`
-    : null;
+  const mobile = getField("mobile");
+  const email = getField("email");
+  const address = getField("address");
+  const website = getField("website");
+  const facebook = getField("facebook");
+  const instagram = getField("instagram");
 
-  // Facebook link
-  const facebookLink = social?.mandatory?.facebook
-    ? social.mandatory.facebook.startsWith("http")
-      ? social.mandatory.facebook
-      : `https://${social.mandatory.facebook}`
-    : null;
+  const renderIcon = (iconName) => {
+    if (!iconName) return <FaIcons.FaLink className="text-xl" />;
+    if (FaIcons[iconName]) {
+      const IconComponent = FaIcons[iconName];
+      return <IconComponent className="text-xl" />;
+    }
+    return <FaIcons.FaLink className="text-xl" />;
+  };
+
+  const profileSrc =
+    data?.profile?.startsWith("http")
+      ? data.profile
+      : `/assets/assets/uploads/card-profile/${data?.profile || "default-profile.jpg"}`;
+
+  const shareModal = (data) => {
+    setModalData(data);
+    setOpen(true);
+  };
 
   return (
-    <div className="bg-white rounded-2xl shadow-2xl max-w-md mx-auto text-black overflow-hidden relative font-sans border border-gray-200">
+    <div className=" rounded-2xl shadow-2xl max-w-md mx-auto text-white bg-black overflow-hidden relative font-sans border border-gray-200 mt-5">
       {/* Header Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 h-32 relative mt-20">
-        <div className="absolute top-2 left-2 bg-white/20 text-white px-3 py-1 text-xs rounded-lg backdrop-blur-sm">
-          👁️ Views: {data?.views || 0}
-        </div>
+      <div className="bg-gradient-to-r from-blue-600 to-purple-600 h-32 relative ">
+        {Number(data?.show_card_view_count_on_a_card) === 1 && (
+          <div className="absolute top-2 left-2 bg-white/20 text-white px-3 py-1 text-xs rounded-lg backdrop-blur-sm flex items-center gap-1">
+            <Eye size={14} /> Views: {data?.views || 0}
+          </div>
+        )}
         <div className="absolute inset-x-0 -bottom-12 flex justify-center">
           <Image
             src={profileSrc}
@@ -47,72 +62,56 @@ const ProfileCard = ({ data }) => {
 
       {/* Content Section */}
       <div className="pt-16 px-6 pb-6 text-center">
-        <h2 className="text-2xl font-bold text-gray-900">{data?.title}</h2>
-        <p className="text-blue-500 mt-1 font-medium">{data?.sub_title}</p>
+        <h2 className="text-2xl font-bold text0-white">{data?.title}</h2>
+        <p className="text-white mt-1 font-medium">{data?.sub_title}</p>
         {data?.description && (
-          <p className="mt-3 text-gray-700 leading-relaxed text-sm">
-            {data.description}
-          </p>
+          <p className="mt-3 text-white leading-relaxed text-sm">{data.description}</p>
         )}
 
         {/* Contact / Social Info */}
         <div className="mt-6 space-y-3 text-left text-gray-800">
-          {social?.mandatory?.mobile && (
-            <div className="flex items-center gap-3">
-              <FaPhone className="text-blue-600" />
-              <span>{social.mandatory.mobile}</span>
-            </div>
-          )}
-          {social?.mandatory?.email && (
-            <div className="flex items-center gap-3">
-              <FaEnvelope className="text-red-500" />
-              <span>{social.mandatory.email}</span>
-            </div>
-          )}
-          {whatsappNumber && (
-            <div className="flex items-center gap-3">
-              <FaWhatsapp className="text-green-500" />
-              <a
-                href={whatsappNumber}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:underline text-blue-700"
-              >
-                Message on WhatsApp
-              </a>
-            </div>
-          )}
-          {social?.mandatory?.address && (
-            <div className="flex items-center gap-3">
-              <FaMapMarkerAlt className="text-gray-700" />
-              <span>{social.mandatory.address}</span>
-            </div>
-          )}
-          {facebookLink && (
-            <div className="flex items-center gap-3">
-              <FaFacebook className="text-blue-600" />
-              <a
-                href={facebookLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:underline text-blue-700"
-              >
-                Visit Facebook
-              </a>
-            </div>
+          {[mobile, email, address, website, facebook, instagram].map(
+            (field, idx) =>
+              field && (
+                <div key={idx} className="flex items-center gap-3">
+                  {renderIcon(field.icon)}
+                  <a
+                    href={field.url || "#"}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline text-white"
+                  >
+                    {field.title}
+                  </a>
+                </div>
+              )
           )}
         </div>
 
         {/* Action Buttons */}
         <div className="mt-8 flex justify-center gap-4">
-          <button className="px-4 py-2 border border-gray-400 rounded-md text-sm text-gray-700 hover:bg-gray-900 hover:text-white transition-all duration-200">
-            Add to Phone Book
-          </button>
-          <button className="px-4 py-2 border border-gray-400 rounded-md text-sm text-gray-700 hover:bg-gray-900 hover:text-white transition-all duration-200">
-            Share
-          </button>
+          {Number(data?.show_add_to_phone_book) === 1 && (
+            <button className="px-4 py-2 border border-gray-400 rounded-md text-sm text-white hover:bg-gray-900 hover:text-white transition-all duration-200">
+              Add to Phone Book
+            </button>
+          )}
+          {Number(data?.show_share) === 1 && (
+            <button
+              className="px-4 py-2 border border-gray-400 rounded-md text-sm text-white hover:bg-gray-900 hover:text-white transition-all duration-200"
+              onClick={() => shareModal(data)}
+            >
+              Share
+            </button>
+          )}
         </div>
       </div>
+
+      <ShareVCardModal
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        data={modalData}
+        theme="theme_five/theme_five"
+      />
     </div>
   );
 };

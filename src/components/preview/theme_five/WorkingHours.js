@@ -11,8 +11,8 @@ const WorkingHours = ({ data }) => {
   }
 
   return (
-    <div className="bg-white text-black rounded-2xl shadow-lg p-6 max-w-md mx-auto">
-      <h2 className="text-center font-semibold text-lg mb-4">{data.title}</h2>
+    <div className="bg-black text-white rounded-2xl shadow-lg p-6 max-w-md mx-auto">
+      <h2 className="text-center font-semibold text-lg mb-4 text-white">{data.title}</h2>
       <div
         className="text-center space-y-2"
         dangerouslySetInnerHTML={{ __html: data.description }}

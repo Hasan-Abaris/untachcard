@@ -13,6 +13,7 @@ import { useParams } from "next/navigation";
 import axios from "axios";
 import { base_url } from "@/server";
 import AppointmentPage from "./appointment";
+import BrandingCardShow from "@/components/common/brandingCardShow/BrandingCardShow";
 
 const ThemeNine = () => {
   const params = useParams();

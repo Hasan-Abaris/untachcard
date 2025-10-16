@@ -3,7 +3,7 @@ import { base_url } from "@/server";
 import axios from "axios";
 import { useState } from "react";
 import { ToastContainer } from "react-toastify";
-const EnquiryForm = ({ data }) => {
+const EnquiryForm = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
     const [initialValue, setInitialValue] = useState({
         name: "",
         email: "",
@@ -46,8 +46,13 @@ const EnquiryForm = ({ data }) => {
 
     }
     return (
-        <div className="bg-black text-white rounded-lg p-4 shadow-md max-w-md mx-auto">
-            <h3 className="font-semibold mb-3">Enquiry Form</h3>
+        <div className="rounded-lg p-4 shadow-md max-w-md mx-auto"
+            style={{
+                background: cardBg || "#000",
+                color: fontColor || "#fff",
+            }}
+        >
+            <h3 className="font-semibold mb-3" style={{ color: fontColor || "#fff" }}>Enquiry Form</h3>
             <form className="space-y-3">
                 <input type="text" placeholder="Name" className="w-full px-3 py-2 border rounded bg-transparent" name="name" value={initialValue?.name} onChange={handleChange} />
                 <input type="email" placeholder="Email" className="w-full px-3 py-2 border rounded bg-transparent" name="email" value={initialValue?.email} onChange={handleChange} />

@@ -6,11 +6,16 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination"
 
-const ProductServices = ({ data }) => {
+const ProductServices = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
     if (!data || data.length === 0) return null;
     return (
-        <div className="bg-black text-white rounded-lg p-4 shadow-md max-w-md mx-auto">
-            <h3 className="font-semibold mb-3">Products and Services</h3>
+        <div className="rounded-lg p-4 shadow-md max-w-md mx-auto"
+            style={{
+                background: cardBg || "#000",
+                color: fontColor || "#fff",
+            }}
+        >
+            <h3 className="font-semibold mb-3" style={{ color: fontColor }}>Products and Services</h3>
             <Swiper
                 modules={[Navigation, Pagination]}
                 navigation
@@ -24,13 +29,21 @@ const ProductServices = ({ data }) => {
             >
                 {data?.map((item, index) => (
                     <SwiperSlide key={index}>
-                        <div className="bg-transparent rounded-xl p-4 shadow-md">
+                        <div className="rounded-xl p-4 shadow-md"
+                            style={{
+                                background:
+                                    cardBg === "transparent"
+                                        ? "rgba(0,0,0,0.5)"
+                                        : cardBg || "#111",
+                                color: fontColor || "#fff",
+                            }}
+                        >
                             <div className="relative">
                                 <Image
                                     src={
                                         item.image.startsWith("http")
                                             ? item.image
-                                            : `https://res.cloudinary.com/uploads/${item.image}`
+                                            : `/assets/assets/uploads/product-image/${item.image}`
                                     }
                                     alt={item.title || "Product"}
                                     width={600}
@@ -38,24 +51,40 @@ const ProductServices = ({ data }) => {
                                     className="rounded-lg object-cover"
                                 />
                                 {item.tag && (
-                                    <span className="absolute top-2 right-2 bg-white text-black px-2 py-1 rounded text-xs">
+                                    <span className="absolute top-2 right-2  px-2 py-1 rounded text-xs" style={{
+                                        background: fontColor || "#fff",
+                                        color: cardBg || "#000",
+                                    }}>
                                         {item.tag}
                                     </span>
                                 )}
                                 {item.price && (
-                                    <span className="absolute bottom-2 left-2 bg-black/70 px-2 py-1 rounded text-xs">
+                                    <span className="absolute bottom-2 left-2 bg-black/70 px-2 py-1 rounded text-xs" style={{
+                                        background:
+                                            cardBg === "transparent"
+                                                ? "rgba(0,0,0,0.7)"
+                                                : fontColor || "#000",
+                                        color:
+                                            cardBg === "transparent"
+                                                ? "#fff"
+                                                : cardBg || "#fff",
+                                    }}>
                                         Price: {item.price}
                                     </span>
                                 )}
                             </div>
 
-                            <h4 className="mt-4 text-lg font-semibold">{item.title}</h4>
-                            <p className="text-gray-400 text-sm mt-2 line-clamp-3">
+                            <h4 className="mt-4 text-lg font-semibold" style={{ color: fontColor }}>{item.title}</h4>
+                            <p className="text-gray-400 text-sm mt-2 line-clamp-3" style={{ color: fontColor }}>
                                 {item.description}
                             </p>
 
                             <button
                                 className="mt-3 px-4 py-2 border border-white rounded-md hover:bg-white hover:text-black transition"
+                                style={{
+                                    borderColor: fontColor || "#fff",
+                                    color: fontColor || "#fff",
+                                }}
                                 onClick={() => {
                                     if (!item?.url) return;
                                     const finalUrl = item.url.startsWith("http") ? item.url : `https://${item.url}`;

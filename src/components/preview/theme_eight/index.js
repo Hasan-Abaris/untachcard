@@ -13,6 +13,7 @@ import { base_url } from "@/server";
 import axios from "axios";
 import { useParams } from "next/navigation";
 import AppointmentPage from "./appointment";
+import BrandingCardShow from "@/components/common/brandingCardShow/BrandingCardShow";
 
 const ThemeEight = () => {
   const params = useParams();
@@ -136,6 +137,9 @@ const ThemeEight = () => {
       )}
       {/* Appointment */}
       {dataDetails && <AppointmentPage data={dataDetails} themeBg={themeBg} cardBg={cardBg} fontColor={fontColor} cardFont={cardFont} />}
+      {(dataDetails?.hide_branding === 1 || dataDetails?.hide_branding === "1") && (
+        <BrandingCardShow />
+      )}
     </div>
   );
 };

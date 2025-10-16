@@ -49,9 +49,7 @@ const Testimonials = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
                                 }
                                 alt={item.title || "client"}
                                 className="w-20 h-20 rounded-full mx-auto object-cover border-2"
-                                style={{
-                                    borderColor: fontColor || "#fff",
-                                }}
+
                             />
 
                             <h3

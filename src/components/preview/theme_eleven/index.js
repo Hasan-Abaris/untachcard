@@ -14,6 +14,7 @@ import CustomSection from "./CustomSection";
 import WorkingHours from "./WorkingHours";
 import PaymentSection from "./PaymentSection";
 import AppointmentPage from "./appointment";
+import BrandingCardShow from "@/components/common/brandingCardShow/BrandingCardShow";
 
 const ThemeNine = () => {
   const params = useParams();
@@ -135,6 +136,9 @@ const ThemeNine = () => {
       )}
       {/* Appointment */}
       {dataDetails && <AppointmentPage data={dataDetails} themeBg={themeBg} cardBg={cardBg} fontColor={fontColor} cardFont={cardFont} />}
+      {(dataDetails?.hide_branding === 1 || dataDetails?.hide_branding === "1") && (
+        <BrandingCardShow />
+      )}
     </div>
   );
 };

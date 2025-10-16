@@ -136,6 +136,9 @@ const ThemeEight = () => {
       )}
       {/* Appointment */}
       {dataDetails && <AppointmentPage data={dataDetails} themeBg={themeBg} cardBg={cardBg} fontColor={fontColor} cardFont={cardFont} />}
+      {(dataDetails?.hide_branding === 1 || dataDetails?.hide_branding === "1") && (
+        <BrandingCardShow />
+      )}
     </div>
   );
 };

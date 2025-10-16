@@ -9,14 +9,18 @@ import "swiper/css/pagination";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 
-const Gallery = ({ data }) => {
+const Gallery = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
     const [open, setOpen] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
 
     if (!data || data.length === 0) return null;
     return (
-        <div className="bg-black text-white rounded-lg p-4 shadow-md max-w-md mx-auto">
-            <h3 className="font-semibold mb-3">Gallery</h3>
+        <div className="rounded-lg p-4 shadow-md max-w-md mx-auto"
+            style={{
+                background: cardBg || "#000",
+                color: fontColor || "#fff",
+            }}>
+            <h3 className="font-semibold mb-3" style={{ color: fontColor || "#fff" }}>Gallery</h3>
             <Swiper
                 modules={[Navigation, Pagination]}
                 navigation
@@ -31,7 +35,11 @@ const Gallery = ({ data }) => {
                 {data.map((item, index) => (
                     <SwiperSlide key={index}>
                         <img
-                            src={item?.url}
+                            src={
+                                item?.url?.startsWith("http")
+                                    ? item.url
+                                    : `https://res.cloudinary.com/uploads/${item.url}`
+                            }
                             alt="gallery"
                             className="rounded-lg cursor-pointer w-full h-64 object-cover"
                             onClick={() => {

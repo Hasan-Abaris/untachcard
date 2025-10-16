@@ -335,15 +335,9 @@ const NewVcardModal = ({ isOpen, onClose, onSubmit, editCard }) => {
                 className="w-full border rounded-lg px-3 py-2"
               />
             </div> */}
-            <div>
+            {/* <div>
               <label className="block text-sm font-medium">Hide Branding</label>
-              {/* <input
-                type="number"
-                name="hide_branding"
-                value={formData.hide_branding}
-                onChange={handleChange}
-                className="w-full border rounded-lg px-3 py-2"
-              /> */}
+             
               <select
                 className="w-full border rounded-lg px-3 py-2"
                 name="hide_branding"
@@ -354,7 +348,7 @@ const NewVcardModal = ({ isOpen, onClose, onSubmit, editCard }) => {
                 <option value={0}>Yes</option>
                 <option value={1}>No</option>
               </select>
-            </div>
+            </div> */}
 
             {/* Row 5 */}
             {/* <div>

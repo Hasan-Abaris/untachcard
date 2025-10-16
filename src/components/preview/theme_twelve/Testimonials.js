@@ -7,11 +7,15 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Star } from "lucide-react";
 
-const Testimonials = ({ data }) => {
+const Testimonials = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
     if (!data || data.length === 0) return null;
     return (
-        <div className="bg-black text-white rounded-lg p-4 shadow-md max-w-md mx-auto">
-            <h3 className="font-semibold mb-3">Testimonials</h3>
+        <div className="rounded-lg p-4 shadow-md max-w-md mx-auto"
+            style={{
+                background: cardBg || "#000",
+                color: fontColor || "#fff",
+            }}>
+            <h3 className="font-semibold mb-3" style={{ color: fontColor || "#fff" }}>Testimonials</h3>
             <Swiper
                 modules={[Navigation, Pagination]}
                 navigation
@@ -25,13 +29,14 @@ const Testimonials = ({ data }) => {
             >
                 {data.map((item) => (
                     <SwiperSlide key={item._id}>
-                        <div className="text-center p-4 bg-gray-900 rounded-xl h-full flex flex-col items-center">
+                        <div className="text-center p-4  rounded-xl h-full flex flex-col items-center"
+                            style={{ background: cardBg, color: fontColor, fontFamily: cardFont }}>
                             <img
                                 src={item.image}
                                 alt={item.title || "client"}
                                 className="w-20 h-20 rounded-full mx-auto object-cover"
                             />
-                            <h3 className="mt-2 font-semibold">{item.title}</h3>
+                            <h3 className="mt-2 font-semibold" style={{ color: fontColor || "#fff" }}>{item.title}</h3>
                             <div className="flex justify-center mt-1">
                                 {[...Array(5)].map((_, i) => (
                                     <Star
@@ -41,7 +46,11 @@ const Testimonials = ({ data }) => {
                                     />
                                 ))}
                             </div>
-                            <p className="text-gray-400 mt-2 text-sm">{item.description}</p>
+                            <p className="text-gray-400 mt-2 text-sm" style={{
+                                color: fontColor
+                                    ? `${fontColor}cc`
+                                    : "#ccc",
+                            }}>{item.description}</p>
                         </div>
                     </SwiperSlide>
                 ))}

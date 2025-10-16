@@ -70,10 +70,10 @@ const EnquiryForm = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
                     value={initialValue.name}
                     onChange={handleChange}
                     className="w-full px-3 py-2 border rounded bg-transparent outline-none"
-                    style={{
-                        borderColor: fontColor || "#fff",
-                        color: fontColor || "#fff",
-                    }}
+                // style={{
+                //     borderColor: fontColor || "#fff",
+                //     color: fontColor || "#fff",
+                // }}
                 />
                 <input
                     type="email"
@@ -82,10 +82,10 @@ const EnquiryForm = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
                     value={initialValue.email}
                     onChange={handleChange}
                     className="w-full px-3 py-2 border rounded bg-transparent outline-none"
-                    style={{
-                        borderColor: fontColor || "#fff",
-                        color: fontColor || "#fff",
-                    }}
+                // style={{
+                //     borderColor: fontColor || "#fff",
+                //     color: fontColor || "#fff",
+                // }}
                 />
                 <input
                     type="number"
@@ -94,10 +94,10 @@ const EnquiryForm = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
                     value={initialValue.mobile}
                     onChange={handleChange}
                     className="w-full px-3 py-2 border rounded bg-transparent outline-none"
-                    style={{
-                        borderColor: fontColor || "#fff",
-                        color: fontColor || "#fff",
-                    }}
+                // style={{
+                //     borderColor: fontColor || "#fff",
+                //     color: fontColor || "#fff",
+                // }}
                 />
                 <textarea
                     placeholder="Type your message"
@@ -105,10 +105,10 @@ const EnquiryForm = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
                     value={initialValue.query}
                     onChange={handleChange}
                     className="w-full px-3 py-2 border rounded bg-transparent outline-none resize-none h-24"
-                    style={{
-                        borderColor: fontColor || "#fff",
-                        color: fontColor || "#fff",
-                    }}
+                // style={{
+                //     borderColor: fontColor || "#fff",
+                //     color: fontColor || "#fff",
+                // }}
                 ></textarea>
 
                 <button

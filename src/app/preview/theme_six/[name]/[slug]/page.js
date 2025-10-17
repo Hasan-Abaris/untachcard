@@ -1,6 +1,6 @@
-import  ThemeSixpage  from "@/components/preview/theme_six";
+import ThemeSixpage from "@/components/preview/theme_six";
 
 
-export default function Page({ params }) {
-  return <ThemeSixpage slug={params.slug} />;
+export default function Page() {
+  return <ThemeSixpage />;
 }

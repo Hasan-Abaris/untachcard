@@ -9,7 +9,7 @@ import * as FaIcons from "react-icons/fa";
 const ProfileCard = ({ data, themeBg, cardBg, fontColor, cardFont }) => {
 
     const getField = (type) =>
-        data?.fields.find((item) => item.type.toLowerCase() === type.toLowerCase());
+        data?.fields?.find((item) => item.type.toLowerCase() === type.toLowerCase());
 
     const mobile = getField("mobile");
     const email = getField("email");

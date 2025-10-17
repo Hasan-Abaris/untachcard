@@ -15,7 +15,7 @@ import axios from 'axios'
 import AppointmentPage from './appointment'
 import BrandingCardShow from '@/components/common/brandingCardShow/BrandingCardShow'
 
-const Themeseven = () => {
+const Themeseven = ({ dataDetailsData }) => {
     const params = useParams();
     // console.log(params);
 
@@ -64,11 +64,15 @@ const Themeseven = () => {
     };
 
     useEffect(() => {
-        if (params?.slug) {
-            setLoading(true);
+        if (dataDetailsData) {
+            setDetailsdata(dataDetailsData)
+            setLoading(false);
+        } else if (params?.slug) {
+            // setLoading(true);
             cardDetailsget(params?.slug);
+
         }
-    }, [params]);
+    }, [params, dataDetailsData]);
 
     if (loading) {
         return (

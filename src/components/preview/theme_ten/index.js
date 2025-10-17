@@ -15,7 +15,7 @@ import { useParams } from "next/navigation";
 import AppointmentPage from "./appointment";
 import BrandingCardShow from "@/components/common/brandingCardShow/BrandingCardShow";
 
-const ThemeTen = () => {
+const ThemeTen = ({ dataDetailsData }) => {
   const params = useParams();
   const [dataDetails, setDetailsdata] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -61,11 +61,15 @@ const ThemeTen = () => {
   };
 
   useEffect(() => {
-    if (params?.slug) {
-      setLoading(true);
+    if (dataDetailsData) {
+      setDetailsdata(dataDetailsData)
+      setLoading(false);
+    } else if (params?.slug) {
+      // setLoading(true);
       cardDetailsget(params?.slug);
+
     }
-  }, [params]);
+  }, [params, dataDetailsData]);
 
   if (loading) {
     return (

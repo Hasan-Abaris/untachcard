@@ -1,7 +1,9 @@
 "use client";
 
 import Footer from "@/components/common/footer/Footer";
+import Footer2 from "@/components/common/footer2/Footer2";
 import Header from "@/components/common/header/Header";
+import Header2 from "@/components/common/header2/Header2";
 import ScrollToTop from "@/components/common/ScrollToTop/ScrollToTop";
 import HomeMain from "@/components/home/Home";
 import Image from "next/image";
@@ -25,10 +27,12 @@ export default function Home() {
   return (
     <>
       {/* <Header /> */}
+      <Header2 />
       <div className="min-h-screen">
         <HomeMain />
         <ScrollToTop />
       </div>
+      <Footer2 />
       {/* <Footer /> */}
     </>
   );

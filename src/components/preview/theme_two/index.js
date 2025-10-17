@@ -14,43 +14,62 @@ import { base_url } from "@/server";
 import axios from "axios";
 import AppointmentPage from "./appointment";
 import Gallery from "./Gallery";
+import { useParams } from "next/navigation";
 
-const Themetwopage = ({ slug }) => {
+const Themetwopage = ({ dataDetailsData }) => {
+  const params = useParams();
   const [dataDetails, setDetailsdata] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-  const fetchCardData = async (slug) => {
-    if (!slug) return setLoading(false);
-
-    try {
-      const token = window.localStorage.getItem("token");
-      const res = await axios.get(`${base_url}card/details/${slug}`, {
-        headers: token ? { Authorization: `Bearer ${token}` } : {},
-      });
-
-      if (res?.data?.data?.length > 0) {
-        setDetailsdata(res.data.data[0]);
-      } else {
-        const demoRes = await axios.get(`${base_url}card/demo`);
-        setDetailsdata(demoRes.data.data[0]);
-      }
-    } catch (err) {
-      console.error("Primary API failed:", err);
+  const cardDetailsget = async (slug) => {
+    if (params?.slug === "demo") {
       try {
-        const demoRes = await axios.get(`${base_url}card/demo`);
-        setDetailsdata(demoRes.data.data[0]);
-      } catch (demoErr) {
-        console.error("Demo API also failed:", demoErr);
-        setDetailsdata(null);
+        const res = await axios.get(`${base_url}card/demo`);
+        if (res?.data?.data?.length > 0) {
+          setDetailsdata(res.data.data[0]);
+          setError(false);
+        } else {
+          setError(true);
+        }
+      } catch (err) {
+        // console.error(err);
+        setError(true);
+      } finally {
+        setLoading(false);
       }
-    } finally {
-      setLoading(false);
+      // console.log(res);
+    } else {
+      try {
+        const token = window.localStorage.getItem("token");
+        const res = await axios.get(`${base_url}card/details/${slug}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (res?.data?.data?.length > 0) {
+          setDetailsdata(res.data.data[0]);
+          setError(false);
+        } else {
+          setError(true);
+        }
+      } catch (err) {
+        // console.error(err);
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
   useEffect(() => {
-    fetchCardData(slug);
-  }, [slug]);
+    if (dataDetailsData) {
+      setDetailsdata(dataDetailsData)
+      setLoading(false);
+    } else if (params?.slug) {
+      // setLoading(true);
+      cardDetailsget(params?.slug);
+    }
+  }, [params, dataDetailsData]);
 
   if (loading)
     return (
@@ -135,10 +154,10 @@ const Themetwopage = ({ slug }) => {
         />
 
         {/* Custom Section Card */}
-      <div className="my-8 rounded-lg shadow-lg p-6 max-w-3xl mx-auto">
-        <h3 className="text-xl font-bold mb-2 text-center"></h3>
-            {dataDetails && <AppointmentPage data={dataDetails} />}
-      </div>
+        <div className="my-8 rounded-lg shadow-lg p-6 max-w-3xl mx-auto">
+          <h3 className="text-xl font-bold mb-2 text-center"></h3>
+          {dataDetails && <AppointmentPage data={dataDetails} />}
+        </div>
 
       </div>
     </div>

@@ -15,7 +15,7 @@ import WorkingHours from "./WorkingHours";
 import PaymentSection from "./PaymentSection";
 import AppointmentPage from "./appointment";
 
-const ThemeTwelve = () => {
+const ThemeTwelve = ({ dataDetailsData }) => {
   const params = useParams();
   const [dataDetails, setDetailsdata] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -61,11 +61,15 @@ const ThemeTwelve = () => {
   };
 
   useEffect(() => {
-    if (params?.slug) {
-      setLoading(true);
+    if (dataDetailsData) {
+      setDetailsdata(dataDetailsData)
+      setLoading(false);
+    } else if (params?.slug) {
+      // setLoading(true);
       cardDetailsget(params?.slug);
+
     }
-  }, [params]);
+  }, [params, dataDetailsData]);
 
   if (loading) {
     return (

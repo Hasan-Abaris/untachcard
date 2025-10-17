@@ -10,8 +10,8 @@ const Payment = ({ data }) => {
   }
 
   return (
-    <div className="p-4 bg-white rounded-lg shadow-md">
-      <h3 className="text-xl font-bold mb-2 text-center">{data.title}</h3>
+    <div className="p-4 bg-black rounded-lg shadow-md">
+      <h3 className="text-xl font-bold mb-2 text-center text-white">{data.title}</h3>
       <div
         className="text-center text-gray-800"
         dangerouslySetInnerHTML={{ __html: data.description }}

@@ -14,6 +14,7 @@ import CustomSection from "./CustomSection";
 import WorkingHours from "./WorkingHours";
 import PaymentSection from "./PaymentSection";
 import AppointmentPage from "./appointment";
+import BrandingCardShow from "@/components/common/brandingCardShow/BrandingCardShow";
 
 const ThemeTwelve = ({ dataDetailsData }) => {
   const params = useParams();

@@ -1,41 +1,63 @@
 "use client";
 
 import Image from "next/image";
-import {
-  FaEnvelope,
-  FaMapMarkerAlt,
-  FaPhone,
-  FaWhatsapp,
-  FaFacebook,
-} from "react-icons/fa";
+import { useState } from "react";
+import * as FaIcons from "react-icons/fa";
+import { Eye } from "lucide-react";
+import ShareVCardModal from "@/components/common/shareVCardModal/ShareVCardModal";
 
 const ProfileCard = ({ data, cardStyles }) => {
-  const social = data?.social_options ? JSON.parse(data.social_options) : {};
+  const [open, setOpen] = useState(false);
+  const [modalData, setModalData] = useState(null);
 
-  // Construct image path safely
-  const profileSrc = data?.profile
-    ? `/assets/assets/uploads/card-profile/${data.profile}`
-    : "/assets/default-avatar.png";
+  // Function to get field by type
+  const getField = (type) =>
+    data?.fields.find((item) => item.type.toLowerCase() === type.toLowerCase());
 
-  // WhatsApp & Facebook links
-  const whatsappNumber = social?.mandatory?.mobile
-    ? `https://wa.me/${social.mandatory.mobile}`
-    : null;
+  const mobile = getField("mobile");
+  const email = getField("email");
+  const address = getField("address");
+  const website = getField("website");
+  const facebook = getField("facebook");
+  const instagram = getField("instagram");
 
-  const facebookLink = social?.mandatory?.facebook
-    ? social.mandatory.facebook.startsWith("http")
-      ? social.mandatory.facebook
-      : `https://${social.mandatory.facebook}`
-    : null;
+  const renderIcon = (iconName) => {
+    if (!iconName) return <FaIcons.FaLink style={{ color: cardStyles?.icon_color }} />;
+    if (FaIcons[iconName]) {
+      const IconComponent = FaIcons[iconName];
+      return <IconComponent style={{ color: cardStyles?.icon_color }} />;
+    }
+    return <FaIcons.FaLink style={{ color: cardStyles?.icon_color }} />;
+  };
 
-  // Dynamic styles
+  const profileSrc =
+    data?.profile?.startsWith("http")
+      ? data.profile
+      : `/assets/assets/uploads/card-profile/${data?.profile || "default-profile.jpg"}`;
+
+  const bannerSrc =
+    data?.banner?.startsWith("http")
+      ? data.banner
+      : `/assets/assets/uploads/card-banner/${data?.banner || "default-banner.jpg"}`;
+
+  const bgStyle =
+    data?.card_bg_type === "Color"
+      ? { backgroundColor: data.card_bg }
+      : data?.card_bg_type === "Image"
+      ? {
+          backgroundImage: `url(${data.card_bg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }
+      : {};
+
   const styles = {
     container: {
-      backgroundColor: cardStyles?.card_bg || "#fff",
-      fontFamily: cardStyles?.card_font || "sans-serif",
-      color: cardStyles?.card_font_color || "#000",
+      ...bgStyle,
+      fontFamily: data?.card_font || "sans-serif",
+      color: data?.card_font_color || "#000",
       borderRadius: "1rem",
-      border: `1px solid ${cardStyles?.card_border_color || "#e5e7eb"}`,
+      border: `1px solid ${cardStyles?.card_border_color || "#e5e7eb"}`, // border color unchanged
       boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
       overflow: "hidden",
     },
@@ -44,17 +66,17 @@ const ProfileCard = ({ data, cardStyles }) => {
     },
     title: {
       color: cardStyles?.header_color || "#1e3a8a",
-      fontFamily: cardStyles?.card_font || "sans-serif",
+      fontFamily: data?.card_font || "sans-serif",
       fontWeight: "bold",
     },
     subtitle: {
       color: cardStyles?.subheader_color || "#3b82f6",
-      fontFamily: cardStyles?.card_font || "sans-serif",
+      fontFamily: data?.card_font || "sans-serif",
       fontWeight: "500",
     },
     text: {
-      color: cardStyles?.card_font_color || "#000",
-      fontFamily: cardStyles?.card_font || "sans-serif",
+      color: data?.card_font_color || "#000",
+      fontFamily: data?.card_font || "sans-serif",
     },
     button: {
       backgroundColor: cardStyles?.button_bg || "#f3f4f6",
@@ -66,28 +88,35 @@ const ProfileCard = ({ data, cardStyles }) => {
       cursor: "pointer",
       transition: "all 0.2s ease",
     },
-    icon: {
-      color: cardStyles?.icon_color || "#1e40af",
-    },
     link: {
       color: cardStyles?.link_color || "#1d4ed8",
       textDecoration: "none",
     },
+    icon: {
+      color: cardStyles?.icon_color || "#1e40af",
+    },
+  };
+
+  const shareModal = (data) => {
+    setModalData(data);
+    setOpen(true);
   };
 
   return (
-    <div className="max-w-md mx-auto relative" style={styles.container}>
+    <div className="max-w-md mx-auto relative mt-5" style={styles.container}>
       {/* Header Section */}
-      <div className="h-32 relative mt-20" style={styles.headerBg}>
-        <div
-          className="absolute top-2 left-2 px-3 py-1 text-xs rounded-lg backdrop-blur-sm"
-          style={{
-            backgroundColor: cardStyles?.views_bg || "rgba(255,255,255,0.25)",
-            color: cardStyles?.views_text || "#fff",
-          }}
-        >
-          👁️ Views: {data?.views || 0}
-        </div>
+      <div className="h-32 relative" style={styles.headerBg}>
+        {Number(data?.show_card_view_count_on_a_card) === 1 && (
+          <div
+            className="absolute top-2 left-2 px-3 py-1 text-xs rounded-lg backdrop-blur-sm flex items-center gap-1"
+            style={{
+              backgroundColor: cardStyles?.views_bg || "rgba(255,255,255,0.25)",
+              color: cardStyles?.views_text || "#fff",
+            }}
+          >
+            <Eye size={14} /> Views: {data?.views || 0}
+          </div>
+        )}
 
         <div className="absolute inset-x-0 -bottom-12 flex justify-center">
           <Image
@@ -112,61 +141,55 @@ const ProfileCard = ({ data, cardStyles }) => {
         )}
 
         {/* Contact / Social Info */}
-        <div className="mt-6 space-y-3 text-left" style={styles.text}>
-          {social?.mandatory?.mobile && (
-            <div className="flex items-center gap-3">
-              <FaPhone style={styles.icon} />
-              <span>{social.mandatory.mobile}</span>
-            </div>
-          )}
-          {social?.mandatory?.email && (
-            <div className="flex items-center gap-3">
-              <FaEnvelope style={styles.icon} />
-              <span>{social.mandatory.email}</span>
-            </div>
-          )}
-          {whatsappNumber && (
-            <div className="flex items-center gap-3">
-              <FaWhatsapp style={styles.icon} />
-              <a href={whatsappNumber} target="_blank" rel="noopener noreferrer" style={styles.link}>
-                Message on WhatsApp
-              </a>
-            </div>
-          )}
-          {social?.mandatory?.address && (
-            <div className="flex items-center gap-3">
-              <FaMapMarkerAlt style={styles.icon} />
-              <span>{social.mandatory.address}</span>
-            </div>
-          )}
-          {facebookLink && (
-            <div className="flex items-center gap-3">
-              <FaFacebook style={styles.icon} />
-              <a href={facebookLink} target="_blank" rel="noopener noreferrer" style={styles.link}>
-                Visit Facebook
-              </a>
-            </div>
+        <div className="mt-6 space-y-3 text-left">
+          {[mobile, email, address, website, facebook, instagram].map(
+            (field, idx) =>
+              field && (
+                <div key={idx} className="flex items-center gap-3">
+                  {renderIcon(field.icon)}
+                  <a
+                    href={field.url || "#"}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={styles.link}
+                  >
+                    {field.title}
+                  </a>
+                </div>
+              )
           )}
         </div>
 
         {/* Action Buttons */}
         <div className="mt-8 flex justify-center gap-4">
-          <button
-            style={styles.button}
-            onMouseOver={(e) => (e.currentTarget.style.opacity = "0.8")}
-            onMouseOut={(e) => (e.currentTarget.style.opacity = "1")}
-          >
-            Add to Phone Book
-          </button>
-          <button
-            style={styles.button}
-            onMouseOver={(e) => (e.currentTarget.style.opacity = "0.8")}
-            onMouseOut={(e) => (e.currentTarget.style.opacity = "1")}
-          >
-            Share
-          </button>
+          {Number(data?.show_add_to_phone_book) === 1 && (
+            <button
+              style={styles.button}
+              onMouseOver={(e) => (e.currentTarget.style.opacity = "0.8")}
+              onMouseOut={(e) => (e.currentTarget.style.opacity = "1")}
+            >
+              Add to Phone Book
+            </button>
+          )}
+          {Number(data?.show_share) === 1 && (
+            <button
+              style={styles.button}
+              onMouseOver={(e) => (e.currentTarget.style.opacity = "0.8")}
+              onMouseOut={(e) => (e.currentTarget.style.opacity = "1")}
+              onClick={() => shareModal(data)}
+            >
+              Share
+            </button>
+          )}
         </div>
       </div>
+
+      <ShareVCardModal
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        data={modalData}
+        theme="theme_two/theme_two"
+      />
     </div>
   );
 };

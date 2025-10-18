@@ -163,7 +163,7 @@ export default function AppointmentPage({ data, themeBg, cardBg, fontColor, card
                 !initialValue?.date
               }
             >
-              Book Appointment
+              Book Appointments
             </button>
           </form>
         </div>

@@ -11,9 +11,9 @@ import Qr from "./Qr";
 import CustomSection from "./Custom";
 import WorkingHours from "./WorkingHours";
 import Payment from "./Payment";
+import AppointmentPage from "./appointment";
 import { base_url } from "@/server";
 import axios from "axios";
-import AppointmentPage from "./appointment";
 import { useParams } from "next/navigation";
 
 const ThemeSixpage = ({ dataDetailsData }) => {
@@ -23,50 +23,31 @@ const ThemeSixpage = ({ dataDetailsData }) => {
   const [error, setError] = useState(false);
 
   const cardDetailsget = async (slug) => {
-    if (params?.slug === "demo") {
-      try {
-        const res = await axios.get(`${base_url}card/demo`);
-        if (res?.data?.data?.length > 0) {
-          setDetailsdata(res.data.data[0]);
-          setError(false);
-        } else {
-          setError(true);
-        }
-      } catch (err) {
-        // console.error(err);
+    try {
+      const res =
+        slug === "demo"
+          ? await axios.get(`${base_url}card/demo`)
+          : await axios.get(`${base_url}card/details/${slug}`, {
+              headers: { Authorization: `Bearer ${window.localStorage.getItem("token")}` },
+            });
+      if (res?.data?.data?.length > 0) {
+        setDetailsdata(res.data.data[0]);
+        setError(false);
+      } else {
         setError(true);
-      } finally {
-        setLoading(false);
       }
-      // console.log(res);
-    } else {
-      try {
-        const token = window.localStorage.getItem("token");
-        const res = await axios.get(`${base_url}card/details/${slug}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-
-        if (res?.data?.data?.length > 0) {
-          setDetailsdata(res.data.data[0]);
-          setError(false);
-        } else {
-          setError(true);
-        }
-      } catch (err) {
-        // console.error(err);
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
+    } catch {
+      setError(true);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     if (dataDetailsData) {
-      setDetailsdata(dataDetailsData)
+      setDetailsdata(dataDetailsData);
       setLoading(false);
     } else if (params?.slug) {
-      // setLoading(true);
       cardDetailsget(params?.slug);
     }
   }, [params, dataDetailsData]);
@@ -74,9 +55,7 @@ const ThemeSixpage = ({ dataDetailsData }) => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-400">
-        <p className="text-white text-lg font-semibold animate-pulse">
-          Loading...
-        </p>
+        <p className="text-white text-lg font-semibold animate-pulse">Loading...</p>
       </div>
     );
   }
@@ -90,76 +69,47 @@ const ThemeSixpage = ({ dataDetailsData }) => {
   }
 
   return (
-    <div className="min-h-screen  p-6 space-y-6">
+    <div className="min-h-screen p-6 space-y-6 flex flex-col items-center">
       {/* Profile Section */}
-      <div className="my-8">
-        <ProfileCard data={dataDetails} />
-      </div>
+      {dataDetails && <ProfileCard data={dataDetails} />}
 
       {/* Products and Services */}
-      <div className="my-8">
-        <ProductServices data={dataDetails?.products || []} />
-      </div>
+      {dataDetails?.products?.length > 0 && <ProductServices data={dataDetails.products} />}
 
       {/* Portfolio */}
-      <div className="my-8">
-        <Portfolio data={dataDetails?.portfolios || []} />
-      </div>
+      {dataDetails?.portfolios?.length > 0 && <Portfolio data={dataDetails.portfolios} />}
 
       {/* Gallery */}
-      <div className="my-8">
-        <Gallery data={dataDetails?.galleries || []} />
-      </div>
+      {dataDetails?.galleries?.length > 0 && <Gallery data={dataDetails.galleries} />}
 
       {/* Testimonials */}
-      <div className="my-8">
-        <Testimonials data={dataDetails?.testimonials || []} />
-      </div>
+      {dataDetails?.testimonials?.length > 0 && <Testimonials data={dataDetails.testimonials} />}
 
       {/* Enquiry Form */}
-      <div className="my-8">
-        <EnquiryForm data={dataDetails} />
-      </div>
+      {dataDetails && <EnquiryForm data={dataDetails} />}
 
       {/* QR Section */}
-      <div className="my-8">
-        <Qr data={dataDetails?.fields || []} />
-      </div>
+      {dataDetails?.fields?.length > 0 && <Qr data={dataDetails.fields} />}
 
-      {/* Custom Section Card */}
-      <div className="my-8 bg-white rounded-lg shadow-lg p-6 max-w-3xl mx-auto">
-        <h3 className="text-xl font-bold mb-2 text-center">Custom Section</h3>
-        <CustomSection data={dataDetails?.customsection || []} />
-      </div>
+      {/* Custom Section */}
+      {dataDetails?.customsection?.length > 0 && <CustomSection data={dataDetails.customsection} />}
 
-      {/* Working Hours Card */}
-      <div className="my-8 bg-white rounded-lg shadow-lg p-6 max-w-3xl mx-auto">
-        <h3 className="text-xl font-bold mb-2 text-center">Working Hours</h3>
+      {/* Working Hours */}
+      {dataDetails?.customsection?.some(item => item.title === "Working Hours") && (
         <WorkingHours
-          data={
-            dataDetails?.customsection?.find(
-              (item) => item.title === "Working Hours"
-            ) || null
-          }
+          data={dataDetails.customsection.find(item => item.title === "Working Hours")}
         />
-      </div>
+      )}
 
-      {/* Payment Card */}
-      <div className="my-8 bg-white rounded-lg shadow-lg p-6 max-w-3xl mx-auto">
-        <h3 className="text-xl font-bold mb-2 text-center">Payment</h3>
+      {/* Payment */}
+      {dataDetails?.customsection?.some(item => item.title === "Payment") && (
         <Payment
-          data={
-            dataDetails?.customsection?.find(
-              (item) => item.title === "Payment"
-            ) || null
-          }
+          data={dataDetails.customsection.find(item => item.title === "Payment")}
         />
-        {/* Appointment */}
-        <div className="my-8 rounded-lg shadow-lg p-6 max-w-3xl mx-auto">
-          <h3 className="text-xl font-bold mb-2 text-center">Appointment</h3>
-          {dataDetails && <AppointmentPage data={dataDetails} />}
-        </div>
-      </div>
+      )}
+
+      {/* Appointment */}
+      {dataDetails && <AppointmentPage data={dataDetails} />}
     </div>
   );
 };

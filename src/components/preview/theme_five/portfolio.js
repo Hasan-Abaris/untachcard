@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 
 const Portfolio = ({ data, cardData }) => {
@@ -20,12 +19,7 @@ const Portfolio = ({ data, cardData }) => {
     <div
       className="portfolio-wrapper w-full flex justify-center"
       style={{
-        background:
-          cardData?.card_bg_type === "Color"
-            ? cardData?.card_bg || "#f9fafb"
-            : cardData?.card_bg_type === "Image"
-            ? `url(${cardData?.card_bg}) center/cover no-repeat`
-            : "#f9fafb",
+        background: "transparent", // 
         fontFamily: cardData?.card_font || "sans-serif",
         padding: "1rem",
       }}
@@ -41,9 +35,9 @@ const Portfolio = ({ data, cardData }) => {
         {data.map((p) => (
           <div
             key={p._id}
-            className="portfolio-item rounded-lg p-4 shadow-lg hover:scale-105 transition-transform"
+            className="portfolio-item rounded-lg p-4 shadow-md hover:scale-105 transition-transform"
             style={{
-              backgroundColor: cardData?.card_theme_bg || "#ffffff",
+              backgroundColor: "white", // ✅ Only the cards remain white
               color: cardData?.card_font_color || "#000000",
               minWidth: "250px",
               maxWidth: "300px",
@@ -83,7 +77,7 @@ const Portfolio = ({ data, cardData }) => {
                   fontFamily: cardData?.card_font || "inherit",
                 }}
               >
-                Visit
+                
               </a>
             )}
           </div>

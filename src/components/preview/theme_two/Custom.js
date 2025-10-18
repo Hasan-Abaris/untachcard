@@ -12,11 +12,11 @@ const Custom = ({ data }) => {
   }
 
   return (
-    <div className="flex items-center justify-center bg-gray-100 p-6">
+    <div className="flex items-center justify-center  p-6">
       <div className="w-full max-w-3xl bg-white rounded-lg shadow-lg p-6">
         {/* Section Title */}
         <div className="text-center mb-6">
-          <h4 className="text-2xl font-bold text-gray-800">Custom Sections</h4>
+          <h4 className="text-2xl font-bold text-gray-800"></h4>
         </div>
 
         {/* Services Table */}

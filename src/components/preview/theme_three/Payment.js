@@ -10,7 +10,7 @@ const Payment = ({ data }) => {
   }
 
   return (
-    <div className="p-4 bg-white rounded-lg shadow-md">
+    <div className="p-4 bg-white rounded-lg shadow-md max-w-md mx-auto">
       <h3 className="text-xl font-bold mb-2 text-center">{data.title}</h3>
       <div
         className="text-center text-gray-800"

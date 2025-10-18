@@ -2,13 +2,23 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { Calendar } from "lucide-react";
 import axios from "axios";
 import { base_url } from "@/server";
-import { toastSuccessMessage, toastSuccessMessageError } from "@/components/common/messageShow/MessageShow";
+import {
+  toastSuccessMessage,
+  toastSuccessMessageError,
+} from "@/components/common/messageShow/MessageShow";
 import { ToastContainer } from "react-toastify";
 import Loader from "@/components/common/loader/Loader";
 
-export default function AppointmentPage({ data, cardData }) {
+export default function AppointmentPage({
+  data,
+  themeBg,
+  cardBg,
+  fontColor,
+  cardFont,
+}) {
   const [loader, setLoader] = useState(false);
   const [initialValue, setInitialValue] = useState({
     name: "",
@@ -18,120 +28,74 @@ export default function AppointmentPage({ data, cardData }) {
     cardId: "",
     date: "",
   });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setInitialValue((prev) => ({ ...prev, [name]: value }));
+  const handleChange = async (e) => {
+    const clone = { ...initialValue };
+    const value = e.target.value;
+    const name = e.target.name;
+    clone[name] = value;
+    setInitialValue(clone);
   };
 
   const submitData = async () => {
+    // console.log('dfgdf');
     setLoader(true);
-    const payload = { ...initialValue, cardId: data?._id };
-
+    const clone = { ...initialValue, cardId: data?._id };
     try {
-      const res = await axios.post(`${base_url}card-appointment/appointment`, payload);
+      const res = await axios.post(
+        `${base_url}card-appointment/appointment`,
+        clone
+      );
+      // console.log(res?.data);
       if (res?.data?.success) {
-        toastSuccessMessage("Your appointment has been submitted successfully. We’ll get back to you soon!");
-        setInitialValue({ name: "", email: "", mobile: "", query: "", cardId: "", date: "" });
+        toastSuccessMessage(
+          "Your appointment has been submitted successfully. We’ll get back to you soon!"
+        );
+        setInitialValue({
+          name: "",
+          email: "",
+          mobile: "",
+          query: "",
+          cardId: "",
+          date: "",
+        });
+        setLoader(false);
       } else {
-        toastSuccessMessageError(res?.data?.msg || "Something went wrong!");
+        toastSuccessMessageError(res?.data?.msg);
+        setLoader(false);
       }
     } catch (error) {
-      toastSuccessMessageError(error?.message || "Network error!");
-    } finally {
+      toastSuccessMessageError(error?.message);
       setLoader(false);
     }
-  };
-
-  // ✅ Dynamic CSS Styles
-  const styles = {
-    page: {
-      background:
-        cardData?.card_bg_type === "Color"
-          ? cardData?.card_bg || "#f9fafb"
-          : cardData?.card_bg_type === "Image"
-          ? `url(${cardData?.card_bg}) center/cover no-repeat`
-          : "#f9fafb",
-      fontFamily: cardData?.card_font || "sans-serif",
-      minHeight: "100vh",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      padding: "1.5rem",
-    },
-    container: {
-      backgroundColor: "#fff",
-      borderRadius: "16px",
-      boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
-      padding: "2rem",
-      width: "100%",
-      maxWidth: "600px",
-      color: cardData?.card_font_color || "#000",
-    },
-    title: {
-      fontSize: "2rem",
-      fontWeight: "700",
-      textAlign: "center",
-      marginBottom: "0.5rem",
-      color: cardData?.card_font_color || "#111827",
-    },
-    subtitle: {
-      textAlign: "center",
-      color: "#6b7280",
-      marginBottom: "1.5rem",
-    },
-    profileBox: {
-      background: "linear-gradient(to bottom, #fff, #f3f4f6)",
-      padding: "1rem",
-      borderRadius: "12px",
-      textAlign: "center",
-      marginBottom: "1.5rem",
-    },
-    profileName: {
-      fontWeight: "700",
-      fontSize: "1.25rem",
-      marginTop: "0.5rem",
-      color: cardData?.card_font_color || "#000",
-    },
-    input: {
-      width: "100%",
-      padding: "0.9rem",
-      border: "1px solid #d1d5db",
-      borderRadius: "0.75rem",
-      outline: "none",
-      transition: "all 0.3s ease",
-      fontFamily: cardData?.card_font || "sans-serif",
-    },
-    inputFocus: {
-      borderColor: cardData?.card_font_color || "#06b6d4",
-      boxShadow: `0 0 0 2px ${cardData?.card_font_color || "#06b6d4"}33`,
-    },
-    button: {
-      width: "100%",
-      backgroundColor: cardData?.card_font_color || "#06b6d4",
-      color: "#fff",
-      fontWeight: "600",
-      padding: "0.9rem",
-      borderRadius: "0.75rem",
-      border: "none",
-      cursor: "pointer",
-      textTransform: "uppercase",
-      transition: "all 0.3s ease",
-      boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
-    },
   };
 
   return (
     <>
       {loader && <Loader />}
-      <div style={styles.page}>
-        <div style={styles.container}>
+      <div
+        className="min-h-screen flex items-center justify-center p-4"
+        style={{ background: themeBg }}
+      >
+        <div
+          className="w-full max-w-lg rounded-xl shadow-xl p-6 relative"
+          style={{ background: cardBg, color: fontColor, fontFamily: cardFont }}
+        >
           {/* Header */}
-          <h2 style={styles.title}>Appointment</h2>
-          <p style={styles.subtitle}>Fill out the form below to book your appointment.</p>
+          <h2
+            className="text-2xl font-semibold text-center mb-2"
+            style={{ color: fontColor, fontFamily: cardFont }}
+          >
+            Appointment
+          </h2>
+          <p
+            className="text-center mb-4"
+            style={{ color: fontColor, fontFamily: cardFont }}
+          >
+            Fill out the form below to book your appointment.
+          </p>
 
-          {/* Profile Section */}
-          <div style={styles.profileBox}>
+          {/* Profile */}
+          {/* <div className="bg-gradient-to-b from-white to-gray-200 p-4 rounded-lg text-center mb-4">
             {data?.image_source === "local" ? (
               <Image
                 src={`/assets/assets/uploads/card-profile/${data?.profile}`}
@@ -142,15 +106,17 @@ export default function AppointmentPage({ data, cardData }) {
               />
             ) : (
               <Image
-                src={data?.profile}
+                src={data?.profile || "abc"}
                 alt="Profile"
                 width={90}
                 height={90}
                 className="rounded-full border border-black mx-auto"
               />
             )}
-            <h1 style={styles.profileName}>{data?.title || "No Title"}</h1>
-          </div>
+            <h1 className="text-xl font-bold mt-2 mb-3" style={{ color: fontColor, fontFamily: cardFont }}>
+              {data?.tital}
+            </h1>
+          </div> */}
 
           {/* Appointment Form */}
           <form className="space-y-3">
@@ -158,75 +124,86 @@ export default function AppointmentPage({ data, cardData }) {
               type="text"
               placeholder="Name"
               name="name"
-              value={initialValue.name}
+              value={initialValue?.name}
               onChange={handleChange}
-              style={styles.input}
-              onFocus={(e) => Object.assign(e.target.style, styles.inputFocus)}
-              onBlur={(e) => (e.target.style.boxShadow = "none")}
+              className="w-full border rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+              style={{
+                color: fontColor,
+                fontFamily: cardFont,
+                background: cardBg,
+              }}
             />
             <input
               type="number"
               placeholder="Phone"
               name="mobile"
-              value={initialValue.mobile}
+              value={initialValue?.mobile}
               onChange={handleChange}
-              style={styles.input}
-              onFocus={(e) => Object.assign(e.target.style, styles.inputFocus)}
-              onBlur={(e) => (e.target.style.boxShadow = "none")}
+              className="w-full border rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+              style={{
+                color: fontColor,
+                fontFamily: cardFont,
+                background: cardBg,
+              }}
             />
             <input
               type="email"
               placeholder="Email"
               name="email"
-              value={initialValue.email}
+              value={initialValue?.email}
               onChange={handleChange}
-              style={styles.input}
-              onFocus={(e) => Object.assign(e.target.style, styles.inputFocus)}
-              onBlur={(e) => (e.target.style.boxShadow = "none")}
+              className="w-full border rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+              style={{
+                color: fontColor,
+                fontFamily: cardFont,
+                background: cardBg,
+              }}
             />
-            <input
-              type="datetime-local"
-              name="date"
-              value={initialValue.date}
-              onChange={handleChange}
-              style={styles.input}
-              onFocus={(e) => Object.assign(e.target.style, styles.inputFocus)}
-              onBlur={(e) => (e.target.style.boxShadow = "none")}
-            />
+            <div className="relative">
+              <input
+                type="datetime-local"
+                name="date"
+                value={initialValue?.date}
+                onChange={handleChange}
+                className="w-full border rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                style={{
+                  color: fontColor,
+                  fontFamily: cardFont,
+                  background: cardBg,
+                }}
+              />
+            </div>
             <textarea
               placeholder="Comments"
               name="query"
-              value={initialValue.query}
+              value={initialValue?.query}
               onChange={handleChange}
-              style={{ ...styles.input, minHeight: "80px", resize: "none" }}
-              onFocus={(e) => Object.assign(e.target.style, styles.inputFocus)}
-              onBlur={(e) => (e.target.style.boxShadow = "none")}
+              className="w-full border rounded-md p-3 min-h-[80px] focus:outline-none focus:ring-2 focus:ring-cyan-400"
+              style={{
+                color: fontColor,
+                fontFamily: cardFont,
+                background: cardBg,
+              }}
             ></textarea>
 
             <button
               type="button"
-              onClick={submitData}
+              className="w-full px-4 py-3 rounded-md font-semibold uppercase transition"
               style={{
-                ...styles.button,
-                opacity:
-                  !initialValue.name ||
-                  !initialValue.email ||
-                  !initialValue.mobile ||
-                  !initialValue.date ||
-                  !initialValue.query
-                    ? 0.5
-                    : 1,
-                cursor:
-                  !initialValue.name ||
-                  !initialValue.email ||
-                  !initialValue.mobile ||
-                  !initialValue.date ||
-                  !initialValue.query
-                    ? "not-allowed"
-                    : "pointer",
+                backgroundColor: cardBg,
+                color: fontColor,
+                fontFamily: cardFont,
               }}
+              onClick={submitData}
+              disabled={
+                !initialValue?.name ||
+                !initialValue?.email ||
+                !initialValue?.query ||
+                !initialValue?.mobile ||
+                !initialValue?.date
+              }
             >
-              Book Appointment
+              Book Appointments
             </button>
           </form>
         </div>

@@ -1,25 +1,23 @@
-
 import React from "react";
 
-const PaymentSection = () => {
+const Payment = ({ data }) => {
+  if (!data) {
     return (
-        <div className="bg-black text-white rounded-lg shadow-lg p-6 max-w-md mx-auto mt-6">
-            <h2 className="text-center font-semibold text-lg mb-4">Payment</h2>
-            <div className="space-y-2">
-                <p><span className="font-semibold">Paypal:</span> yourid@domain.com</p>
-                <p><span className="font-semibold">UPI:</span> yourid@domain.com</p>
-                <p><span className="font-semibold">Crypto Wallet:</span> faffsdf-5465dfgsdf-dfs44dfgfdg-dfgsdfg</p>
-            </div>
-            <div className="mt-4 text-center">
-                <p className="font-semibold mb-2">Pay through QR code</p>
-                <img
-                    src="/assets/cardPreview/qr.png"
-                    alt="QR Code"
-                    className="w-40 h-40 mx-auto rounded-md shadow-md"
-                />
-            </div>
-        </div>
+      <div className="text-center text-gray-500">
+        No payment information available
+      </div>
     );
+  }
+
+  return (
+    <div className="p-4 bg-white rounded-lg shadow-md max-w-md mx-auto">
+      <h3 className="text-xl font-bold mb-2 text-center">{data.title}</h3>
+      <div
+        className="text-center text-gray-800"
+        dangerouslySetInnerHTML={{ __html: data.description }}
+      />
+    </div>
+  );
 };
 
-export default PaymentSection;
+export default Payment;

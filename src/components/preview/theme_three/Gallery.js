@@ -29,23 +29,7 @@ const Gallery = ({ data, cardData }) => {
     setSelectedImage(null);
   };
 
-  // Dynamic styles using card data
   const styles = {
-    container: {
-      background:
-        cardData?.card_bg_type === "Color"
-          ? cardData?.card_bg || "#f3f4f6"
-          : cardData?.card_bg_type === "Image"
-          ? `url(${cardData?.card_bg}) center/cover no-repeat`
-          : "#f3f4f6",
-      color: cardData?.card_font_color || "#000000",
-      fontFamily: cardData?.card_font || "sans-serif",
-      borderRadius: "12px",
-      boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-      padding: "1.5rem",
-      margin: "2rem auto",
-      maxWidth: "80rem",
-    },
     title: {
       fontSize: "1.8rem",
       fontWeight: 700,
@@ -88,7 +72,7 @@ const Gallery = ({ data, cardData }) => {
   };
 
   return (
-    <div style={styles.container}>
+    <>
       {/* Gallery Title */}
       <h3 style={styles.title}>Gallery</h3>
 
@@ -127,7 +111,7 @@ const Gallery = ({ data, cardData }) => {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

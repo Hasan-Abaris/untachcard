@@ -43,15 +43,9 @@ export default function AppointmentPage({ data, cardData }) {
     }
   };
 
-  // ✅ Dynamic CSS Styles
   const styles = {
     page: {
-      background:
-        cardData?.card_bg_type === "Color"
-          ? cardData?.card_bg || "#f9fafb"
-          : cardData?.card_bg_type === "Image"
-          ? `url(${cardData?.card_bg}) center/cover no-repeat`
-          : "#f9fafb",
+      background: "#ffffff", // removed gray/gradient, pure white
       fontFamily: cardData?.card_font || "sans-serif",
       minHeight: "100vh",
       display: "flex",
@@ -60,7 +54,7 @@ export default function AppointmentPage({ data, cardData }) {
       padding: "1.5rem",
     },
     container: {
-      backgroundColor: "#fff",
+      backgroundColor: "#ffffff", // inner container white
       borderRadius: "16px",
       boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
       padding: "2rem",
@@ -81,7 +75,7 @@ export default function AppointmentPage({ data, cardData }) {
       marginBottom: "1.5rem",
     },
     profileBox: {
-      background: "linear-gradient(to bottom, #fff, #f3f4f6)",
+      backgroundColor: "#ffffff", // removed gradient
       padding: "1rem",
       borderRadius: "12px",
       textAlign: "center",
@@ -126,11 +120,9 @@ export default function AppointmentPage({ data, cardData }) {
       {loader && <Loader />}
       <div style={styles.page}>
         <div style={styles.container}>
-          {/* Header */}
           <h2 style={styles.title}>Appointment</h2>
           <p style={styles.subtitle}>Fill out the form below to book your appointment.</p>
 
-          {/* Profile Section */}
           <div style={styles.profileBox}>
             {data?.image_source === "local" ? (
               <Image
@@ -152,7 +144,6 @@ export default function AppointmentPage({ data, cardData }) {
             <h1 style={styles.profileName}>{data?.title || "No Title"}</h1>
           </div>
 
-          {/* Appointment Form */}
           <form className="space-y-3">
             <input
               type="text"

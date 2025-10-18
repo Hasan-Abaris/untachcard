@@ -32,7 +32,9 @@ function Enquiry({ data, cardData }) {
     try {
       const res = await axios.post(`${base_url}card-inquiry/inquiry`, payload);
       if (res?.data?.success) {
-        toastSuccessMessage("Your inquiry has been submitted successfully. We’ll get back to you soon!");
+        toastSuccessMessage(
+          "Your inquiry has been submitted successfully. We’ll get back to you soon!"
+        );
         setFormData({ name: "", email: "", mobile: "", msg: "" });
       } else {
         toastSuccessMessageError(res?.data?.msg || "Something went wrong!");
@@ -42,15 +44,10 @@ function Enquiry({ data, cardData }) {
     }
   };
 
-  // ✅ Dynamic styles
+  // ✅ Only white background (no images or colors)
   const styles = {
     page: {
-      background:
-        cardData?.card_bg_type === "Color"
-          ? cardData?.card_bg || "#f9fafb"
-          : cardData?.card_bg_type === "Image"
-          ? `url(${cardData?.card_bg}) center/cover no-repeat`
-          : "#f9fafb",
+      backgroundColor: "#fff", // white background only
       fontFamily: cardData?.card_font || "sans-serif",
       minHeight: "100vh",
       display: "flex",
@@ -59,7 +56,7 @@ function Enquiry({ data, cardData }) {
       padding: "1.5rem",
     },
     container: {
-      backgroundColor: "#fff",
+      backgroundColor: "#fff", // white form box too
       borderRadius: "16px",
       boxShadow: "0 8px 20px rgba(0,0,0,0.15)",
       padding: "2rem",
@@ -153,11 +150,28 @@ function Enquiry({ data, cardData }) {
           <div className="text-center">
             <button
               type="submit"
-              disabled={!formData.name || !formData.email || !formData.mobile || !formData.msg}
+              disabled={
+                !formData.name ||
+                !formData.email ||
+                !formData.mobile ||
+                !formData.msg
+              }
               style={{
                 ...styles.button,
-                opacity: !formData.name || !formData.email || !formData.mobile || !formData.msg ? 0.5 : 1,
-                cursor: !formData.name || !formData.email || !formData.mobile || !formData.msg ? "not-allowed" : "pointer",
+                opacity:
+                  !formData.name ||
+                  !formData.email ||
+                  !formData.mobile ||
+                  !formData.msg
+                    ? 0.5
+                    : 1,
+                cursor:
+                  !formData.name ||
+                  !formData.email ||
+                  !formData.mobile ||
+                  !formData.msg
+                    ? "not-allowed"
+                    : "pointer",
               }}
             >
               Send

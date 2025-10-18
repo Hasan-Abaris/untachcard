@@ -9,12 +9,12 @@ import EnquiryForm from "./Enquiry";
 import Qr from "./Qr";
 import CustomSection from "./Custom";
 import WorkingHours from "./WorkingHours";
-import Payment from "./Payment";
 import { base_url } from "@/server";
 import axios from "axios";
 import AppointmentPage from "./appointment";
 import Gallery from "./Gallery";
 import { useParams } from "next/navigation";
+import Payment from "./Payment";
 
 const Themetwopage = ({ dataDetailsData }) => {
   const params = useParams();
@@ -23,50 +23,35 @@ const Themetwopage = ({ dataDetailsData }) => {
   const [error, setError] = useState(false);
 
   const cardDetailsget = async (slug) => {
-    if (params?.slug === "demo") {
-      try {
-        const res = await axios.get(`${base_url}card/demo`);
-        if (res?.data?.data?.length > 0) {
-          setDetailsdata(res.data.data[0]);
-          setError(false);
-        } else {
-          setError(true);
-        }
-      } catch (err) {
-        // console.error(err);
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
-      // console.log(res);
-    } else {
-      try {
+    try {
+      let res;
+      if (params?.slug === "demo") {
+        res = await axios.get(`${base_url}card/demo`);
+      } else {
         const token = window.localStorage.getItem("token");
-        const res = await axios.get(`${base_url}card/details/${slug}`, {
+        res = await axios.get(`${base_url}card/details/${slug}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-
-        if (res?.data?.data?.length > 0) {
-          setDetailsdata(res.data.data[0]);
-          setError(false);
-        } else {
-          setError(true);
-        }
-      } catch (err) {
-        // console.error(err);
-        setError(true);
-      } finally {
-        setLoading(false);
       }
+
+      if (res?.data?.data?.length > 0) {
+        setDetailsdata(res.data.data[0]);
+        setError(false);
+      } else {
+        setError(true);
+      }
+    } catch (err) {
+      setError(true);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     if (dataDetailsData) {
-      setDetailsdata(dataDetailsData)
+      setDetailsdata(dataDetailsData);
       setLoading(false);
     } else if (params?.slug) {
-      // setLoading(true);
       cardDetailsget(params?.slug);
     }
   }, [params, dataDetailsData]);
@@ -80,7 +65,7 @@ const Themetwopage = ({ dataDetailsData }) => {
       </div>
     );
 
-  if (!dataDetails)
+  if (!dataDetails || error)
     return (
       <div className="min-h-screen flex items-center justify-center bg-white">
         <p className="text-black text-lg font-semibold">No data found</p>
@@ -90,76 +75,90 @@ const Themetwopage = ({ dataDetailsData }) => {
   return (
     <div className="min-h-screen bg-white text-black px-4 md:px-8 lg:px-16">
       {/* Profile Section */}
-      <div className="">
-        <ProfileCard data={dataDetails} />
-      </div>
+      {dataDetails && <ProfileCard data={dataDetails} />}
 
       {/* Products and Services */}
-      <div className="my-8">
-        <ProductServices data={dataDetails?.products || []} />
-      </div>
+      {dataDetails?.products?.length > 0 && (
+        <div className="my-8">
+          <ProductServices data={dataDetails.products} />
+        </div>
+      )}
 
       {/* Portfolio */}
-      <div className="my-8">
-        <Portfolio data={dataDetails?.portfolios || []} />
-      </div>
+      {dataDetails?.portfolios?.length > 0 && (
+        <div className="my-8">
+          <Portfolio data={dataDetails.portfolios} />
+        </div>
+      )}
 
       {/* Gallery */}
-      <div className="my-8">
-        <Gallery data={dataDetails?.galleries || []} />
-      </div>
+      {dataDetails?.galleries?.length > 0 && (
+        <div className="my-8">
+          <Gallery data={dataDetails.galleries} />
+        </div>
+      )}
 
       {/* Testimonials */}
-      <div className="my-8">
-        <Testimonials data={dataDetails?.testimonials || []} />
-      </div>
+      {dataDetails?.testimonials?.length > 0 && (
+        <div className="my-8">
+          <Testimonials data={dataDetails.testimonials} />
+        </div>
+      )}
 
       {/* Enquiry Form */}
-      <div className="my-8">
-        <EnquiryForm data={dataDetails} />
-      </div>
+      {dataDetails && (
+        <div className="my-8">
+          <EnquiryForm data={dataDetails} />
+        </div>
+      )}
 
       {/* QR Section */}
-      <div className="my-8">
-        <Qr data={dataDetails?.fields || []} />
-      </div>
+      {dataDetails?.fields?.length > 0 && (
+        <div className="my-8">
+          <Qr data={dataDetails.fields} />
+        </div>
+      )}
 
       {/* Custom Section Card */}
-      <div className="my-8 bg-white rounded-lg shadow-lg p-6 max-w-3xl mx-auto">
-        <h3 className="text-xl font-bold mb-2 text-center">Custom Section</h3>
-        <CustomSection data={dataDetails?.customsection || []} />
-      </div>
+      {dataDetails?.customsection?.length > 0 && (
+        <div className="my-8">
+          <h3 className="text-xl font-bold mb-2 text-center">Custom Section</h3>
+          <CustomSection data={dataDetails.customsection} />
+        </div>
+      )}
 
       {/* Working Hours Card */}
-      <div className="my-8 bg-white rounded-lg shadow-lg p-6 max-w-3xl mx-auto">
-        <h3 className="text-xl font-bold mb-2 text-center">Working Hours</h3>
-        <WorkingHours
-          data={
-            dataDetails?.customsection?.find(
+      {dataDetails?.customsection?.some(
+        (item) => item.title === "Working Hours"
+      ) && (
+        <div className="my-8">
+          <h3 className="text-xl font-bold mb-2 text-center"> </h3>
+          <WorkingHours
+            data={dataDetails.customsection.find(
               (item) => item.title === "Working Hours"
-            ) || null
-          }
-        />
-      </div>
+            )}
+          />
+        </div>
+      )}
 
       {/* Payment Card */}
-      <div className="my-8 bg-white rounded-lg shadow-lg p-6 max-w-3xl mx-auto">
-        <h3 className="text-xl font-bold mb-2 text-center">Payment</h3>
-        <Payment
-          data={
-            dataDetails?.customsection?.find(
-              (item) => item.title === "Payment"
-            ) || null
-          }
-        />
-
-        {/* Custom Section Card */}
-        <div className="my-8 rounded-lg shadow-lg p-6 max-w-3xl mx-auto">
+      {dataDetails?.customsection?.some((item) => item.title === "Payment") && (
+        <div className="my-8">
           <h3 className="text-xl font-bold mb-2 text-center"></h3>
-          {dataDetails && <AppointmentPage data={dataDetails} />}
+          <Payment
+            data={dataDetails.customsection.find(
+              (item) => item.title === "Payment"
+            )}
+          />
         </div>
+      )}
 
-      </div>
+      {/* Appointment */}
+      {dataDetails && (
+        <div className="">
+          <AppointmentPage data={dataDetails} />
+        </div>
+      )}
     </div>
   );
 };

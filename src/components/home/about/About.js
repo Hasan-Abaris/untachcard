@@ -10,7 +10,7 @@ export default function AboutSection() {
             <div className="max-w-7xl w-full">
                 {/* Heading */}
                 <h2 className="text-center text-3xl md:text-6xl font-bold mb-12">
-                    ITAP NEW GENERATION BUSINESS CARDS
+                    Untachcard NEW GENERATION BUSINESS CARDS
                 </h2>
 
                 {/* Content Grid */}

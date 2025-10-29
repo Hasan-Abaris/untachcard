@@ -25,17 +25,17 @@ export default function Banner2() {
                     <div
                         className="h-screen bg-cover bg-center flex items-center justify-center text-white"
                         style={{
-                            backgroundImage: "url('/assets/banner/itapit_banner1 (1).jpg')",
+                            backgroundImage: "url('/assets/images/untach_banner1.jpg')",
                         }}
                     >
                         <div className="text-center">
                             <h1 className="text-4xl md:text-6xl font-bold">
-                                ITAP SMART BUSINESS CARDS
+                                UNTACHCARDS SMART BUSINESS CARDS
                             </h1>
                             <p className="mt-4 text-lg mb-6">
                                 Customize stylish digital business cards
                             </p>
-                            <Link href="#contact" className="mt-6 bg-transparent border border-white-600 text-white-600 px-6 py-3 rounded shadow hover:bg-red-600 hover:text-white transition-all duration-300  mt-4">
+                            <Link href="#contact" className="bg-transparent border border-white-600 text-white-600 px-6 py-3 rounded shadow hover:bg-red-600 hover:text-white transition-all duration-300  mt-7">
                                 Contact Us
                             </Link>
                         </div>
@@ -47,15 +47,15 @@ export default function Banner2() {
                     <div
                         className="h-screen bg-cover bg-center flex items-center justify-center text-white"
                         style={{
-                            backgroundImage: "url('/assets/banner/tapbanner.jpg')",
+                            backgroundImage: "url('/assets/images/untach_banner1.jpg')",
                         }}
                     >
-                        <div className="text-center">
-                            <h1 className="text-4xl md:text-6xl font-bold">
+                        <div className="text-center mb-2">
+                            <h1 className="text-4xl md:text-6xl font-bold ">
                                 DIGITAL SOLUTIONS
                             </h1>
-                            <p className="mt-4 text-lg">Grow your business with us</p>
-                            <Link href="#contact" className="mt-6 bg-transparent border border-white-600 text-white-600 px-6 py-3 rounded shadow hover:bg-red-600 hover:text-white transition-all duration-300  mt-4">
+                            <p className="mt-7 text-lg mb-3">Grow your business with us</p>
+                            <Link href="#contact" className="mt-7 bg-transparent border border-white-600 text-white-600 px-6 py-3 rounded shadow hover:bg-red-600 hover:text-white transition-all duration-300 mb-4  ">
                                 Contact Us
                             </Link>
                         </div>

@@ -20,7 +20,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "ITAP SOLUTION",
+  title: "Untachcards",
   description:
     "Create your professional digital vCard in minutes. Showcase your contact details, portfolio, social links, and business profile — all in one personalized digital card that’s easy to share and works seamlessly across all devices.",
 };

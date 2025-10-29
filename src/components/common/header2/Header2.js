@@ -22,7 +22,14 @@ export default function Header2() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
 
-  const sections = ["home", "about", "products", "clients", "brochure", "contact"];
+  const sections = [
+    "home",
+    "about",
+    "products",
+    "clients",
+    "brochure",
+    "contact",
+  ];
 
   // Detect active section on scroll
   useEffect(() => {
@@ -44,9 +51,40 @@ export default function Header2() {
   }, []);
 
   // Logout function
-  const profileLinks = [{ name: "My Orders", href: "/account/my-orders" }, { name: "My WishList", href: "/account/my-wishlist" }, { name: "My Cart", href: "/account/my-cart" }, { name: "My Product Reviews", href: "/account/my-reviews" }, { name: "My Earning Points", href: "/account/my-earning-points" }, { name: "RMA History", href: "/account/history" }, { name: "Sent Refund Request", href: "/account/refund-requests" }, { name: "My Billing Address", href: "/account/billing-address" }, { name: "My Shipping Address", href: "/account/shipping-address" }, { name: "Visit Sellers", href: "/account/visit-sellers" }, { name: "My Profile", href: "/account/profile" }, { name: "Change Password", href: "/account/change-password" }, { name: "Track My Order", href: "/account/track-order" }, { name: "Support Ticket", href: "/account/support-ticket" },];
-  const dashboardLinks = [{ name: "Dashboard", href: "/dashboards/dashboard" }, { name: "Cards", href: "/dashboards/vcards/demo/1" }, { name: "Plans", href: "/dashboards/plans" }, { name: "Transactions", href: "/dashboards/transactions" }, { name: "WhatsApp Stores", href: "/dashboards/whatsAppStores" }, { name: "Google Wallet", href: "/dashboards/googleWallet" }, { name: "WhatsApp Product Orders", href: "/dashboards/whatsAppProductOrder" }, { name: "Inquiries", href: "/dashboards/Inquiries" }, { name: "Appointments", href: "/dashboards/appointments" }, { name: "Product Orders", href: "/dashboards/productOrders" }, { name: "Virtual Backgrounds", href: "/dashboards/virtualBackgrounds" }, { name: "My NFC Cards", href: "/dashboards/myNFCcards" }, { name: "Storage", href: "/dashboards/storage" },];
-
+  const profileLinks = [
+    { name: "My Orders", href: "/account/my-orders" },
+    { name: "My WishList", href: "/account/my-wishlist" },
+    { name: "My Cart", href: "/account/my-cart" },
+    { name: "My Product Reviews", href: "/account/my-reviews" },
+    { name: "My Earning Points", href: "/account/my-earning-points" },
+    { name: "RMA History", href: "/account/history" },
+    { name: "Sent Refund Request", href: "/account/refund-requests" },
+    { name: "My Billing Address", href: "/account/billing-address" },
+    { name: "My Shipping Address", href: "/account/shipping-address" },
+    { name: "Visit Sellers", href: "/account/visit-sellers" },
+    { name: "My Profile", href: "/account/profile" },
+    { name: "Change Password", href: "/account/change-password" },
+    { name: "Track My Order", href: "/account/track-order" },
+    { name: "Support Ticket", href: "/account/support-ticket" },
+  ];
+  const dashboardLinks = [
+    { name: "Dashboard", href: "/dashboards/dashboard" },
+    { name: "Cards", href: "/dashboards/vcards/demo/1" },
+    { name: "Plans", href: "/dashboards/plans" },
+    { name: "Transactions", href: "/dashboards/transactions" },
+    { name: "WhatsApp Stores", href: "/dashboards/whatsAppStores" },
+    { name: "Google Wallet", href: "/dashboards/googleWallet" },
+    {
+      name: "WhatsApp Product Orders",
+      href: "/dashboards/whatsAppProductOrder",
+    },
+    { name: "Inquiries", href: "/dashboards/Inquiries" },
+    { name: "Appointments", href: "/dashboards/appointments" },
+    { name: "Product Orders", href: "/dashboards/productOrders" },
+    { name: "Virtual Backgrounds", href: "/dashboards/virtualBackgrounds" },
+    { name: "My NFC Cards", href: "/dashboards/myNFCcards" },
+    { name: "Storage", href: "/dashboards/storage" },
+  ];
 
   const [isLogin, setIsLogin] = useState(false);
 
@@ -70,7 +108,7 @@ export default function Header2() {
     };
   }, []);
 
-  // ✅ Logout
+  
   const handleLogout = async () => {
     try {
       await axios.get(`${base_url}auth/logout`, { withCredentials: true });
@@ -79,7 +117,6 @@ export default function Header2() {
       window?.localStorage.removeItem("user_id");
       setIsLogin(false);
 
-      // Trigger update event for all components
       window.dispatchEvent(new Event("loginStatusChanged"));
 
       router.push("/login2");
@@ -92,13 +129,22 @@ export default function Header2() {
     setOpenDropdown(openDropdown === type ? null : type);
   };
 
-
   return (
     <>
       <header className="fixed w-full bg-black/60 text-white shadow-md z-50">
         <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
-          <div className="font-bold text-xl">
-            <Link href="/">iTap Cards</Link>
+          {/* ✅ Logo + Brand Name */}
+          <div className="flex items-center gap-2 font-bold text-xl cursor-pointer">
+            <Link href="/" className="flex items-center gap-2">
+              <img
+                src="\assets\images\logo.png" // ✅ Change to your logo path
+                alt="iTap Cards Logo"
+                className="w-20 h-20 rounded-full object-cover"
+              />
+              <span className="text-white hover:text-orange-400 transition-colors">
+               Untach Cards
+              </span>
+            </Link>
           </div>
 
           {/* Desktop Menu */}
@@ -114,7 +160,11 @@ export default function Header2() {
                   {item}
                   <span
                     className={`absolute left-0 right-0 -top-1 mx-auto h-[2px] bg-red-500 transition-all duration-300 
-                    ${activeSection === item ? "w-full" : "w-0 group-hover:w-full"}`}
+                    ${
+                      activeSection === item
+                        ? "w-full"
+                        : "w-0 group-hover:w-full"
+                    }`}
                   ></span>
                 </a>
               </div>
@@ -128,8 +178,9 @@ export default function Header2() {
                 >
                   Dashboard
                   <ChevronDown
-                    className={`w-4 h-4 transition-transform ${openDropdown === "dashboard" ? "rotate-180" : ""
-                      }`}
+                    className={`w-4 h-4 transition-transform ${
+                      openDropdown === "dashboard" ? "rotate-180" : ""
+                    }`}
                   />
                 </button>
                 {openDropdown === "dashboard" && (
@@ -156,8 +207,9 @@ export default function Header2() {
                 >
                   Profile
                   <ChevronDown
-                    className={`w-4 h-4 transition-transform ${openDropdown === "profile" ? "rotate-180" : ""
-                      }`}
+                    className={`w-4 h-4 transition-transform ${
+                      openDropdown === "profile" ? "rotate-180" : ""
+                    }`}
                   />
                 </button>
                 {openDropdown === "profile" && (
@@ -215,8 +267,9 @@ export default function Header2() {
               <a
                 key={item}
                 href={`#${item}`}
-                className={`block uppercase font-semibold transition-all duration-300 ${activeSection === item ? "text-red-400" : "text-white"
-                  } hover:text-red-500`}
+                className={`block uppercase font-semibold transition-all duration-300 ${
+                  activeSection === item ? "text-red-400" : "text-white"
+                } hover:text-red-500`}
                 onClick={() => setMenuOpen(false)}
               >
                 {item}
@@ -232,8 +285,9 @@ export default function Header2() {
                 >
                   Dashboard
                   <ChevronDown
-                    className={`w-5 h-5 transition-transform ${openDropdown === "dashboard" ? "rotate-180" : ""
-                      }`}
+                    className={`w-5 h-5 transition-transform ${
+                      openDropdown === "dashboard" ? "rotate-180" : ""
+                    }`}
                   />
                 </button>
                 {openDropdown === "dashboard" && (
@@ -258,8 +312,9 @@ export default function Header2() {
                 >
                   Profile
                   <ChevronDown
-                    className={`w-5 h-5 transition-transform ${openDropdown === "profile" ? "rotate-180" : ""
-                      }`}
+                    className={`w-5 h-5 transition-transform ${
+                      openDropdown === "profile" ? "rotate-180" : ""
+                    }`}
                   />
                 </button>
                 {openDropdown === "profile" && (
@@ -303,7 +358,6 @@ export default function Header2() {
           </div>
         )}
       </header>
-
     </>
   );
 }

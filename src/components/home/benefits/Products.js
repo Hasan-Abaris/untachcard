@@ -9,11 +9,11 @@ import {
 } from "react-icons/fa";
 
 const benefits = [
-    { icon: <FaLeaf size={48} className="text-orange-500 size-40" />, title: "Paperless" },
-    { icon: <FaInfinity size={48} className="text-orange-500 size-40" />, title: "Unlimited Usage" },
-    { icon: <FaMoneyBillWave size={48} className="text-orange-500 size-40" />, title: "Economy on Printing" },
-    { icon: <FaIdBadge size={48} className="text-orange-500 size-40" />, title: "Contact-less" },
-    { icon: <FaInfoCircle size={48} className="text-orange-500 size-40" />, title: "Extended Information" },
+    { icon: <FaLeaf size={48} className="text-orange-500 size-40" />, title: "PVC Cards" },
+    { icon: <FaInfinity size={48} className="text-orange-500 size-40" />, title: "Carbon Cards" },
+    { icon: <FaMoneyBillWave size={48} className="text-orange-500 size-40" />, title: "Metal Cards" },
+    { icon: <FaIdBadge size={48} className="text-orange-500 size-40" />, title: "Wooden Cards" },
+    { icon: <FaInfoCircle size={48} className="text-orange-500 size-40" />, title: "Sticker" },
     { icon: <FaStar size={48} className="text-orange-500 size-40" />, title: "Wow Effect" },
 ];
 
@@ -23,7 +23,7 @@ export default function ProductsSection() {
             <div className="max-w-7xl mx-auto">
                 {/* Heading */}
                 <h2 className="text-center text-6xl md:text-6xl font-bold text-gray-800 mb-12 uppercase">
-                    Benefits
+                    Wide Range of Un taCH Cards
                 </h2>
 
                 {/* Grid */}

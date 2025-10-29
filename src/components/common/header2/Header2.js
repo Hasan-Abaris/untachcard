@@ -244,7 +244,7 @@ export default function Header2() {
             )}
 
             <Link
-              href="/get-started"
+              href="/resister"
               className="bg-gray-600 px-4 py-2 rounded text-white hover:bg-gray-700 transition-all"
             >
               Get Started
@@ -350,7 +350,7 @@ export default function Header2() {
               </Link>
             )}
             <Link
-              href="/get-started"
+              href="/resister"
               className="bg-gray-600 px-4 py-2 rounded text-white block text-center"
             >
               Get Started

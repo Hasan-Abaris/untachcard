@@ -3,7 +3,6 @@ import PopulorVennue from "./populorVennue/PopulorVennue";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/navigation";
-import PopularSearches from "./popularSearches/PopularSearches";
 import WeddingCategory from "./weddingCategory/WeddingCategory";
 import InhouseServices from "./inhouseServices/InhouseServices";
 import RealWeddingStories from "./realWeddingStories/RealWeddingStories";
@@ -20,9 +19,7 @@ import ContactForm from "./contactForm/ContactForm";
 
 import ClientsSection from "./clients/Clients";
 import ProductsSection from "./benefits/Products";
-
-
-
+import PopularSearches from "./popularSearches/PopularSearches";
 
 const HomeMain = () => {
   return (
@@ -31,12 +28,13 @@ const HomeMain = () => {
       <About />
       <ProductsSection />
       <ClientsSection />
+      <PopularSearches />
+
       <OurCards />
       <BrandBar />
       <ContactForm />
       {/* <Banner />
       <PopulorVennue />
-      <PopularSearches />
       <WeddingCategory
         categories={allCategories.slice(0, 5)}
         showHeader={true}

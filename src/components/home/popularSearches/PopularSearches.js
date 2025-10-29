@@ -1,64 +1,38 @@
-"use client";
-import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation } from "swiper/modules";
+import React from 'react'
 
-import "swiper/css";
-import "swiper/css/navigation";
+function PopularSearches() {
+  return (
+    <section className="py-20 bg-gray-50 dark:bg-gray-900">
+      <div className="container mx-auto px-6">
+        {/* Section Title */}
+        <h2 className="text-5xl uppercase font-semibold font-secondary text-center mb-16 text-gray-900 dark:text-white">
+          Benefits of using Un taCH cards are
+        </h2>
 
-const PopularSearches = () => {
-    const searches = [
-        { img: "/assets/banner/ps1.jpg", title: "Bridal Wear" },
-        { img: "/assets/banner/ps2.jpg", title: "Bridal Makeup" },
-        { img: "/assets/banner/ps3.jpg", title: "Photographers" },
-        { img: "/assets/banner/ps4.jpg", title: "Invitations" },
-        { img: "/assets/banner/ps5.jpg", title: "Catering Services" },
-        { img: "/assets/banner/ps6.jpg", title: "Wedding Decor" },
-    ];
+        {/* Flex Container */}
+        <div className="flex flex-wrap justify-center gap-4">
+          {[
+            "Going Paperless",
+            "Paper Business card printing cost cutting",
+            "Be an environment-friendly company",
+            "Contact less information sharing",
+            "Make an Effective Impression",
+            "Ability to update any details in real-time",
+            "Extended information in contact profile",
+            "Never Loose Contact Data Information",
+          ].map((benefit, index) => (
+            <a
+              key={index}
+              href="#"
+              className="px-6 py-3 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 rounded-full shadow-md hover:shadow-lg hover:bg-orange-100 dark:hover:bg-gray-700 transition-all duration-300 text-center text-sm font-medium"
+            >
+              {benefit}
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
 
-    return (
-        <section className="py-12 bg-gradient-to-r from-pink-600 via-white to-pink-600">
-            <div className="container mx-auto px-4">
-                {/* Heading */}
-                <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-8 text-center">
-                    Popular Searches
-                </h2>
-
-                {/* Swiper */}
-                <Swiper
-                    modules={[Autoplay, Navigation]}
-                    autoplay={{ delay: 4000 }}
-                    loop={true}
-                    navigation
-                    spaceBetween={20}
-                    slidesPerView={2}
-                    breakpoints={{
-                        640: { slidesPerView: 2 },
-                        768: { slidesPerView: 3 },
-                        1024: { slidesPerView: 4 },
-                        1280: { slidesPerView: 5 },
-                    }}
-                >
-                    {searches.map((item, i) => (
-                        <SwiperSlide key={i}>
-                            <div className="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-xl transition">
-                                <img
-                                    src={item.img}
-                                    alt={item.title}
-                                    className="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-500"
-                                />
-                                <div className="p-4 text-center">
-                                    <h3 className="font-medium text-gray-800 text-lg">
-                                        {item.title}
-                                    </h3>
-                                </div>
-                            </div>
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
-            </div>
-        </section>
-    );
-};
-
-export default PopularSearches;
+export default PopularSearches

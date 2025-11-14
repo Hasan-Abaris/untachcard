@@ -7,7 +7,7 @@ export default function ShareVCardModal({ isOpen, onClose, data, qrUrl, theme })
     const [copied, setCopied] = useState(false);
     const [qrCodeUrl, setQrCodeUrl] = useState("");
 
-    const shareUrl = `https://untachcard.vercel.app//preview/${theme}/${theme}/${data?.slug}`
+    const shareUrl = `https://https://untachcard.vercel.app/preview/${theme}/${theme}/${data?.slug}`
     const handleCopy = () => {
         navigator.clipboard.writeText(shareUrl);
         setCopied(true);

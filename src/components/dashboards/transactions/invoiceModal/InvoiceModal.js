@@ -48,7 +48,7 @@ export default function InvoiceModal({ isOpen, onClose, detailsId }) {
                 <View style={styles.headerRow}>
                     <View>
                         <Text style={{ fontSize: 16, color: '#e11d48', fontWeight: 'bold' }}>VCARD</Text>
-                        {/* <Text style={styles.subText}>https://i-tap-cards-9vx4.vercel.app/</Text> */}
+                        {/* <Text style={styles.subText}>https://untachcard.vercel.app//</Text> */}
                     </View>
                     <View>
                         <Text style={styles.subText}>Invoice No:</Text>

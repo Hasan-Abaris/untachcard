@@ -210,7 +210,7 @@ const VcardsPage = () => {
                   <div className="flex items-center gap-2 text-indigo-500">
                     <a
                       // http://localhost:3319
-                      href={`https://i-tap-cards-9vx4.vercel.app/preview/${card?.theme_name}/${card?.theme_name}/${card?.slug}`}
+                      href={`https://untachcard.vercel.app/${card?.slug}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hover:underline"
@@ -218,7 +218,7 @@ const VcardsPage = () => {
                       {`https://untachcard.vercel.app/${card?.slug}`}
                     </a>
                     <FiCopy className="cursor-pointer hover:text-indigo-700" onClick={() => {
-                      const link = `https://untachcard.vercel.app/preview/${card?.theme_name}/${card?.theme_name}/${card?.slug}`;
+                      const link = `https://untachcard.vercel.app/${card?.slug}`;
                       navigator.clipboard.writeText(link);
                       alert("✅ Link copied to clipboard!");
                     }} />

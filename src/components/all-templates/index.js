@@ -102,6 +102,32 @@ export default function AllTemplatespage() {
       image: "/assets/theme/theme12.png",
       preview: "/preview/theme_sixteen/theme_sixteen/demo",
     },
+     {
+      id: 17,
+      name: "Theme Seventeen",
+      image: "/assets/theme/theme12.png",
+      preview: "/preview/theme_seventeen/theme_seventeen/demo",
+    },
+     {
+      id: 18,
+      name: "Theme Eighteen",
+      image: "/assets/theme/theme12.png",
+      preview: "/preview/theme_Eighteen/theme_Eighteen/demo",
+    },
+      {
+      id: 19,
+      name: "Theme Ninteen",
+      image: "/assets/theme/theme12.png",
+      preview: "/preview/theme_Ninteen/theme_Ninteen/demo",
+    },
+      {
+      id: 20,
+      name: "Theme Twenty",
+      image: "/assets/theme/theme12.png",
+      preview: "/preview/theme_Twenty/theme_Twenty/demo",
+    },
+    
+
   ];
 
   return (

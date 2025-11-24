@@ -2,10 +2,10 @@
 import ThemeTwenty from '@/components/preview/theme_Twenty'
 import React from 'react'
 
-const ThemTwentyPage = () => {
+const ThemeTwentyPage = () => {
     return (
         < ThemeTwenty/>
     )
 }
 
-export default ThemTwentyPage
+export default ThemeTwentyPage

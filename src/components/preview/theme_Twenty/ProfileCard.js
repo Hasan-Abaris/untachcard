@@ -1,7 +1,16 @@
 import ShareVCardModal from "@/components/common/shareVCardModal/ShareVCardModal";
 import Image from "next/image";
 import React, { useState } from "react";
-import { FaPhoneAlt, FaWhatsapp, FaEnvelope, FaMapMarkerAlt, FaGlobe, FaGitlab, FaFacebookF, FaTwitter } from "react-icons/fa";
+import {
+  FaPhoneAlt,
+  FaWhatsapp,
+  FaEnvelope,
+  FaMapMarkerAlt,
+  FaGlobe,
+  FaGitlab,
+  FaFacebookF,
+  FaTwitter,
+} from "react-icons/fa";
 
 const ProfileCard = ({ data }) => {
   const [open, setOpen] = useState(false);
@@ -13,7 +22,9 @@ const ProfileCard = ({ data }) => {
   };
 
   const getField = (type) =>
-    data?.fields?.find((item) => item.type.toLowerCase() === type.toLowerCase());
+    data?.fields?.find(
+      (item) => item.type.toLowerCase() === type.toLowerCase()
+    );
 
   const mobile = getField("mobile");
   const email = getField("email");
@@ -46,7 +57,7 @@ END:VCARD`.trim();
   };
 
   return (
-    <div className="max-w-sm mx-auto font-sans bg-gray-50 rounded-4xl overflow-hidden shadow-xl">
+    <div className="max-w-xl mx-auto font-sans bg-gray-50  overflow-hidden shadow-xl">
       {/* Red Header Banner */}
       <div className="relative h-32 bg-red-400">
         {/* <Image
@@ -64,13 +75,15 @@ END:VCARD`.trim();
       </div>
 
       {/* Profile Picture Overlapping Header */}
-      <div className="absolute top-20 left-1/2 -translate-x-1/2">
-        <div className="w-28 h-28 rounded-full border-4 border-white shadow-2xl overflow-hidden">
+      <div className="absolute top-20 left-1/2 -translate-x-1/2 rounded-b-full">
+        <div className="w-28 h-28 rounded-full border-4 border-white shadow-2xl overflow-hidden relative">
           <Image
             src={
               data?.profile?.startsWith("http")
                 ? data.profile
-                : `/assets/assets/uploads/card-profile/${data?.profile || "default.jpg"}`
+                : `/assets/assets/uploads/card-profile/${
+                    data?.profile || "default.jpg"
+                  }`
             }
             alt={data?.title}
             fill
@@ -80,13 +93,20 @@ END:VCARD`.trim();
       </div>
 
       {/* Main Content - Clean & Thin */}
-      <div className="pt-16 pb-10 px-6 text-center">
-        <h2 className="text-2xl font-bold text-gray-900">{data?.title || "Mike Obey"}</h2>
-        <p className="text-gray-600 text-sm mt-1">{data?.sub_title || "Manager"}</p>
-        <p className="mt-4 text-gray-600 text-sm leading-relaxed px-4">
-          {data?.description ||
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry..."}
+      <div className="pt-[60px] px-[50px] pb-[50px] text-center">
+        <h2 className="text-2xl font-bold text-gray-900">
+          {data?.title || "Mike Obey"}
+        </h2>
+        <p className="text-gray-600 text-sm mt-1">
+          {data?.sub_title || "Manager"}
         </p>
+<div
+  className="mt-4 text-gray-600 text-sm leading-relaxed px-4"
+  dangerouslySetInnerHTML={{
+    __html: data?.description || "Lorem Ipsum..."
+  }}
+/>
+
 
         {/* Quick Action Buttons */}
         <div className="flex justify-center gap-8 my-10">
@@ -140,7 +160,7 @@ END:VCARD`.trim();
           {Number(data?.show_share) === 1 && (
             <button
               onClick={shareModal}
-              className="flex-1 py-3 px-6 rounded-full bg-red-400 text-white font-medium shadow-md hover:bg-red-400 transition flex items-center justify-center gap-2"
+              className="flex-1 py-2 px-6 rounded-full bg-red-400 text-white font-medium shadow-md hover:bg-red-400 transition flex items-center justify-center gap-2"
             >
               Share vCard
             </button>
@@ -157,7 +177,9 @@ END:VCARD`.trim();
             </div>
             <div>
               <p className="text-xs text-gray-500">Phone</p>
-              <p className="font-medium text-gray-900">{mobile.title || mobile.url}</p>
+              <p className="font-medium text-gray-900">
+                {mobile.title || mobile.url}
+              </p>
             </div>
           </div>
         )}
@@ -169,7 +191,9 @@ END:VCARD`.trim();
             </div>
             <div>
               <p className="text-xs text-gray-500">Email</p>
-              <p className="font-medium text-gray-900 break-all">{email.title || email.url}</p>
+              <p className="font-medium text-gray-900 break-all">
+                {email.title || email.url}
+              </p>
             </div>
           </div>
         )}
@@ -193,7 +217,12 @@ END:VCARD`.trim();
             </div>
             <div>
               <p className="text-xs text-gray-500">Website URL</p>
-              <a href={website.url} target="_blank" rel="noopener noreferrer" className="font-medium text-blue-600 underline">
+              <a
+                href={website.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-blue-600 underline"
+              >
                 {website.url}
               </a>
             </div>
@@ -207,7 +236,12 @@ END:VCARD`.trim();
             </div>
             <div>
               <p className="text-xs text-gray-500">Gitlab</p>
-              <a href={gitlab.url} target="_blank" rel="noopener noreferrer" className="font-medium text-blue-600 underline">
+              <a
+                href={gitlab.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-blue-600 underline"
+              >
                 {gitlab.url}
               </a>
             </div>
@@ -221,7 +255,12 @@ END:VCARD`.trim();
             </div>
             <div>
               <p className="text-xs text-gray-500">Facebook</p>
-              <a href={facebook.url} target="_blank" rel="noopener noreferrer" className="font-medium text-blue-600 underline">
+              <a
+                href={facebook.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-blue-600 underline"
+              >
                 {facebook.url}
               </a>
             </div>
@@ -235,7 +274,12 @@ END:VCARD`.trim();
             </div>
             <div>
               <p className="text-xs text-gray-500">Twitter</p>
-              <a href={twitter.url} target="_blank" rel="noopener noreferrer" className="font-medium text-blue-600 underline">
+              <a
+                href={twitter.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-blue-600 underline"
+              >
                 {twitter.url}
               </a>
             </div>
@@ -243,7 +287,12 @@ END:VCARD`.trim();
         )}
       </div>
 
-      <ShareVCardModal isOpen={open} onClose={() => setOpen(false)} data={modalData} theme="light" />
+      <ShareVCardModal
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        data={modalData}
+        theme="light"
+      />
     </div>
   );
 };

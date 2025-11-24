@@ -19,17 +19,17 @@ const Portfolio = ({ data }) => {
   return (
     <div className="max-w-md mx-auto">
       {/* Section Title + Custom Purple Arrows */}
-      <div className="flex items-center justify-between mb-8">
-        <h2 className="text-2xl  text-blue-600">
+      <div className=" items-center justify-between mb-8 text-center">
+        <h2 className="text-2xl  text-red-400 font-bold text-center items-center">
           {data?.section_title || "Projects"}
         </h2>
 
         {/* Custom Purple Navigation Buttons */}
         <div className="flex gap-2">
-          <button className="portfolio-prev w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-md hover:bg-blue-700 transition">
+          <button className="portfolio-prev w-10 h-10 rounded-full bg-red-400 text-white flex items-center justify-center shadow-md hover:bg-red-400 transition">
             ←
           </button>
-          <button className="portfolio-next w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-md hover:bg-blue-700 transition">
+          <button className="portfolio-next w-10 h-10 rounded-full bg-red-400 text-white flex items-center justify-center shadow-md hover:bg-red-400 transition">
             →
           </button>
         </div>
@@ -67,7 +67,7 @@ const Portfolio = ({ data }) => {
                 {/* Dark Overlay + Title at Bottom */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
                 <div className="absolute bottom-6 left-6 right-6">
-                  <h3 className="text-2xl font-bold text-white drop-shadow-lg">
+                  <h3 className="text-2xl font-bold text-red-400 drop-shadow-lg">
                     {item.title || "Ecommerce Website"}
                   </h3>
                 </div>
@@ -77,7 +77,7 @@ const Portfolio = ({ data }) => {
               <div className="p-8 pt-6 text-center">
                 <button
                   onClick={() => openLink(item.url)}
-                  className="inline-block px-10 py-3 bg-blue-600 text-white font-medium rounded-full hover:bg-purple-700 transition shadow-lg"
+                  className="inline-block px-10 py-3 bg-red-400 text-white font-medium rounded-full hover:bg-red-400 transition shadow-lg"
                 >
                   Details
                 </button>

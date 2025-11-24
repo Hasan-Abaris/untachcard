@@ -19,6 +19,10 @@ import Thirteenpagemain from "./theme_thirteen";
 import Fourteenpage from "./theme_fourteen";
 import Fifteenpage from "./theme_fifteen";
 import Sixteenpage from "./theme_sixteen";
+import ThemeSeventeen from "./theme_seventeen";
+import ThemeEightteen from "./theme_Eighteen";
+import ThemeTwenty from "./theme_Twenty";
+import ThemeNinteen from "./theme_Ninteen";
 
 
 
@@ -80,10 +84,18 @@ const CardDetails = () => {
             {dataDetails?.theme_name === "theme_eleven" && <ThemeElven dataDetailsData={dataDetails} />}
             {dataDetails?.theme_name === "theme_twelve" && <ThemeTwelve dataDetailsData={dataDetails} />}
 
-            {dataDetails?.theme_name === "theme_nine" && <Thirteenpagemain dataDetailsData={dataDetails} />}
-            {dataDetails?.theme_name === "theme_ten" && <Fourteenpage dataDetailsData={dataDetails} />}
-            {dataDetails?.theme_name === "theme_eleven" && <Fifteenpage dataDetailsData={dataDetails} />}
-            {dataDetails?.theme_name === "theme_twelve" && <Sixteenpage dataDetailsData={dataDetails} />}
+            {dataDetails?.theme_name === "theme_thirteen" && <Thirteenpagemain dataDetailsData={dataDetails} />}
+            {dataDetails?.theme_name === "theme_fotrteen" && <Fourteenpage dataDetailsData={dataDetails} />}
+            {dataDetails?.theme_name === "theme_fifteen" && <Fifteenpage dataDetailsData={dataDetails} />}
+            {dataDetails?.theme_name === "theme_sixteen" && <Sixteenpage dataDetailsData={dataDetails} />}
+            {dataDetails?.theme_name === "theme_seventeen" && <Seventeen dataDetailsData={dataDetails} />}
+            {dataDetails?.theme_name === "theme_eighteen" && <ThemeEightteen dataDetailsData={dataDetails} />}
+            {dataDetails?.theme_name === "theme_ninteen" && <ThemeNinteen dataDetailsData={dataDetails} />}
+            {dataDetails?.theme_name === "theme_twenty" && <ThemeTwenty dataDetailsData={dataDetails} />}
+
+
+
+
         </>
     )
 }

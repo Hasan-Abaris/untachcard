@@ -15,17 +15,10 @@ const Testimonials = ({ data }) => {
   return (
     <div className="max-w-md mx-auto">
       {/* Header: Title + Purple Arrows */}
-      <div className="flex items-center justify-between mb-8">
-        <h2 className="text-2xl  text-blue-600">{sectionTitle}</h2>
+      <div className="text-center items-center justify-between mb-8">
+        <h2 className="text-2xl  text-red-400 font-bold">{sectionTitle}</h2>
 
-        <div className="flex gap-2">
-          <button className="testi-prev w-10 h-10 rounded-full bg-purple-600 text-white flex items-center justify-center shadow-md hover:bg-purple-700 transition">
-            ←
-          </button>
-          <button className="testi-next w-10 h-10 rounded-full bg-purple-600 text-white flex items-center justify-center shadow-md hover:bg-purple-700 transition">
-            →
-          </button>
-        </div>
+        
       </div>
 
       {/* Testimonial Carousel */}
@@ -59,7 +52,7 @@ const Testimonials = ({ data }) => {
                 </div>
 
                 {/* Name */}
-                <h3 className="text-xl font-bold text-gray-900">
+                <h3 className="text-xl font-bold text-red-400">
                   {item.title || "Lorenzo Insigne"}
                 </h3>
 
@@ -82,7 +75,7 @@ const Testimonials = ({ data }) => {
                 </div>
 
                 {/* Review Text */}
-                <p className="text-gray-600 text-sm leading-relaxed italic mt-4 max-w-sm">
+                <p className="text-red-400 text-sm leading-relaxed italic mt-4 max-w-sm">
                   {item.description ||
                     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"}
                 </p>

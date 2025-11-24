@@ -49,7 +49,7 @@ export default function Login2() {
             window.dispatchEvent(new Event("loginStatusChanged"));
 
             setTimeout(() => {
-                router.push("/");
+                router.push("/dashboards/vcards/demo/1");
             }, 1000);
 
         }

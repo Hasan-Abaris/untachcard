@@ -24,17 +24,17 @@ const Gallery = ({ data }) => {
   return (
     <div className="max-w-md mx-auto">
       {/* Section Title + Purple Arrows */}
-      <div className="flex items-center justify-between mb-8">
-        <h2 className="text-2xl  text-blue-600">
+      <div className="  justify-between mb-8 text-center">
+        <h2 className="text-2xl  text-red-400 font-bold text-center">
           {data?.section_title || "Gallery"}
         </h2>
 
         {/* Custom Purple Navigation */}
-        <div className="flex gap-2">
-          <button className="gallery-prev w-10 h-10 rounded-full bg-purple-600 text-white flex items-center justify-center shadow-md hover:bg-purple-700 transition">
+        <div className="flex gap-2 items-center">
+          <button className="gallery-prev w-10 h-10 rounded-full bg-red-400 text-white flex items-center justify-center shadow-md hover:bg-red-400 transition">
             ←
           </button>
-          <button className="gallery-next w-10 h-10 rounded-full bg-purple-600 text-white flex items-center justify-center shadow-md hover:bg-purple-700 transition">
+          <button className="gallery-next w-10 h-10 rounded-full bg-red-400 text-white flex items-center justify-center shadow-md hover:bg-red-400 transition">
             →
           </button>
         </div>

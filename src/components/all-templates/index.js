@@ -74,7 +74,7 @@ export default function AllTemplatespage() {
     },
     {
       id: 12,
-      name: "Theme fourteen",
+      name: "Theme Twelve",
       image: "/assets/theme/theme12.png",
       preview: "/preview/theme_twelve/theme_twelve/demo",
     },

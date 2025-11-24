@@ -70,19 +70,19 @@ export default function AppointmentPage({ data }) {
     <>
       {loader && <Loader />}
 
-      <div className="max-w-md mx-auto px-4 py-8">
-        <h2 className="text-2xl font-bold text-blue-600 mb-8">
+      <div className="max-w-3xl mx-auto px-6 pb-10 overflow-hidden bg-white shadow-xl  p-8">
+        <h2 className="text-2xl font-bold text-red-400 mb-8 text-center">
           Book Appointment
         </h2>
 
-        <div className="bg-white rounded-2xl shadow-xl p-8 space-y-6">
+        <div className="bg-white   p-8 space-y-6">
           <input
             type="text"
             name="name"
             value={formData.name}
             onChange={handleChange}
             placeholder="Enter Your Name"
-            className="w-full px-5 py-4 rounded-xl border border-gray-200 focus:border-blue-500 text-gray-800"
+            className="w-full px-5 py-4  border border-gray-200 focus:border-red-400 text-gray-800"
           />
 
           <input
@@ -91,7 +91,7 @@ export default function AppointmentPage({ data }) {
             value={formData.email}
             onChange={handleChange}
             placeholder="Enter Email Address"
-            className="w-full px-5 py-4 rounded-xl border border-gray-200 focus:border-blue-500 text-gray-800"
+            className="w-full px-5 py-4  border border-gray-200 focus:border-red-400 text-gray-800"
           />
 
           <input
@@ -100,7 +100,7 @@ export default function AppointmentPage({ data }) {
             value={formData.mobile}
             onChange={handleChange}
             placeholder="Enter Phone Number"
-            className="w-full px-5 py-4 rounded-xl border border-gray-200 focus:border-blue-500 text-gray-800"
+            className="w-full px-5 py-4  border border-gray-200 focus:border-red-400 text-gray-800"
           />
 
           <div className="relative">
@@ -109,9 +109,9 @@ export default function AppointmentPage({ data }) {
               name="date"
               value={formData.date}
               onChange={handleChange}
-              className="w-full px-5 py-4 pr-12 rounded-xl border border-gray-200 focus:border-blue-500"
+              className="w-full px-5 py-4 pr-12  border border-gray-200 focus:border-red-400"
             />
-            <Calendar className="absolute right-4 top-1/2 -translate-y-1/2 text-blue-600 w-5 h-5 pointer-events-none" />
+            <Calendar className="absolute right-4 top-1/2 -translate-y-1/2 text-red-400 w-5 h-5 pointer-events-none" />
           </div>
 
           <textarea
@@ -120,7 +120,7 @@ export default function AppointmentPage({ data }) {
             onChange={handleChange}
             placeholder="Reason for appointment / Message"
             rows={5}
-            className="w-full px-5 py-4 rounded-xl border border-gray-200 focus:border-blue-500 text-gray-800 resize-none"
+            className="w-full px-5 py-4  border border-gray-200 focus:border-red-400 text-gray-800 resize-none"
           />
 
           <button
@@ -133,7 +133,7 @@ export default function AppointmentPage({ data }) {
               !formData.date ||
               !formData.query
             }
-            className="w-full py-4 bg-blue-600 text-white font-medium rounded-full hover:bg-blue-700 transition disabled:opacity-50"
+            className="w-full py-4 bg-red-400 text-white font-medium rounded-full hover:bg-red-400 transition disabled:opacity-50"
           >
             Book Appointment
           </button>
